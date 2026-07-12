@@ -26,6 +26,7 @@ import {
   faqs,
   images,
 } from "../content/site";
+import { SeoHead } from "../seo/SeoHead";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -39,6 +40,12 @@ const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 export function Home() {
   return (
     <>
+      <SeoHead
+        title="Virtual Assistant & Operations Support Services | SageStone"
+        description="Scale with dependable virtual assistants, customer support, e-commerce assistance and business operations support from SageStone Inc."
+        path="/"
+      />
+
       {/* ---------- Hero ---------- */}
       <Section className="pt-40 pb-24 md:pt-48 md:pb-32">
         <Container>
@@ -62,10 +69,10 @@ export function Home() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
                 <Link
-                  to="/services"
+                  to="/solutions"
                   className="group inline-flex items-center justify-center gap-2 text-[1rem] font-medium text-charcoal transition-colors hover:text-sage dark:text-chalk sm:justify-start"
                 >
-                  Explore our services
+                  Explore outsourced business support solutions
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
               </div>
@@ -149,8 +156,8 @@ export function Home() {
                 Each engagement is specific, structured, and built to integrate cleanly
                 into how your team already works.
               </p>
-              <Button to="/services" variant="secondary" className="mt-9">
-                View all services
+              <Button to="/solutions" variant="secondary" className="mt-9">
+                View all solutions
               </Button>
             </motion.div>
 
@@ -271,6 +278,35 @@ export function Home() {
               See all industries
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------- Service route links for crawlability ---------- */}
+      <Section className="pt-0 pb-20 md:pb-24">
+        <Container>
+          <SectionHeader
+            eyebrow="Core Service Pages"
+            title="Explore each support discipline"
+            description="Use these direct links to compare service scope and select the right starting point."
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { to: "/business-operations-support", label: "business operations support services" },
+              { to: "/ecommerce-virtual-assistant", label: "ecommerce virtual assistant services" },
+              { to: "/gohighlevel-virtual-assistant", label: "GoHighLevel virtual assistant services" },
+              { to: "/web-maintenance-support", label: "website maintenance support services" },
+              { to: "/customer-support-outsourcing", label: "customer support outsourcing services" },
+              { to: "/solutions", label: "outsourced business support solutions" },
+            ].map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="rounded-xl border border-border px-4 py-3 text-[0.98rem] text-charcoal transition-colors hover:border-sage hover:text-sage dark:text-chalk"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </Container>
       </Section>

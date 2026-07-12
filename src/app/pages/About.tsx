@@ -2,6 +2,8 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow } from "../components/ui-brand/primitives";
 import { CTABand, PageHero, NoiseOverlay } from "../components/ui-brand/components";
 import { stats, images } from "../content/site";
+import { SeoHead } from "../seo/SeoHead";
+import { getBreadcrumbSchema } from "../seo/schema";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -15,6 +17,18 @@ const values = [
 export function About() {
   return (
     <>
+      <SeoHead
+        title="About SageStone Inc | Structured Remote Support Partner"
+        description="Learn how SageStone delivers structured remote support for growth-focused teams through dependable talent, clear process and steady oversight."
+        path="/about"
+        schemas={[
+          getBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+        ]}
+      />
+
       <PageHero
         eyebrow="About SageStone"
         title="A steady operational partner for ambitious teams."

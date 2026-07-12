@@ -23,14 +23,24 @@ export function NoiseOverlay({ className = "" }: { className?: string }) {
 
 /* ---------- Service Index (editorial numbered list) ---------- */
 export function ServiceIndex({ services }: { services: Service[] }) {
+  const canonicalByLegacySlug: Record<string, string> = {
+    "virtual-assistant": "/business-operations-support",
+    "customer-support": "/customer-support-outsourcing",
+    "workflow-support": "/business-operations-support",
+    "back-office": "/business-operations-support",
+    "executive-assistance": "/business-operations-support",
+    "remote-operations": "/business-operations-support",
+  };
+
   return (
     <div>
       {services.map((service, i) => {
         const num = String(i + 1).padStart(2, "0");
+        const servicePath = canonicalByLegacySlug[service.slug] ?? "/solutions";
         return (
           <Link
             key={service.slug}
-            to={`/services/${service.slug}`}
+            to={servicePath}
             className="group block border-t border-border py-7 transition-colors last:border-b hover:bg-sage/[0.04] md:grid md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-10 md:py-10"
           >
             {/* desktop-only leading number */}
@@ -197,8 +207,8 @@ export function CTABand({
                 Book a Discovery Call
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button to="/services" size="lg" variant="ghost" className="text-chalk hover:text-sage">
-                Explore Services
+              <Button to="/solutions" size="lg" variant="ghost" className="text-chalk hover:text-sage">
+                Explore Solutions
               </Button>
             </div>
           </div>

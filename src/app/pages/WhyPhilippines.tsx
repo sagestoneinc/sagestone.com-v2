@@ -2,6 +2,7 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow } from "../components/ui-brand/primitives";
 import { FAQAccordion, PageHero, CTABand } from "../components/ui-brand/components";
 import { images } from "../content/site";
+import { SeoHead } from "../seo/SeoHead";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -33,6 +34,12 @@ const philippinesFaqs = [
 export function WhyPhilippines() {
   return (
     <>
+      <SeoHead
+        title="Why the Philippines for Remote Support | SageStone Inc"
+        description="Understand why growth-focused teams choose Filipino remote talent and how SageStone maintains consistency through structured oversight."
+        path="/why-philippines"
+        indexable={false}
+      />
       <PageHero
         eyebrow="Why the Philippines"
         title="A talent market built for dependable remote support."

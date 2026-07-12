@@ -1,5 +1,6 @@
 import { Container, Section } from "../components/ui-brand/primitives";
 import { PageHero, CTABand } from "../components/ui-brand/components";
+import { SeoHead } from "../seo/SeoHead";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -39,6 +40,12 @@ const industryDetails = [
 export function Industries() {
   return (
     <>
+      <SeoHead
+        title="Industries We Support | SageStone Inc"
+        description="Explore how SageStone supports agencies, ecommerce brands, real estate teams and service businesses with structured remote support."
+        path="/industries"
+        indexable={false}
+      />
       <PageHero
         eyebrow="Industries Served"
         title="Support shaped to your industry's realities."

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /search
+Disallow: /preview
+Disallow: /staging
+Disallow: /admin
+Disallow: /internal
+
+Sitemap: https://www.sagestoneinc.com/sitemap.xml

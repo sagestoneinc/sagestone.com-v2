@@ -3,16 +3,22 @@ import { Link, useLocation, NavLink } from "react-router";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import { Logo } from "../brand/Logo";
 import { Button, Container } from "../ui-brand/primitives";
-import { services } from "../../content/site";
+
+const serviceLinks = [
+  { title: "Business Operations Support", path: "/business-operations-support" },
+  { title: "Ecommerce Virtual Assistant Services", path: "/ecommerce-virtual-assistant" },
+  { title: "GoHighLevel Virtual Assistant Services", path: "/gohighlevel-virtual-assistant" },
+  { title: "Website Maintenance Support", path: "/web-maintenance-support" },
+  { title: "Customer Support Outsourcing", path: "/customer-support-outsourcing" },
+];
 
 const nav = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Services", to: "/services", hasMenu: true },
+  { label: "Solutions", to: "/solutions", hasMenu: true },
+  { label: "Experience", to: "/experience" },
+  { label: "Blog", to: "/blog" },
   { label: "Why Philippines", to: "/why-philippines" },
-  { label: "Industries", to: "/industries" },
-  { label: "Case Studies", to: "/case-studies" },
-  { label: "FAQ", to: "/faq" },
 ];
 
 export function Header({
@@ -75,10 +81,10 @@ export function Header({
                 {servicesOpen && (
                   <div className="absolute left-1/2 top-full w-72 -translate-x-1/2 pt-3">
                     <div className="overflow-hidden rounded-2xl border border-border bg-card p-2 shadow-[0_18px_40px_-24px_rgba(34,38,34,0.45)]">
-                      {services.map((s) => (
+                      {serviceLinks.map((s) => (
                         <Link
-                          key={s.slug}
-                          to={`/services/${s.slug}`}
+                          key={s.path}
+                          to={s.path}
                           className="block rounded-xl px-4 py-3 text-[0.92rem] text-charcoal transition-colors hover:bg-sage/10 hover:text-sage dark:text-chalk"
                         >
                           {s.title}

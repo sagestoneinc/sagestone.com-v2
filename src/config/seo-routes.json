@@ -1,0 +1,138 @@
+[
+  {
+    "path": "/",
+    "title": "Virtual Assistant & Operations Support Services | SageStone",
+    "description": "Scale with dependable virtual assistants, customer support, e-commerce assistance and business operations support from SageStone Inc.",
+    "h1": "Structured support for businesses built to grow.",
+    "indexable": true,
+    "type": "home"
+  },
+  {
+    "path": "/solutions",
+    "title": "Outsourced Business Support Solutions | SageStone Inc",
+    "description": "Explore flexible virtual assistant, customer support, e-commerce and business operations solutions designed for growing teams.",
+    "h1": "Flexible Business Support Solutions for Growing Teams",
+    "indexable": true,
+    "type": "hub"
+  },
+  {
+    "path": "/business-operations-support",
+    "title": "Business Operations Support Services | SageStone Inc",
+    "description": "Improve workflows, CRM organization, reporting, documentation and recurring business operations with dependable remote support.",
+    "h1": "Business Operations Support Services for Reliable Daily Execution",
+    "indexable": true,
+    "type": "service"
+  },
+  {
+    "path": "/ecommerce-virtual-assistant",
+    "title": "Ecommerce Virtual Assistant Services | SageStone Inc",
+    "description": "Get reliable e-commerce support for orders, returns, product updates, customer messages, store administration and everyday back-office operations.",
+    "h1": "Ecommerce Virtual Assistant Services for Daily Store Operations",
+    "indexable": true,
+    "type": "service"
+  },
+  {
+    "path": "/gohighlevel-virtual-assistant",
+    "title": "GoHighLevel Virtual Assistant Services | SageStone Inc",
+    "description": "Get dependable GoHighLevel virtual assistant support for CRM updates, pipelines, workflows, follow-ups, reporting and platform administration.",
+    "h1": "GoHighLevel Virtual Assistant Services for CRM and Workflow Support",
+    "indexable": true,
+    "type": "service"
+  },
+  {
+    "path": "/web-maintenance-support",
+    "title": "Website Maintenance Support Services | SageStone Inc",
+    "description": "Keep your website current with dependable support for content edits, landing pages, forms, links, publishing coordination and quality assurance.",
+    "h1": "Website Maintenance Support Services for Consistent Site Quality",
+    "indexable": true,
+    "type": "service"
+  },
+  {
+    "path": "/customer-support-outsourcing",
+    "title": "Customer Support Outsourcing Services | SageStone Inc",
+    "description": "Outsource email, chat and help-desk support to a dependable remote team trained around your workflows, brand voice and escalation process.",
+    "h1": "Reliable Customer Support Outsourcing for Growing Businesses",
+    "indexable": true,
+    "type": "service"
+  },
+  {
+    "path": "/about",
+    "title": "About SageStone Inc | Structured Remote Support Partner",
+    "description": "Learn how SageStone delivers structured remote support for growth-focused teams through dependable talent, clear process and steady oversight.",
+    "h1": "A steady operational partner for ambitious teams.",
+    "indexable": true,
+    "type": "company"
+  },
+  {
+    "path": "/experience",
+    "title": "SageStone Experience | Client Outcomes and Engagement Model",
+    "description": "See what the SageStone experience looks like through client outcomes, delivery standards and practical examples from growth-focused teams.",
+    "h1": "Proof, presented plainly.",
+    "indexable": true,
+    "type": "company"
+  },
+  {
+    "path": "/blog",
+    "title": "Virtual Assistant and Operations Insights | SageStone Blog",
+    "description": "Read practical insights on virtual assistants, operations support, customer support workflows and process improvement for growing teams.",
+    "h1": "Virtual assistant and operations insights",
+    "indexable": true,
+    "type": "blog-index"
+  },
+  {
+    "path": "/blog/how-to-hire-a-virtual-assistant",
+    "title": "How to Hire a Virtual Assistant: Practical Hiring Guide",
+    "description": "A practical guide to hiring a virtual assistant, including role scoping, process setup, onboarding expectations and quality controls.",
+    "h1": "How to hire a virtual assistant with a reliable process",
+    "indexable": true,
+    "type": "blog"
+  },
+  {
+    "path": "/blog/what-does-an-ecommerce-virtual-assistant-do",
+    "title": "What Does an Ecommerce Virtual Assistant Do?",
+    "description": "Learn what an ecommerce virtual assistant does across orders, catalog updates, customer support coordination and daily store operations.",
+    "h1": "What does an ecommerce virtual assistant do day to day?",
+    "indexable": true,
+    "type": "blog"
+  },
+  {
+    "path": "/blog/customer-support-outsourcing-best-practices",
+    "title": "Customer Support Outsourcing Best Practices for Growth Teams",
+    "description": "Use these customer support outsourcing best practices to maintain quality, improve escalations and keep reporting useful as volume grows.",
+    "h1": "Customer support outsourcing best practices for consistent quality",
+    "indexable": true,
+    "type": "blog"
+  },
+  {
+    "path": "/contact",
+    "title": "Book a Discovery Call | SageStone Inc",
+    "description": "Contact SageStone to discuss virtual assistant, operations support and customer support outsourcing needs for your business.",
+    "h1": "Let's talk about the support you need.",
+    "indexable": false,
+    "type": "utility"
+  },
+  {
+    "path": "/faq",
+    "title": "Frequently Asked Questions | SageStone Inc",
+    "description": "Find clear answers about SageStone onboarding, support model, quality oversight, confidentiality and engagement workflow.",
+    "h1": "Clear answers, calmly given.",
+    "indexable": false,
+    "type": "utility"
+  },
+  {
+    "path": "/industries",
+    "title": "Industries We Support | SageStone Inc",
+    "description": "Explore how SageStone supports agencies, ecommerce brands, real estate teams and service businesses with structured remote support.",
+    "h1": "Support shaped to your industry's realities.",
+    "indexable": false,
+    "type": "utility"
+  },
+  {
+    "path": "/why-philippines",
+    "title": "Why the Philippines for Remote Support | SageStone Inc",
+    "description": "Understand why growth-focused teams choose Filipino remote talent and how SageStone maintains consistency through structured oversight.",
+    "h1": "A talent market built for dependable remote support.",
+    "indexable": false,
+    "type": "utility"
+  }
+]

@@ -2,15 +2,21 @@ import { Link } from "react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Monogram } from "../brand/Logo";
 import { Container } from "../ui-brand/primitives";
-import { services } from "../../content/site";
 
 const companyLinks = [
   { label: "About", to: "/about" },
-  { label: "Industries", to: "/industries" },
-  { label: "Case Studies", to: "/case-studies" },
-  { label: "Why the Philippines", to: "/why-philippines" },
-  { label: "FAQ", to: "/faq" },
+  { label: "Solutions", to: "/solutions" },
+  { label: "Experience", to: "/experience" },
+  { label: "Blog", to: "/blog" },
   { label: "Contact", to: "/contact" },
+];
+
+const serviceLinks = [
+  { title: "Business Operations Support", path: "/business-operations-support" },
+  { title: "Ecommerce Virtual Assistant Services", path: "/ecommerce-virtual-assistant" },
+  { title: "GoHighLevel Virtual Assistant Services", path: "/gohighlevel-virtual-assistant" },
+  { title: "Website Maintenance Support", path: "/web-maintenance-support" },
+  { title: "Customer Support Outsourcing", path: "/customer-support-outsourcing" },
 ];
 
 export function Footer() {
@@ -38,8 +44,8 @@ export function Footer() {
           </div>
 
           <FooterCol title="Services">
-            {services.map((s) => (
-              <FooterLink key={s.slug} to={`/services/${s.slug}`}>
+            {serviceLinks.map((s) => (
+              <FooterLink key={s.path} to={s.path}>
                 {s.title}
               </FooterLink>
             ))}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Check, Mail, Phone } from "lucide-react";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { services } from "../content/site";
+import { SeoHead } from "../seo/SeoHead";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -25,8 +26,15 @@ export function Contact() {
     "w-full rounded-xl border border-border bg-input-background px-4 py-3 text-[0.98rem] text-charcoal placeholder:text-slate-olive/60 transition-colors focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 dark:text-chalk dark:placeholder:text-muted-foreground";
 
   return (
-    <Section className="pt-40 pb-28 md:pt-48">
-      <Container>
+    <>
+      <SeoHead
+        title="Book a Discovery Call | SageStone Inc"
+        description="Contact SageStone to discuss virtual assistant, operations support and customer support outsourcing needs for your business."
+        path="/contact"
+        indexable={false}
+      />
+      <Section className="pt-40 pb-28 md:pt-48">
+        <Container>
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           {/* Left: intro + details */}
           <div>
@@ -116,8 +124,9 @@ export function Contact() {
             )}
           </div>
         </div>
-      </Container>
-    </Section>
+        </Container>
+      </Section>
+    </>
   );
 }
 

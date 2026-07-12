@@ -1,12 +1,26 @@
 import { Container, Section } from "../components/ui-brand/primitives";
 import { PageHero, CaseStudyCard, TestimonialCard, CTABand } from "../components/ui-brand/components";
 import { caseStudies, testimonials } from "../content/site";
+import { SeoHead } from "../seo/SeoHead";
+import { getBreadcrumbSchema } from "../seo/schema";
 
 export function CaseStudies() {
   return (
     <>
+      <SeoHead
+        title="SageStone Experience | Client Outcomes and Engagement Model"
+        description="See what the SageStone experience looks like through client outcomes, delivery standards and practical examples from growth-focused teams."
+        path="/experience"
+        schemas={[
+          getBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Experience", path: "/experience" },
+          ]),
+        ]}
+      />
+
       <PageHero
-        eyebrow="Case Studies"
+        eyebrow="Experience"
         title="Proof, presented plainly."
         description="A look at how SageStone brings structure and dependable support to growth-focused teams — and the outcomes that follow."
       />

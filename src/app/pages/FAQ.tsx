@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Container, Section } from "../components/ui-brand/primitives";
 import { FAQAccordion, PageHero, CTABand } from "../components/ui-brand/components";
 import { faqs } from "../content/site";
+import { SeoHead } from "../seo/SeoHead";
 
 export function FAQ() {
   const categories = useMemo(
@@ -14,6 +15,12 @@ export function FAQ() {
 
   return (
     <>
+      <SeoHead
+        title="Frequently Asked Questions | SageStone Inc"
+        description="Find clear answers about SageStone onboarding, support model, quality oversight, confidentiality and engagement workflow."
+        path="/faq"
+        indexable={false}
+      />
       <PageHero
         eyebrow="FAQ"
         title="Clear answers, calmly given."

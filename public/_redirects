@@ -1,0 +1,12 @@
+http://sagestoneinc.com/* https://www.sagestoneinc.com/:splat 301!
+http://www.sagestoneinc.com/* https://www.sagestoneinc.com/:splat 301!
+https://sagestoneinc.com/* https://www.sagestoneinc.com/:splat 301!
+
+/services /solutions 301
+/case-studies /experience 301
+/services/virtual-assistant /business-operations-support 301
+/services/customer-support /customer-support-outsourcing 301
+/services/workflow-support /business-operations-support 301
+/services/back-office /business-operations-support 301
+/services/executive-assistance /business-operations-support 301
+/services/remote-operations /business-operations-support 301
