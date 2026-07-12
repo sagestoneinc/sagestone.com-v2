@@ -62,10 +62,10 @@ export function Home() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
                 <Link
-                  to="/services"
+                  to="/solutions"
                   className="group inline-flex items-center justify-center gap-2 text-[1rem] font-medium text-charcoal transition-colors hover:text-sage dark:text-chalk sm:justify-start"
                 >
-                  Explore our services
+                  Explore outsourced business support solutions
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
               </div>
@@ -92,6 +92,10 @@ export function Home() {
                   src={images.heroWorkspace}
                   alt="A calm, modern workspace with natural light"
                   className="aspect-[4/5] w-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                  width={1080}
+                  height={1350}
                 />
               </div>
             </motion.div>
@@ -149,8 +153,8 @@ export function Home() {
                 Each engagement is specific, structured, and built to integrate cleanly
                 into how your team already works.
               </p>
-              <Button to="/services" variant="secondary" className="mt-9">
-                View all services
+              <Button to="/solutions" variant="secondary" className="mt-9">
+                View all solutions
               </Button>
             </motion.div>
 
