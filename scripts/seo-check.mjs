@@ -82,8 +82,8 @@ for (const route of nonIndexableRoutes) {
 }
 
 for (const route of routeConfig) {
-  const canonical = `https://www.sagestoneinc.com${route.path === "/" ? "/" : route.path}`;
-  if (!canonical.startsWith("https://www.sagestoneinc.com")) {
+  const canonical = new URL(route.path === "/" ? "/" : route.path, "https://www.sagestoneinc.com");
+  if (canonical.protocol !== "https:" || canonical.hostname !== "www.sagestoneinc.com") {
     errors.push(`Canonical hostname mismatch: ${route.path}`);
   }
 }
