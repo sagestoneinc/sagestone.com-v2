@@ -30,7 +30,7 @@ export function ServiceIndex({ services }: { services: Service[] }) {
         return (
           <Link
             key={service.slug}
-            to={service.path}
+            to={`/services/${service.slug}`}
             className="group block border-t border-border py-7 transition-colors last:border-b hover:bg-sage/[0.04] md:grid md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-10 md:py-10"
           >
             {/* desktop-only leading number */}
@@ -197,8 +197,8 @@ export function CTABand({
                 Book a Discovery Call
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button to="/solutions" size="lg" variant="ghost" className="text-chalk hover:text-sage">
-                Explore Solutions
+              <Button to="/services" size="lg" variant="ghost" className="text-chalk hover:text-sage">
+                Explore Services
               </Button>
             </div>
           </div>
