@@ -1,76 +1,65 @@
-# Core Web Vitals Audit
+# Core Web Vitals Audit (Mobile-Focused)
 
-Date: July 12, 2026
+## Scope
 
-Scope: local repository audit for the Next.js rebuild. Field Core Web Vitals cannot be claimed until production receives enough CrUX or Search Console field data.
+Audited key templates and pages in the repository:
 
-## Baseline Findings
+- Homepage (`/`)
+- Solutions hub (`/solutions`)
+- Service detail pages (especially `/gohighlevel-virtual-assistant`)
+- Blog index and article pages
 
-- The previous live site relied on a client-rendered React mount for important body content.
-- The rebuild uses Next.js App Router static generation so page copy, links, metadata, and JSON-LD are present in initial HTML.
-- Main UI is server-rendered. Client JavaScript is limited to mobile navigation, CTA analytics events, and contact form state.
-- Brand images are served with `next/image` and fixed intrinsic dimensions.
-- Fonts use `next/font` with Manrope and Instrument Serif.
-- Google Analytics is loaded through Next.js script handling after interaction.
-- Calendly is linked externally instead of embedded, avoiding a heavy booking widget in the initial page load.
+## Baseline findings (repository/local)
 
-## Changes Implemented
+- Site is a Vite SPA, so metadata and content are client-rendered.
+- Hero and gallery images previously lacked explicit loading strategy and dimensions on key LCP candidates.
+- Fonts were loaded through CSS `@import`, which can delay rendering.
+- No centralized metadata/canonical system existed.
+- Legacy service URLs were still part of navigation patterns.
 
-- Kept hero media to a branded logo image with explicit width and height.
-- Avoided heavy carousels, fake dashboards, canvas effects, and large client-only components.
-- Added crawlable hub directories for Services, Solutions, Blog, and Case Studies instead of JavaScript-only discovery.
-- Preserved `prefers-reduced-motion` support in global CSS.
-- Kept CTA tracking in a minimal client component.
-- Deferred GA through `afterInteractive` loading.
-- Reserved stable layout space for cards, images, panels, and forms.
+## Main bottlenecks identified
 
-## Pages Tested Locally
+1. Client-render-only route transitions can delay metadata visibility to some crawlers.
+2. Potential LCP delays from large hero images without explicit fetch priority.
+3. Font loading via CSS import pattern.
+4. No built-in Lighthouse automation in repository scripts.
 
-- `/`
-- `/services`
-- `/solutions`
-- `/customer-support-outsourcing`
-- `/gohighlevel-virtual-assistant`
-- `/blog`
-- `/contact`
+## Changes implemented
 
-## Local Lighthouse Mobile Lab Result
+- Added explicit `loading="eager"`, `fetchPriority="high"`, and dimensions on key hero/LCP images.
+- Set default image behavior to lazy + async decoding in `ImageWithFallback`.
+- Moved font loading to preconnect + stylesheet links in `index.html`.
+- Reduced SEO crawl ambiguity by adding centralized canonical + route metadata handling.
+- Added sitemap + robots + route-level schema for better indexation readiness.
 
-Command:
+## Remaining concerns
 
-```bash
-npx --yes lighthouse http://localhost:3000/ --form-factor=mobile --only-categories=performance --output=json --output-path=/tmp/sagestone-lighthouse-home.json --chrome-flags="--headless --no-sandbox"
-```
+- Because this is a client-rendered SPA, server-rendered metadata is not available in the current framework setup.
+- Field CWV (CrUX/Search Console) cannot be validated locally.
+- Third-party runtime impact in production still requires real-device field telemetry.
 
-Homepage local lab result:
+## Commands used
 
-- Performance score: `0.79`
-- First Contentful Paint: `3.4 s`
-- Largest Contentful Paint: `4.2 s`
-- Speed Index: `3.5 s`
-- Total Blocking Time: `20 ms`
-- Cumulative Layout Shift: `0`
+- `corepack pnpm install --ignore-scripts`
+- `corepack pnpm run seo:generate`
+- `corepack pnpm run seo:check`
+- `corepack pnpm run build`
 
-Interpretation: the local lab run shows very low blocking time and no layout shift, while mobile LCP remains the main synthetic bottleneck to revisit after production deployment and real CDN/image behavior are available.
+## Pages tested
 
-## Commands Used
+- Route-level rendering verified for all canonical URLs in `docs/seo-route-inventory.md`.
+- SEO validation script checks canonical/sitemap/indexability/internal-link assumptions.
 
-- `npm run lint`
-- `npm run typecheck`
-- `npm test`
-- `npm run seo:check`
-- `npm run build`
+## Local laboratory testing limitations
 
-## Remaining Concerns
+- No authenticated production analytics or CrUX data available in repository.
+- Lighthouse mobile scores were not executed in CI in this repository by default.
+- Local build bundle sizes do not guarantee production network/device performance outcomes.
 
-- Production Lighthouse and WebPageTest runs should be completed after deployment.
-- Field LCP, INP, and CLS must be verified in Search Console or CrUX after enough traffic is collected.
-- Any future embedded scheduling, chat, cookie, or CRM script should be tested before production release.
-- Image format conversion to AVIF/WebP can be revisited after production asset behavior is measured.
+## Required production verification
 
-## Do Not Claim Yet
+After deployment, validate via Search Console + CrUX:
 
-- Passing field Core Web Vitals.
-- Search Console mobile report success.
-- CrUX origin-level pass rate.
-- Production third-party script cost beyond the local implementation review.
+- LCP, INP, CLS on mobile for homepage and top service URLs
+- Crawl/indexation behavior for new canonical routes
+- Redirect correctness for `/services` legacy paths

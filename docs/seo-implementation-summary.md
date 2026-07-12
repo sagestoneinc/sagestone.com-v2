@@ -1,101 +1,134 @@
 # SEO Implementation Summary
 
-Date: July 12, 2026
+## Files changed
 
-## Summary
-
-Implemented the follow-up SEO hardening brief on top of the Next.js rebuild without redesigning the visual system. The work focused on crawlability, canonical routing, keyword ownership, structured data, internal linking, service-page differentiation, and validation.
-
-## Files Changed
-
+- `index.html`
+- `.gitignore`
 - `package.json`
+- `public/robots.txt`
+- `public/sitemap.xml`
+- `public/_redirects`
+- `public/logo.svg`
+- `scripts/generate-sitemap.mjs`
+- `scripts/seo-check.mjs`
 - `src/config/seo-keywords.ts`
-- `src/lib/site.ts`
-- `src/lib/seo.ts`
-- `src/components/page-sections.tsx`
-- `src/components/header.tsx`
-- `src/components/mobile-nav.tsx`
-- `src/components/footer.tsx`
-- `tests/site.test.ts`
-- `scripts/seo-check.ts`
+- `src/app/seo/site-url.ts`
+- `src/app/seo/route-seo.ts`
+- `src/app/seo/structured-data.ts`
+- `src/app/seo/SeoHead.tsx`
+- `src/app/content/site.ts`
+- `src/app/content/blog.ts`
+- `src/app/App.tsx`
+- `src/app/components/figma/ImageWithFallback.tsx`
+- `src/app/components/ui-brand/components.tsx`
+- `src/app/components/layout/Header.tsx`
+- `src/app/components/layout/Footer.tsx`
+- `src/app/pages/Home.tsx`
+- `src/app/pages/Services.tsx`
+- `src/app/pages/ServiceDetail.tsx`
+- `src/app/pages/Blog.tsx`
+- `src/app/pages/BlogArticle.tsx`
+- `src/app/pages/Experience.tsx`
 - `docs/seo-route-inventory.md`
 - `docs/search-console-verification.md`
 - `docs/core-web-vitals-audit.md`
 - `docs/seo-implementation-summary.md`
 
-## Routes Changed
+## Routes changed
 
-- `/solutions` repositioned as the outsourced business support solutions hub.
-- `/gohighlevel-virtual-assistant` changed from a redirect destination candidate into a canonical service page.
-- `/customer-support-outsourcing` strengthened with dedicated metadata, content sections, FAQs, and related links.
-- Service pages received unique metadata, H1s, primary keywords, introductions, and related internal links.
+### Added canonical routes
 
-## Metadata Changes
+- `/solutions`
+- `/experience`
+- `/virtual-assistant-services`
+- `/business-operations-support`
+- `/ecommerce-virtual-assistant`
+- `/gohighlevel-virtual-assistant`
+- `/web-maintenance-support`
+- `/customer-support-outsourcing`
+- `/blog`
+- `/blog/how-to-hire-a-virtual-assistant`
+- `/blog/what-does-an-ecommerce-virtual-assistant-do`
 
-- Added one primary keyword per indexable route in `src/config/seo-keywords.ts`.
-- Updated homepage title and description for the primary `virtual assistant services` intent.
-- Updated `/solutions`, `/customer-support-outsourcing`, `/gohighlevel-virtual-assistant`, `/business-operations-support`, `/ecommerce-virtual-assistant`, and `/web-maintenance-support` metadata.
-- Added automated checks for unique titles, meta descriptions, H1s, and primary keywords.
+### Legacy route handling
 
-## Sitemap And Robots
+- `/services` redirects to `/solutions`
+- `/services/:slug` redirects to canonical service pages via mapping
 
-- `src/app/sitemap.ts` continues to emit only canonical indexable routes from `sitemapEntries`.
-- `src/app/robots.ts` continues to allow public crawl access and disallow `/api/`.
-- `npm run seo:check` confirms sitemap routes are canonical and not redirect destinations.
+## Metadata changes
 
-## Canonical Changes
+- Added centralized route metadata configuration in `src/app/seo/route-seo.ts`.
+- Added route-level title, description, keyword, indexability, canonical, and breadcrumb data.
+- Added runtime metadata/canonical injection through `SeoHead`.
 
-- Hardened `canonicalUrl()` to normalize full URLs, parameters, duplicate slashes, HTTPS, trailing slashes, and the preferred `www` hostname.
-- Added a safe origin fallback to `https://www.sagestoneinc.com`.
+## Sitemap changes
 
-## Structured Data Changes
+- Added sitemap generation script `scripts/generate-sitemap.mjs`.
+- Added `public/sitemap.xml` containing only canonical indexable URLs.
+- Build now regenerates sitemap before Vite build.
 
-- Centralized Organization schema as `Organization`.
-- Added WebSite publisher data.
-- Ensured service pages emit page-specific Service schema.
-- Ensured non-home indexable pages emit BreadcrumbList schema.
-- Ensured blog articles emit BlogPosting schema with stable dates and image.
-- FAQ schema remains limited to pages with visible FAQs.
+## Robots changes
 
-## Internal Linking Changes
+- Added `public/robots.txt` with allow policy and sitemap location.
 
-- Added crawlable hub directory sections for Services, Solutions, Blog, and Case Studies.
-- Added `/solutions` to header and mobile navigation.
-- Added GoHighLevel, Experience, FAQ, Workflow Assessment, and Solutions links to the footer.
-- Added source-level validation for broken, redirected, noncanonical, and orphaned internal links.
+## Canonical changes
 
-## Performance Changes
+- Added canonical URL helper in `src/app/seo/site-url.ts`.
+- Enforced HTTPS + `www` canonical output with tracking-parameter removal.
 
-- Kept the existing low-JS approach: server-rendered pages, `next/image`, `next/font`, deferred GA, no embedded Calendly widget, no heavy animation libraries.
-- Documented mobile Core Web Vitals verification boundaries in `docs/core-web-vitals-audit.md`.
+## Structured-data changes
 
-## Redirects
+- Added Organization, WebSite, BreadcrumbList, Service, BlogPosting, and ItemList schema builders.
+- Injected route-appropriate JSON-LD in `SeoHead`.
 
-- Removed `/gohighlevel-virtual-assistant` from redirects so it can be indexed as a canonical service page.
-- Retained legacy redirects for `/faqs`, `/customer-support`, `/crm-admin-support`, and other live-route cleanup paths.
+## Internal-linking changes
 
-## Tests Added
+- Updated header/footer/service cards/CTA links to canonical service and solutions URLs.
+- Added blog-to-service and service-to-service contextual links.
+- Added automated internal-link checks in `scripts/seo-check.mjs`.
 
-- Route preservation includes `/gohighlevel-virtual-assistant`.
-- Keyword map coverage and uniqueness tests.
-- Solutions hub internal-link test for core service pages.
-- `npm run seo:check` for critical SEO validation.
+## Performance changes
 
-## Commands Executed
+- Added explicit eager/fetchPriority on key hero images.
+- Defaulted non-critical images to lazy + async decoding.
+- Updated font loading to preconnect + stylesheet links in `index.html`.
 
-- `npm test`
-- `npm run typecheck`
-- `npm run seo:check`
-- `npm run build`
-- `npx --yes lighthouse http://localhost:3000/ --form-factor=mobile --only-categories=performance --output=json --output-path=/tmp/sagestone-lighthouse-home.json --chrome-flags="--headless --no-sandbox"`
+## Redirects added
 
-Build status: passed. Static generation produced 54 app routes, including 49 indexable source routes plus generated system routes.
+- Router-level redirects in `src/app/App.tsx`.
+- Static redirects in `public/_redirects` for legacy `/services` paths.
 
-## Remaining Manual Actions
+## Tests added
 
-- Deploy the branch to production.
-- Confirm production redirects for non-www and HTTP variants at the hosting/DNS layer.
-- Submit and inspect the sitemap in Google Search Console.
-- Verify Google-selected canonicals in URL Inspection.
-- Confirm field Core Web Vitals in Search Console or CrUX.
-- Connect the contact form to a production email, CRM, or form provider if required.
+- `npm run seo:check` (`scripts/seo-check.mjs`) validates:
+  - unique title/description/keyword
+  - keyword coverage for indexable routes
+  - sitemap/indexability consistency
+  - HTTPS + www sitemap URLs
+  - basic orphan and broken internal-link detection
+  - schema coverage guards for service/blog routes
+
+## Commands executed
+
+- `corepack pnpm install`
+- `corepack pnpm install --ignore-scripts`
+- `corepack pnpm run build`
+- `corepack pnpm run seo:generate`
+- `corepack pnpm run seo:check`
+- `corepack pnpm run build`
+
+## Build status
+
+- Pending final post-change verification run.
+
+## Remaining manual actions
+
+- Verify production-level host redirects for non-www/http variants (DNS/hosting scope).
+- Validate Search Console index coverage after deploy.
+- Validate real mobile field CWV in Search Console/CrUX.
+
+## Items not fully verifiable in local environment
+
+- Google Search Console indexing/coverage statuses.
+- Production redirect infrastructure for alternate host/protocol variants.
+- Real-user performance field metrics.

@@ -1,0 +1,413 @@
+Create a complete, client-ready Figma website design for SageStone using the attached approved brand kit and logo system as the single source of truth.
+
+IMPORTANT
+Do not create a new identity.
+Do not introduce random new colors, fonts, logo styles, or trendy web patterns.
+Everything must align with the attached SageStone brand system.
+
+BRAND FOUNDATION TO FOLLOW
+Brand: SageStone
+Core feeling: calm, intelligent, reliable, structured, enduring
+Creative direction: clean, minimal, premium, timeless, executive-friendly
+Positioning: remote talent, operational excellence, built for growth
+Voice and tone: calm, capable, clear, executive-friendly, human, precise, never flashy
+Messaging direction: structured support for growth-focused businesses
+
+APPROVED LOGO SYSTEM
+Use the approved Bedrock Monogram and SageStone wordmark system from the attached brand kit.
+Apply the logo correctly:
+- use the full primary logo in header and key brand moments
+- use the monogram for favicon-style elements, small badges, or subtle brand markers
+- preserve spacing and proportions
+- do not stretch, rotate, outline, recolor outside the palette, or place over busy low-contrast photos
+
+APPROVED COLOR SYSTEM
+Use the approved brand palette:
+- Stone Sage #7E8A77 as the primary brand color
+- Muted Gold #B49A6C as the accent
+- Deep Charcoal #222622 for primary text
+- Slate Olive #5E655C for secondary text
+- Warm Ivory #F5F1E8 for light backgrounds
+- Soft Stone #E8E1D6 for support backgrounds
+- Midnight Pine #171B18 for dark mode backgrounds
+- Soft Chalk #EEE9E0 for dark mode text
+- Neutral supports: Mist #DDE2DA, Pebble #CFC7BB, Cloud #FAF8F4
+
+COLOR RULES
+- the site should feel mostly ivory, charcoal, and sage
+- muted gold is an accent, not the main color
+- dark mode should feel rich and restrained, not glossy or neon
+- keep contrast strong and elegant
+- no bright startup colors
+- no purple-blue AI gradients
+
+APPROVED TYPOGRAPHY
+Use:
+- Fraunces SemiBold for display headlines
+- Inter Regular / Medium for body, UI, buttons, labels, and supporting text
+
+TYPE RULES
+- hero and section headlines should feel editorial and premium
+- body copy should feel clean and highly readable
+- buttons and labels should feel structured and modern
+- overall hierarchy should be clear, spacious, and executive-friendly
+
+APPROVED VISUAL LANGUAGE
+Use the brand style kit guidance:
+- clean grids
+- rounded cards
+- fine dividers
+- soft shadows
+- layered but restrained composition
+- subtle stone or paper texture influence only if tasteful
+- minimal line icons
+- thin to medium icon strokes
+- refined layouts with calm whitespace
+- muted motion style, not flashy animation
+- premium editorial presentation
+
+APPROVED IMAGERY DIRECTION
+Follow the kit:
+- real professionals and founders
+- calm workspaces
+- natural light
+- quiet confidence
+- no cheesy call-center photos
+- no exaggerated tech scenes
+- illustrations, if used, should be minimal, abstract, and structural
+- overall imagery should feel premium, calm, and grounded
+
+WEBSITE GOAL
+Design a premium marketing website in Figma for SageStone that presents the company as a trusted remote operations and support partner for growth-focused businesses.
+
+TARGET AUDIENCE
+- founders
+- CEOs
+- COOs
+- operators
+- agencies
+- e-commerce brands
+- real estate teams
+- service businesses
+- companies that need dependable remote support integrated into their workflows
+
+SERVICES TO REPRESENT
+- Virtual Assistant Services
+- Customer Support Outsourcing
+- Workflow Support
+- Back Office Support
+- Executive Assistance
+- Remote Operations Support
+
+DESIGN OUTCOME
+The website should feel:
+- premium
+- calm
+- strategic
+- capable
+- structured
+- polished
+- trustworthy
+- executive-friendly
+- modern but timeless
+
+AVOID
+- generic outsourcing agency design
+- cheap VA marketplace vibe
+- repetitive 3-column icon features
+- startup-style gradients
+- bubbly SaaS visuals
+- overly soft toy-like UI
+- loud motion or trendy effects
+- decorative clutter
+- anything flashy, noisy, or hype-driven
+
+CREATE A FIGMA FILE WITH THESE SECTIONS
+1. Cover
+2. Brand Foundations
+3. Color Styles
+4. Typography Styles
+5. Components
+6. Homepage Desktop
+7. Homepage Mobile
+8. Inner Pages Desktop
+9. Key Mobile Inner Page Sections
+
+CREATE THE FOLLOWING PAGES
+- Home
+- About
+- Services Overview
+- Virtual Assistant Services
+- Customer Support Outsourcing
+- Workflow Support
+- Why Hire in the Philippines
+- Industries Served
+- Case Studies
+- FAQ
+- Contact / Book a Call
+
+FOR EACH PAGE
+Provide:
+- a clear layout hierarchy
+- realistic high-end placeholder copy
+- strong CTA placement
+- premium editorial spacing
+- responsive logic for desktop and mobile
+- reusable components
+- room for SEO content depth without making the page feel crowded
+
+COPY STYLE RULES
+Use placeholder copy that sounds:
+- calm
+- precise
+- dependable
+- premium
+- clear
+- executive-friendly
+- human but polished
+
+Use words aligned with the brand kit:
+- clarity
+- dependable
+- structure
+- support
+- embedded
+- streamlined
+- thoughtful
+- scale
+- precision
+- excellence
+
+Avoid words flagged by the brand kit:
+- cheap
+- hustle
+- ninja
+- rockstar
+- hack
+- instant
+- magic
+- generic outsourcing
+
+HOMEPAGE — CONTENT + LAYOUT DIRECTION
+Design a premium homepage with the following sections in order:
+
+1. Header
+- logo at left
+- simple top navigation
+- primary CTA button on right
+- clean, quiet, premium layout
+- optional subtle dark mode toggle if it fits the system
+
+2. Hero Section
+- large Fraunces headline
+- concise supporting paragraph
+- primary CTA and secondary CTA
+- refined visual composition using either editorial imagery, a soft card composition, or a premium operational/team visual
+- emphasize calm confidence and operational excellence
+- this should feel like a serious company, not a startup landing page
+
+3. Positioning / Trust Block
+- a section that quickly explains what SageStone does
+- support for growth-focused businesses
+- remote support that feels built into the client’s business
+- concise benefit statements
+- can include a small stat row or proof row if tasteful
+
+4. Services Overview
+- showcase main service categories
+- cards or editorial panels, but not repetitive generic icon circles
+- each service should feel specific and premium
+- design for scannability and future SEO linking
+
+5. Why SageStone
+- explain what makes SageStone different
+- ideas to express visually: structure, dependable support, calm process, precision, integration into workflows
+- use a more narrative layout, not a generic checklist dump
+
+6. Industries Served
+- show the kinds of businesses SageStone supports
+- examples: agencies, e-commerce brands, real estate teams, founder-led businesses, service companies
+- present in a clean, elegant grid or content row format
+
+7. Process / How It Works
+- a refined step-based section
+- should feel clear and low-friction
+- steps might include discovery, matching, onboarding, support
+- use elegant dividers or panels, not loud timeline graphics
+
+8. Proof / Results / Testimonials
+- use testimonial cards, client quotes, or a case-study teaser block
+- design should feel understated and premium
+- avoid loud badges or gimmicks
+
+9. FAQ Preview
+- include 3–5 FAQs in an accordion or preview format
+- create a design pattern that can expand into the full FAQ page
+
+10. Conversion CTA Band
+- premium CTA section with one clear action
+- “Book a Discovery Call” style
+- create a calm, confident close
+
+11. Footer
+- logo
+- concise brand statement
+- navigation links
+- contact details area
+- clean legal/footer info
+- polished and restrained
+
+ABOUT PAGE — CONTENT + LAYOUT DIRECTION
+Create an About page that feels executive-friendly and credible.
+Include:
+- concise hero
+- brand story / what SageStone stands for
+- mission and positioning
+- values expressed in mature language
+- how SageStone supports growing businesses
+- optional founder/team or principles section
+- CTA section
+The layout should feel editorial and trust-building, not sentimental or overly corporate.
+
+SERVICES OVERVIEW PAGE — CONTENT + LAYOUT DIRECTION
+Create a Services page that acts as a hub for individual service pages.
+Include:
+- intro hero
+- service category overview
+- who it’s for
+- how engagement works
+- why SageStone’s model works
+- CTA section
+This page should support internal linking and future SEO expansion.
+
+VIRTUAL ASSISTANT SERVICES PAGE
+Create a service landing page designed for conversion and SEO.
+Include:
+- clear hero with service-specific headline
+- what a SageStone virtual assistant supports
+- ideal use cases
+- business outcomes
+- team integration process
+- FAQ block
+- CTA
+This should feel professional and premium, not like a freelancer marketplace.
+
+CUSTOMER SUPPORT OUTSOURCING PAGE
+Create a premium service page for customer support.
+Include:
+- service hero
+- support channels or capabilities
+- how SageStone improves response and consistency
+- fit for growing companies
+- trust/proof section
+- FAQ
+- CTA
+Avoid call-center stereotypes.
+
+WORKFLOW SUPPORT PAGE
+Create a premium page focused on workflow and operations support.
+Include:
+- hero
+- what workflow support means
+- examples of operational support work
+- how it reduces bottlenecks
+- process section
+- proof section
+- CTA
+This page should feel structured, smart, and operationally strong.
+
+WHY HIRE IN THE PHILIPPINES PAGE
+Design a strategic educational page.
+Include:
+- hero
+- why the Philippines is a strong talent market
+- professionalism, communication, adaptability, and support advantages
+- why SageStone’s model improves fit and reliability
+- FAQ
+- CTA
+Make it polished and trust-building, not transactional or reductive.
+
+INDUSTRIES SERVED PAGE
+Create a page that shows SageStone supports multiple business types.
+Include:
+- intro hero
+- industry cards or sections
+- business pain points by industry
+- example support roles by industry
+- CTA
+Design should be modular, clean, and easy to expand.
+
+CASE STUDIES PAGE
+Create a page for proof and credibility.
+Include:
+- hero
+- featured case study cards
+- quote/testimonial modules
+- challenge / solution / outcome layout ideas
+- CTA to book a call
+Make it elegant and readable.
+
+FAQ PAGE
+Create a dedicated FAQ page.
+Include:
+- clean hero
+- category filters or grouped sections if helpful
+- reusable accordion system
+- trust-building answers layout
+- CTA at the bottom
+
+CONTACT / BOOK A CALL PAGE
+Create a conversion-focused contact page.
+Include:
+- hero
+- short trust-supporting intro
+- clean form design
+- optional calendar/book-a-call visual placeholder
+- contact details block
+- expectation-setting microcopy
+- CTA reinforcement
+Keep the form premium, simple, and calm.
+
+COMPONENTS TO BUILD
+Create reusable Figma components for:
+- primary button
+- secondary button
+- ghost button
+- top navigation
+- mobile navigation
+- service cards
+- testimonial cards
+- case study cards
+- FAQ accordion
+- stat blocks
+- process step modules
+- CTA section
+- form inputs
+- textarea
+- select field
+- footer
+- badges or eyebrow labels
+- section headers
+
+DESKTOP + MOBILE
+Create:
+- full desktop homepage
+- full mobile homepage
+- at least key mobile sections or mobile versions for inner page templates
+Ensure mobile keeps the same elegance, spacing, and hierarchy.
+Do not let mobile feel cramped or generic.
+
+SEO SUPPORT IN THE LAYOUT
+Design each page so it can support:
+- one strong H1
+- clear H2 sections
+- rich service copy
+- FAQ content
+- trust sections
+- internal linking modules
+- conversion CTAs
+The design should support ranking and readability without looking text-heavy.
+
+FINAL GOAL
+Make this feel like a polished, premium, investor- and client-ready Figma website concept built directly from the approved SageStone brand kit.
+The result should feel calm, structured, high-trust, and beautifully restrained.

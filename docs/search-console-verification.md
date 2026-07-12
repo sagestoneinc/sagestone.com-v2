@@ -1,64 +1,82 @@
 # Search Console Verification Guide
 
-This repository cannot verify authenticated Google Search Console data locally. Use this checklist after the `redesign/nextjs-rebuild` branch is deployed to production at `https://www.sagestoneinc.com`.
+This repository cannot directly verify Search Console coverage without authenticated Google Search Console access.
+Use this checklist after production deployment.
 
-## Submit And Inspect
+## 1) Property + sitemap verification
 
-1. Open Google Search Console for `https://www.sagestoneinc.com/`.
-2. Submit `https://www.sagestoneinc.com/sitemap.xml`.
-3. Confirm the submitted sitemap is fetched successfully.
-4. Compare submitted URLs against indexed URLs.
-5. Open Page indexing and review:
-   - Crawled - currently not indexed
-   - Discovered - currently not indexed
-   - Duplicate without user-selected canonical
-   - Alternate page with proper canonical
-   - Soft 404
-   - Redirect errors
-   - Server errors
-   - Blocked by robots.txt
-   - Excluded by noindex
-6. Confirm HTTPS status for all inspected URLs.
-7. Review Core Web Vitals mobile and desktop reports.
-8. Use URL Inspection on the primary pages below.
-9. Request indexing for updated canonical pages after deployment.
+1. Open Search Console property for `https://www.sagestoneinc.com/`.
+2. Go to **Sitemaps**.
+3. Submit `https://www.sagestoneinc.com/sitemap.xml`.
+4. Confirm sitemap status is **Success**.
+5. Compare submitted URL count to indexed URL count.
 
-## Primary URL Inspection Checklist
+## 2) Index coverage checks
 
-- `https://www.sagestoneinc.com/`
-- `https://www.sagestoneinc.com/services/`
-- `https://www.sagestoneinc.com/solutions/`
-- `https://www.sagestoneinc.com/virtual-assistant-services/`
-- `https://www.sagestoneinc.com/customer-support-outsourcing/`
-- `https://www.sagestoneinc.com/ecommerce-virtual-assistant/`
-- `https://www.sagestoneinc.com/gohighlevel-virtual-assistant/`
-- `https://www.sagestoneinc.com/business-operations-support/`
-- `https://www.sagestoneinc.com/web-maintenance-support/`
-- `https://www.sagestoneinc.com/about/`
-- `https://www.sagestoneinc.com/experience/`
-- `https://www.sagestoneinc.com/blog/`
-- `https://www.sagestoneinc.com/blog/how-to-hire-a-virtual-assistant/`
-- `https://www.sagestoneinc.com/blog/what-does-an-ecommerce-virtual-assistant-do/`
-- `https://www.sagestoneinc.com/blog/customer-support-outsourcing-checklist/`
-- `https://www.sagestoneinc.com/case-studies/`
-- `https://www.sagestoneinc.com/contact/`
-- `https://www.sagestoneinc.com/free-workflow-assessment/`
-- `https://www.sagestoneinc.com/privacy/`
-- `https://www.sagestoneinc.com/terms/`
+Review **Indexing > Pages** and capture status counts for:
 
-For the full sitemap inspection set, use every route listed in `docs/seo-route-inventory.md`.
+- Crawled — currently not indexed
+- Discovered — currently not indexed
+- Duplicate without user-selected canonical
+- Alternate page with proper canonical
+- Soft 404
+- Redirect errors
+- Server errors (5xx)
+- Blocked by robots.txt
+- Excluded by noindex
+- HTTPS issues
 
-## Expected Signals
+## 3) Manual URL inspection checklist
 
-- User-declared canonical should match the inspected URL.
-- Google-selected canonical should match the user-declared canonical for primary pages.
-- Page should be indexable unless Google has not crawled it yet.
-- Rendered HTML should include the H1, main page copy, canonical link, metadata, internal links, and JSON-LD.
-- Sitemap entry should use the HTTPS `www` canonical with a trailing slash.
+Inspect each URL below in **URL Inspection** and confirm:
 
-## Manual Data Required
+- Google-selected canonical equals declared canonical
+- Crawl allowed
+- Indexing allowed
+- Last crawl is recent after deployment
+- Structured data is detected where expected
 
-- Search Console property access.
-- Production deployment confirmation.
-- Field Core Web Vitals data from CrUX or Search Console.
-- Manual confirmation of any business claims not already present in repository content.
+### URLs to inspect
+
+- https://www.sagestoneinc.com/
+- https://www.sagestoneinc.com/solutions
+- https://www.sagestoneinc.com/virtual-assistant-services
+- https://www.sagestoneinc.com/business-operations-support
+- https://www.sagestoneinc.com/ecommerce-virtual-assistant
+- https://www.sagestoneinc.com/gohighlevel-virtual-assistant
+- https://www.sagestoneinc.com/web-maintenance-support
+- https://www.sagestoneinc.com/customer-support-outsourcing
+- https://www.sagestoneinc.com/about
+- https://www.sagestoneinc.com/experience
+- https://www.sagestoneinc.com/blog
+- https://www.sagestoneinc.com/blog/how-to-hire-a-virtual-assistant
+- https://www.sagestoneinc.com/blog/what-does-an-ecommerce-virtual-assistant-do
+- https://www.sagestoneinc.com/industries
+- https://www.sagestoneinc.com/why-philippines
+- https://www.sagestoneinc.com/case-studies
+- https://www.sagestoneinc.com/faq
+- https://www.sagestoneinc.com/contact
+
+## 4) Core Web Vitals (mobile)
+
+1. Open **Experience > Core Web Vitals**.
+2. Review **Mobile** report for LCP, INP, and CLS statuses.
+3. Confirm critical URLs are not in poor-status groups.
+
+## 5) Post-deploy request indexing workflow
+
+For the homepage, `/solutions`, all service pages, and all blog URLs:
+
+1. Open URL Inspection.
+2. Click **Request Indexing** if page was recently updated.
+3. Track re-crawl status within 3-14 days.
+
+## 6) Redirect/canonical QA in Search Console
+
+Verify legacy URLs are excluded and resolving correctly:
+
+- `https://www.sagestoneinc.com/services`
+- `https://www.sagestoneinc.com/services/virtual-assistant`
+- `https://www.sagestoneinc.com/services/customer-support`
+
+Expected: redirected to canonical service/solutions URLs.
