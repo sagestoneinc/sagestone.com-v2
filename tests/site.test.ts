@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
+import { seoKeywords } from "../src/config/seo-keywords";
 import {
   canonicalUrl,
   getAllRoutePaths,
+  getInternalLinksByPath,
   getPageByPath,
   getRedirects,
   sitemapEntries,
@@ -18,6 +20,7 @@ describe("SageStone route inventory", () => {
       "/services",
       "/about",
       "/contact",
+      "/gohighlevel-virtual-assistant",
       "/blog/customer-support-outsourcing-checklist",
       "/case-studies/shopify-support-operations-case-study",
       "/free-workflow-assessment",
@@ -48,6 +51,7 @@ describe("SageStone route inventory", () => {
     assert.equal(redirects["/faqs"], "/faq");
     assert.equal(redirects["/customer-support"], "/customer-support-outsourcing");
     assert.equal(redirects["/crm-admin-support"], "/business-operations-support");
+    assert.equal(redirects["/gohighlevel-virtual-assistant"], undefined);
   });
 });
 
@@ -66,5 +70,35 @@ describe("SageStone page SEO", () => {
 
     assert.ok((faq?.faqs?.length ?? 0) >= 6);
     assert.equal(services?.faqs, undefined);
+  });
+
+  it("keeps every indexable route mapped to one unique primary keyword", () => {
+    const normalizedKeywords = new Set<string>();
+
+    for (const page of sitemapEntries) {
+      assert.equal(seoKeywords[page.path as keyof typeof seoKeywords], page.primaryKeyword);
+
+      const normalized = page.primaryKeyword.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+      assert.ok(!normalizedKeywords.has(normalized), `${page.path} duplicates keyword ${page.primaryKeyword}`);
+      normalizedKeywords.add(normalized);
+    }
+
+    assert.equal(Object.keys(seoKeywords).length, sitemapEntries.length);
+  });
+
+  it("keeps important service pages internally linked with canonical paths", () => {
+    const solutionLinks = getInternalLinksByPath("/solutions");
+
+    for (const route of [
+      "/virtual-assistant-services",
+      "/customer-support-outsourcing",
+      "/business-operations-support",
+      "/ecommerce-virtual-assistant",
+      "/gohighlevel-virtual-assistant",
+      "/web-maintenance-support",
+    ]) {
+      assert.ok(solutionLinks.includes(route), `/solutions should link to ${route}`);
+      assert.ok(getAllRoutePaths().includes(route), `${route} should be indexable`);
+    }
   });
 });

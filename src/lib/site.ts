@@ -1,6 +1,24 @@
+import { primaryKeywordFor } from "../config/seo-keywords";
+
+function normalizeSiteOrigin(value?: string) {
+  if (!value) return "https://www.sagestoneinc.com";
+
+  try {
+    const url = new URL(value);
+    url.protocol = "https:";
+    url.hostname = "www.sagestoneinc.com";
+    url.pathname = "";
+    url.search = "";
+    url.hash = "";
+    return url.toString().replace(/\/$/, "");
+  } catch {
+    return "https://www.sagestoneinc.com";
+  }
+}
+
 export const siteConfig = {
   name: "SageStone Inc",
-  domain: "https://www.sagestoneinc.com",
+  domain: normalizeSiteOrigin(process.env.NEXT_PUBLIC_SITE_URL),
   description:
     "SageStone Inc provides virtual assistant services, customer support outsourcing, e-commerce support, website maintenance, and business operations support for founders and growing teams.",
   email: "hello@sagestoneinc.com",
@@ -57,6 +75,7 @@ export type SitePage = {
   secondaryCta?: Cta;
   sections: PageSection[];
   faqs?: Faq[];
+  relatedPaths?: string[];
   published?: string;
   modified?: string;
 };
@@ -192,14 +211,14 @@ export const pages: SitePage[] = [
     path: "/",
     routeStatus: "Rewrite",
     kind: "home",
-    title: "Virtual Assistant & Business Operations Support | SageStone Inc",
+    title: "Virtual Assistant & Operations Support Services | SageStone",
     description:
-      "SageStone provides virtual assistant, customer support, e-commerce, CRM, and business operations support for founders and growing teams.",
+      "Scale with dependable virtual assistants, customer support, e-commerce assistance and business operations support from SageStone Inc.",
     h1: "Structured calm for growing teams.",
     eyebrow: "Operations support for founders and lean teams",
     intro:
       "SageStone helps teams turn recurring admin, customer, CRM, and e-commerce work into clear, reliable support systems.",
-    primaryKeyword: "virtual assistant services and business operations support",
+    primaryKeyword: primaryKeywordFor("/"),
     secondaryKeywords: [
       "customer support outsourcing",
       "operations support for growing teams",
@@ -208,7 +227,14 @@ export const pages: SitePage[] = [
       "back-office support services",
     ],
     primaryCta: bookCall,
-    secondaryCta: exploreServices,
+    secondaryCta: { ...exploreServices, href: "/solutions" },
+    relatedPaths: [
+      "/virtual-assistant-services",
+      "/customer-support-outsourcing",
+      "/ecommerce-virtual-assistant",
+      "/business-operations-support",
+      "/web-maintenance-support",
+    ],
     sections: [
       {
         heading: "A premium operations partner, not a task marketplace",
@@ -239,7 +265,7 @@ export const pages: SitePage[] = [
     h1: "Operations support shaped around the work that slows your team down.",
     intro:
       "Choose the support path that fits your current bottleneck, from founder administration to customer support, e-commerce operations, and workflow documentation.",
-    primaryKeyword: "virtual assistant and operations support services",
+    primaryKeyword: primaryKeywordFor("/services"),
     secondaryKeywords: ["remote administrative support", "CRM management services", "customer support operations"],
     primaryCta: discussNeeds,
     secondaryCta: assessment,
@@ -273,7 +299,7 @@ export const pages: SitePage[] = [
     h1: "Built for teams that need support with judgment.",
     intro:
       "SageStone exists to help growing teams add capacity without losing the clarity, care, and accountability that good operations require.",
-    primaryKeyword: "premium operations support partner",
+    primaryKeyword: primaryKeywordFor("/about"),
     secondaryKeywords: ["virtual assistant company", "business operations support", "founder support services"],
     primaryCta: bookCall,
     secondaryCta: exploreServices,
@@ -301,7 +327,7 @@ export const pages: SitePage[] = [
     h1: "Experience across the workflows that keep teams moving.",
     intro:
       "SageStone supports the recurring work that connects customer care, back-office administration, and founder priorities.",
-    primaryKeyword: "operations support experience",
+    primaryKeyword: primaryKeywordFor("/experience"),
     secondaryKeywords: ["CRM organization", "calendar management", "customer follow-up"],
     primaryCta: bookCall,
     secondaryCta: discussNeeds,
@@ -317,7 +343,7 @@ export const pages: SitePage[] = [
     h1: "Questions teams ask before they delegate.",
     intro:
       "Use these answers to understand how SageStone scopes support, works inside existing tools, and helps teams create calmer operations.",
-    primaryKeyword: "virtual assistant services FAQ",
+    primaryKeyword: primaryKeywordFor("/faq"),
     secondaryKeywords: ["outsourced support questions", "SageStone onboarding", "workflow assessment"],
     primaryCta: bookCall,
     secondaryCta: assessment,
@@ -340,7 +366,7 @@ export const pages: SitePage[] = [
     h1: "Tell us where operations feel too heavy.",
     intro:
       "Share what your team needs help carrying. SageStone will review the workflow, identify a practical support path, and invite you to a discovery call.",
-    primaryKeyword: "contact SageStone virtual assistant services",
+    primaryKeyword: primaryKeywordFor("/contact"),
     secondaryKeywords: ["book discovery call", "workflow assessment", "operations support inquiry"],
     primaryCta: bookCall,
     secondaryCta: assessment,
@@ -363,7 +389,7 @@ export const pages: SitePage[] = [
     h1: "Support workflows, shown without inflated claims.",
     intro:
       "These examples describe support models and operating changes without inventing client names, revenue impact, or unsupported metrics.",
-    primaryKeyword: "virtual assistant operations case studies",
+    primaryKeyword: primaryKeywordFor("/case-studies"),
     secondaryKeywords: ["customer support case study", "e-commerce support case study", "SaaS onboarding workflow"],
     primaryCta: discussNeeds,
     sections: [
@@ -384,7 +410,7 @@ export const pages: SitePage[] = [
     h1: "Find the workflows that need ownership first.",
     intro:
       "The operations audit helps teams see where recurring work is scattered, undocumented, or dependent on founder attention.",
-    primaryKeyword: "operations audit for growing teams",
+    primaryKeyword: primaryKeywordFor("/operations-audit"),
     secondaryKeywords: ["workflow audit", "delegation readiness", "business operations review"],
     primaryCta: assessment,
     secondaryCta: bookCall,
@@ -400,7 +426,7 @@ export const pages: SitePage[] = [
     h1: "Practical notes for calmer operations.",
     intro:
       "Browse resources for founders and lean teams that want to delegate clearly, serve customers consistently, and document recurring work.",
-    primaryKeyword: "virtual assistant and operations resources",
+    primaryKeyword: primaryKeywordFor("/blog"),
     secondaryKeywords: ["delegation guides", "customer support outsourcing", "SOP documentation"],
     primaryCta: exploreServices,
     secondaryCta: bookCall,
@@ -416,27 +442,183 @@ export const pages: SitePage[] = [
 ];
 
 const servicePages: SitePage[] = [
-  ["/virtual-assistant-services", "Virtual Assistant Services for Growing Businesses | SageStone Inc", "Virtual Assistant Services for Growing Businesses", "virtual assistant services", "Virtual assistant support"],
-  ["/customer-support-outsourcing", "Customer Support Outsourcing for Growing Teams | SageStone Inc", "Customer support outsourcing with calmer handoffs.", "customer support outsourcing", "Customer support outsourcing"],
-  ["/ecommerce-customer-support-outsourcing", "E-commerce Customer Support Outsourcing | SageStone Inc", "E-commerce customer support that protects the buying experience.", "e-commerce customer support outsourcing", "E-commerce support"],
-  ["/ecommerce-virtual-assistant", "E-commerce Virtual Assistant Services | SageStone Inc", "E-commerce virtual assistant support for stores that need steadier operations.", "e-commerce virtual assistant", "E-commerce virtual assistant"],
-  ["/real-estate-virtual-assistant", "Real Estate Virtual Assistant Services | SageStone Inc", "Real estate virtual assistant support for follow-up, records, and coordination.", "real estate virtual assistant", "Real estate support"],
-  ["/social-media-virtual-assistant", "Social Media Virtual Assistant Support | SageStone Inc", "Social media support for content coordination, scheduling, and reporting preparation.", "social media virtual assistant", "Social media support"],
-  ["/business-operations-support", "Business Operations Support Services | SageStone Inc", "Business operations support for workflows, CRM hygiene, SOPs, and admin coordination.", "business operations support", "Business operations support"],
-  ["/web-maintenance-support", "Website Maintenance Support Services | SageStone Inc", "Website maintenance support for content updates, QA, links, forms, and routine page upkeep.", "website maintenance support", "Website maintenance support"],
-].map(([path, title, h1, keyword, service]) => ({
-  path,
+  {
+    path: "/virtual-assistant-services",
+    title: "Virtual Assistant Services for Growing Businesses | SageStone",
+    description:
+      "Delegate recurring admin, inbox, calendar, research, CRM and follow-up work to dependable virtual assistant support from SageStone.",
+    h1: "Virtual Assistant Services for Growing Businesses",
+    intro:
+      "SageStone gives founders and lean teams a calmer way to delegate recurring administrative work without losing context, tone, or customer care.",
+    primaryKeyword: primaryKeywordFor("/virtual-assistant-services"),
+    sections: serviceSections("Virtual assistant support", "Virtual assistant services"),
+    relatedPaths: ["/customer-support-outsourcing", "/business-operations-support", "/blog/how-to-hire-a-virtual-assistant"],
+  },
+  {
+    path: "/customer-support-outsourcing",
+    title: "Customer Support Outsourcing Services | SageStone Inc",
+    description:
+      "Outsource email, chat and help-desk support to a dependable remote team trained around your workflows, brand voice and escalation process.",
+    h1: "Reliable Customer Support Outsourcing for Growing Businesses",
+    intro:
+      "Deliver responsive, consistent customer experiences without building a large in-house support team. SageStone provides dependable customer support outsourcing for email, chat, help-desk queues and recurring service workflows, with support tailored to your brand voice, escalation process and operating standards.",
+    primaryKeyword: primaryKeywordFor("/customer-support-outsourcing"),
+    sections: [
+      {
+        heading: "Who this support is for",
+        body:
+          "Customer support outsourcing fits teams with recurring customer questions, service handoffs, order or account requests, and enough volume that support needs a documented rhythm.",
+        items: ["Founders protecting customer experience", "E-commerce teams with recurring inquiries", "Service businesses with help-desk queues", "Lean teams that need escalation clarity"],
+      },
+      {
+        heading: "Support channels and responsibilities",
+        body:
+          "SageStone can help coordinate email, chat, ticket queues, order or account inquiries, escalation notes, customer follow-up, and knowledge-base updates where your processes are documented.",
+        items: ["Email support", "Chat support", "Help-desk and ticket management", "Order, account, or service inquiries"],
+      },
+      {
+        heading: "Brand voice, QA, and reporting",
+        body:
+          "Support is shaped around your tone, escalation path, and quality standards. Reporting focuses on visible work, recurring issues, and process improvements without promising unsupported response-time or CSAT guarantees.",
+        items: ["Brand voice training", "Escalation procedures", "Quality assurance checks", "Support reporting"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can SageStone provide 24/7 customer support?",
+        answer:
+          "SageStone does not claim 24/7 coverage unless it is confirmed in a specific engagement. The support scope is defined around your current needs, tools, and operating standards.",
+      },
+      {
+        question: "What tools can the support team use?",
+        answer:
+          "SageStone works around the tools a client already uses when access, documentation, and security expectations are clear. No named platform support is claimed unless it is verified for the engagement.",
+      },
+    ],
+    relatedPaths: ["/ecommerce-virtual-assistant", "/business-operations-support", "/blog/customer-support-outsourcing-checklist"],
+  },
+  {
+    path: "/ecommerce-customer-support-outsourcing",
+    title: "Ecommerce Customer Support Outsourcing | SageStone Inc",
+    description:
+      "Coordinate e-commerce customer messages, order questions, returns, follow-up and support documentation with dependable outsourced help.",
+    h1: "E-commerce Customer Support Outsourcing",
+    intro:
+      "SageStone helps e-commerce teams protect the buying experience by organizing recurring customer questions, order support, return coordination, and service follow-up.",
+    primaryKeyword: primaryKeywordFor("/ecommerce-customer-support-outsourcing"),
+    sections: serviceSections("E-commerce customer support", "E-commerce customer support outsourcing"),
+    relatedPaths: ["/customer-support-outsourcing", "/ecommerce-virtual-assistant", "/blog/ecommerce-customer-support-best-practices"],
+  },
+  {
+    path: "/ecommerce-virtual-assistant",
+    title: "Ecommerce Virtual Assistant Services | SageStone Inc",
+    description:
+      "Get reliable e-commerce support for orders, returns, product updates, customer messages, store administration and everyday back-office operations.",
+    h1: "E-commerce Virtual Assistant Services for Store Operations",
+    intro:
+      "SageStone supports the recurring store details that shape customer experience: product updates, order questions, returns coordination, customer messages, publishing checks, and back-office administration.",
+    primaryKeyword: primaryKeywordFor("/ecommerce-virtual-assistant"),
+    sections: serviceSections("E-commerce virtual assistant support", "E-commerce virtual assistant services"),
+    relatedPaths: ["/customer-support-outsourcing", "/web-maintenance-support", "/blog/what-does-an-ecommerce-virtual-assistant-do"],
+  },
+  {
+    path: "/gohighlevel-virtual-assistant",
+    title: "GoHighLevel Virtual Assistant Services | SageStone Inc",
+    description:
+      "Get dependable GoHighLevel virtual assistant support for CRM updates, pipelines, workflows, follow-ups, reporting and platform administration.",
+    h1: "GoHighLevel Virtual Assistant Services for CRM and Workflow Support",
+    intro:
+      "Keep your GoHighLevel workspace organized and your customer workflows moving with dependable virtual assistant support. SageStone can assist with CRM updates, pipeline administration, contact organization, follow-up coordination, reporting, workflow checks and day-to-day platform maintenance based on your documented processes.",
+    primaryKeyword: primaryKeywordFor("/gohighlevel-virtual-assistant"),
+    sections: [
+      {
+        heading: "GoHighLevel tasks SageStone can support",
+        body:
+          "Support is scoped around documented processes and routine platform administration, not unsupported claims of advanced automation engineering, certification, or platform partnership.",
+        items: ["CRM updates", "Pipeline administration", "Contact organization", "Follow-up coordination"],
+      },
+      {
+        heading: "Workflow and reporting support",
+        body:
+          "SageStone can help keep workflow checks, lead handoffs, appointment support, reporting notes, and dashboard review steps organized so the team has cleaner daily visibility.",
+        items: ["Workflow checks", "Reporting support", "Lead handoff notes", "Appointment coordination"],
+      },
+      {
+        heading: "Onboarding and documentation",
+        body:
+          "The engagement starts with current processes, tool access expectations, recurring responsibilities, and quality checks so support stays grounded in how your team already works.",
+        items: ["Process review", "Access checklist", "QA rhythm", "Documentation updates"],
+      },
+    ],
+    faqs: [
+      {
+        question: "Does SageStone build advanced GoHighLevel automations?",
+        answer:
+          "SageStone does not claim advanced automation engineering or platform partnership. Support is focused on CRM updates, workflow checks, reporting, follow-up coordination, and documented platform administration.",
+      },
+      {
+        question: "Can SageStone help keep pipelines and contacts organized?",
+        answer:
+          "Yes. Pipeline upkeep, contact organization, reporting notes, and follow-up coordination can be included when the workflow is documented and access expectations are clear.",
+      },
+    ],
+    relatedPaths: ["/business-operations-support", "/customer-support-outsourcing", "/virtual-assistant-services", "/solutions"],
+  },
+  {
+    path: "/real-estate-virtual-assistant",
+    title: "Real Estate Virtual Assistant Services | SageStone Inc",
+    description:
+      "Support real estate follow-up, records, scheduling, CRM updates and recurring coordination with dependable virtual assistant help.",
+    h1: "Real Estate Virtual Assistant Services",
+    intro:
+      "SageStone helps real estate teams keep CRM details, scheduling, follow-up, and records organized so daily coordination does not depend on memory alone.",
+    primaryKeyword: primaryKeywordFor("/real-estate-virtual-assistant"),
+    sections: serviceSections("Real estate virtual assistant support", "Real estate virtual assistant services"),
+    relatedPaths: ["/business-operations-support", "/solutions/real-estate-virtual-assistant"],
+  },
+  {
+    path: "/social-media-virtual-assistant",
+    title: "Social Media Virtual Assistant Support | SageStone Inc",
+    description:
+      "Coordinate social content scheduling, requests, publishing checks and reporting preparation with virtual assistant support.",
+    h1: "Social Media Virtual Assistant Support",
+    intro:
+      "SageStone supports social media operations where coordination, scheduling, request tracking, and reporting preparation need reliable ownership.",
+    primaryKeyword: primaryKeywordFor("/social-media-virtual-assistant"),
+    sections: serviceSections("Social media virtual assistant support", "social media support"),
+    relatedPaths: ["/solutions/social-media-marketing-support", "/virtual-assistant-services"],
+  },
+  {
+    path: "/business-operations-support",
+    title: "Business Operations Support Services | SageStone Inc",
+    description:
+      "Improve workflows, CRM organization, reporting, documentation and recurring business operations with dependable remote support.",
+    h1: "Business Operations Support Services for Calmer Workflows",
+    intro:
+      "SageStone helps teams organize recurring operations: CRM hygiene, reporting notes, documentation, inbox handoffs, admin coordination, and the process details that keep work moving.",
+    primaryKeyword: primaryKeywordFor("/business-operations-support"),
+    sections: serviceSections("Business operations support", "business operations support services"),
+    relatedPaths: ["/gohighlevel-virtual-assistant", "/virtual-assistant-services", "/blog/business-operations-support-guide"],
+  },
+  {
+    path: "/web-maintenance-support",
+    title: "Website Maintenance Support Services | SageStone Inc",
+    description:
+      "Keep your website current with dependable support for content edits, landing pages, forms, links, publishing coordination and quality assurance.",
+    h1: "Website Maintenance Support Services for Growing Teams",
+    intro:
+      "SageStone helps teams keep website updates moving with content edits, publishing coordination, form checks, link QA, landing page updates, and recurring maintenance support.",
+    primaryKeyword: primaryKeywordFor("/web-maintenance-support"),
+    sections: serviceSections("Website maintenance support", "website maintenance support services"),
+    relatedPaths: ["/ecommerce-virtual-assistant", "/business-operations-support"],
+  },
+].map((page) => ({
   routeStatus: "Rewrite" as RouteStatus,
   kind: "service" as PageKind,
-  title,
-  description: `${service} from SageStone helps founders and growing teams organize recurring work, customer details, communication, documentation, and daily follow-through.`,
-  h1,
-  intro: `${service} gives your team a calmer way to delegate recurring work without losing context or customer care.`,
-  primaryKeyword: keyword,
   secondaryKeywords: ["remote administrative support", "back-office support", "workflow documentation"],
   primaryCta: discussNeeds,
   secondaryCta: bookCall,
-  sections: serviceSections(service, service),
+  ...page,
 }));
 
 const comparisonPages: SitePage[] = [
@@ -450,7 +632,7 @@ const comparisonPages: SitePage[] = [
     h1: "Virtual assistant or in-house admin?",
     intro:
       "The right choice depends on workload, continuity, management capacity, and whether the work is ready to be documented.",
-    primaryKeyword: "virtual assistant vs in-house admin",
+    primaryKeyword: primaryKeywordFor("/virtual-assistant-vs-in-house-admin"),
     secondaryKeywords: ["administrative hire", "outsourced admin support", "delegation support"],
     primaryCta: discussNeeds,
     sections: blogSection("virtual assistant vs in-house admin"),
@@ -465,7 +647,7 @@ const comparisonPages: SitePage[] = [
     h1: "Outsourced support for small businesses.",
     intro:
       "Small teams can add support carefully by starting with recurring work that is visible, teachable, and connected to customer experience.",
-    primaryKeyword: "outsourced support for small businesses",
+    primaryKeyword: primaryKeywordFor("/outsourced-support-for-small-businesses"),
     secondaryKeywords: ["small business virtual assistant", "customer support outsourcing", "back-office support"],
     primaryCta: assessment,
     secondaryCta: discussNeeds,
@@ -481,7 +663,7 @@ const comparisonPages: SitePage[] = [
     h1: "Support for teams with moving parts.",
     intro:
       "SageStone helps organizations where customer communication, administration, and recurring operations need clearer ownership.",
-    primaryKeyword: "industries served by virtual assistant services",
+    primaryKeyword: primaryKeywordFor("/industries-we-serve"),
     secondaryKeywords: ["SaaS operations support", "e-commerce support", "real estate virtual assistant"],
     primaryCta: discussNeeds,
     sections: [
@@ -495,8 +677,60 @@ const comparisonPages: SitePage[] = [
   },
 ];
 
-const solutionPages: SitePage[] = [
-  ["/solutions", "Operations Support Solutions | SageStone Inc", "Support solutions for practical operating needs.", "operations support solutions"],
+const solutionsHub: SitePage = {
+  path: "/solutions",
+  routeStatus: "Rewrite",
+  kind: "landing",
+  title: "Outsourced Business Support Solutions | SageStone Inc",
+  description:
+    "Explore flexible virtual assistant, customer support, e-commerce and business operations solutions designed for growing teams.",
+  h1: "Flexible Business Support Solutions for Growing Teams",
+  intro:
+    "SageStone provides coordinated outsourced support across several operational areas, helping teams choose the right mix of virtual assistance, customer support, e-commerce, CRM, website, and business operations help.",
+  primaryKeyword: primaryKeywordFor("/solutions"),
+  secondaryKeywords: ["outsourced support model", "service selection guide", "remote business support"],
+  primaryCta: discussNeeds,
+  secondaryCta: bookCall,
+  relatedPaths: [
+    "/virtual-assistant-services",
+    "/customer-support-outsourcing",
+    "/business-operations-support",
+    "/ecommerce-virtual-assistant",
+    "/gohighlevel-virtual-assistant",
+    "/web-maintenance-support",
+  ],
+  sections: [
+    {
+      heading: "Choose the support path by operating need",
+      body:
+        "The Solutions hub is a selection guide, not another general virtual assistant landing page. Each path points to a dedicated canonical service page with its own scope and search intent.",
+      items: [
+        "Virtual assistant services for recurring admin and follow-up",
+        "Customer support outsourcing for inbox, chat, and help-desk workflows",
+        "Business operations support for CRM, reporting, and documentation",
+        "E-commerce virtual assistant services for store operations",
+        "GoHighLevel virtual assistant services for CRM and workflow support",
+        "Website maintenance support for edits, forms, links, and QA",
+      ],
+    },
+    {
+      heading: "How to select a starting point",
+      body:
+        "Start with the workflow creating the most visible drag. If customers are waiting, start with support. If records and follow-up are scattered, start with business operations or GoHighLevel support. If store tasks are piling up, start with e-commerce assistance.",
+      items: ["Customer-facing work", "Founder admin load", "CRM and pipeline hygiene", "Website and store upkeep"],
+    },
+    {
+      heading: "A coordinated support model",
+      body:
+        "SageStone can connect several support lanes into one practical operating rhythm so handoffs, documentation, quality checks, and communication standards remain visible.",
+    },
+  ],
+};
+
+type SolutionEntry = SitePage | readonly [string, string, string, string];
+
+const solutionEntries: SolutionEntry[] = [
+  solutionsHub,
   ["/solutions/virtual-operations-admin", "Virtual Operations Admin Support | SageStone Inc", "Virtual operations admin support for recurring execution.", "virtual operations admin"],
   ["/solutions/real-estate-virtual-assistant", "Real Estate Virtual Assistant Solution | SageStone Inc", "A real estate support solution for CRM, follow-up, and scheduling.", "real estate virtual assistant solution"],
   ["/solutions/bookkeeping-support", "Bookkeeping Support Coordination | SageStone Inc", "Bookkeeping support coordination for records, follow-up, and administrative clarity.", "bookkeeping support coordination"],
@@ -504,20 +738,28 @@ const solutionPages: SitePage[] = [
   ["/solutions/lead-generation-support", "Lead Generation Support | SageStone Inc", "Lead generation support for research, list upkeep, follow-up, and CRM organization.", "lead generation support"],
   ["/solutions/graphic-design-support", "Graphic Design Support Coordination | SageStone Inc", "Graphic design support coordination for assets, requests, updates, and delivery tracking.", "graphic design support"],
   ["/solutions/data-entry-web-research", "Data Entry & Web Research Support | SageStone Inc", "Data entry and web research support for cleaner records, lists, and reports.", "data entry web research support"],
-].map(([path, title, h1, keyword]) => ({
-  path,
-  routeStatus: "Rewrite" as RouteStatus,
-  kind: "landing" as PageKind,
-  title,
-  description: `${h1} SageStone helps growing teams define responsibilities, document recurring work, and keep operational details moving with calmer ownership.`,
-  h1,
-  intro: "These solution pages preserve useful live URLs while consolidating the new experience around clear support outcomes.",
-  primaryKeyword: keyword,
-  secondaryKeywords: ["virtual assistant support", "business operations support", "remote administrative support"],
-  primaryCta: discussNeeds,
-  secondaryCta: bookCall,
-  sections: serviceSections(h1.replace(".", ""), keyword),
-}));
+];
+
+const solutionPages = solutionEntries.map((entry): SitePage => {
+  if ("path" in entry) return entry;
+
+  const [path, title, h1, keyword] = entry;
+
+  return {
+    path,
+    routeStatus: "Rewrite" as RouteStatus,
+    kind: "landing" as PageKind,
+    title,
+    description: `${h1} SageStone helps growing teams define responsibilities, document recurring work, and keep operational details moving with calmer ownership.`,
+    h1,
+    intro: "These solution pages preserve useful live URLs while consolidating the new experience around clear support outcomes.",
+    primaryKeyword: primaryKeywordFor(path),
+    secondaryKeywords: ["virtual assistant support", "business operations support", "remote administrative support"],
+    primaryCta: discussNeeds,
+    secondaryCta: bookCall,
+    sections: serviceSections(h1.replace(".", ""), keyword),
+  };
+});
 
 const blogPages: SitePage[] = [
   ["/blog/virtual-assistant-tasks-for-small-business", "Virtual Assistant Tasks for Small Business | SageStone Inc", "Virtual assistant tasks for small business"],
@@ -541,7 +783,7 @@ const blogPages: SitePage[] = [
   description: `${h1} with practical guidance from SageStone for founders and lean teams improving delegation, customer support, documentation, and recurring operations.`,
   h1,
   intro: "A practical guide for deciding what to delegate, how to document the workflow, and how to protect customer experience as support scales.",
-  primaryKeyword: h1.toLowerCase(),
+  primaryKeyword: primaryKeywordFor(path),
   secondaryKeywords: ["delegation", "operations support", "virtual assistant services"],
   primaryCta: discussNeeds,
   secondaryCta: exploreServices,
@@ -563,7 +805,7 @@ const caseStudyPages: SitePage[] = [
   description: `${h1} describing how SageStone structures recurring operations support without inventing client identities, revenue claims, or unsupported statistics.`,
   h1,
   intro: "A practical operating example focused on support scope, clearer ownership, and documented workflows.",
-  primaryKeyword: h1.toLowerCase(),
+  primaryKeyword: primaryKeywordFor(path),
   secondaryKeywords: ["operations support case study", "virtual assistant support", "workflow documentation"],
   primaryCta: discussNeeds,
   sections: caseStudySection(context),
@@ -582,7 +824,7 @@ const conversionAndLegalPages: SitePage[] = [
     h1: "Discover where work is losing structure.",
     intro:
       "Use the workflow assessment to describe the recurring tasks, tools, and customer touchpoints that need clearer ownership.",
-    primaryKeyword: "free workflow assessment",
+    primaryKeyword: primaryKeywordFor("/free-workflow-assessment"),
     secondaryKeywords: ["delegation assessment", "operations audit", "virtual assistant consultation"],
     primaryCta: assessment,
     secondaryCta: bookCall,
@@ -597,7 +839,7 @@ const conversionAndLegalPages: SitePage[] = [
       "Read SageStone Inc terms of service covering service use, client obligations, payments, confidentiality, intellectual property, and contact information.",
     h1: "Terms of Service",
     intro: "Last updated: February 1, 2026. These terms summarize service use, client obligations, payment, confidentiality, and contact details.",
-    primaryKeyword: "SageStone terms of service",
+    primaryKeyword: primaryKeywordFor("/terms"),
     secondaryKeywords: ["client obligations", "payment terms", "confidentiality"],
     primaryCta: discussNeeds,
     sections: [
@@ -623,7 +865,7 @@ const conversionAndLegalPages: SitePage[] = [
     h1: "Privacy Policy",
     intro:
       "Last updated: February 1, 2026. SageStone collects information voluntarily provided through inquiries, communications, forms, and website usage.",
-    primaryKeyword: "SageStone privacy policy",
+    primaryKeyword: primaryKeywordFor("/privacy"),
     secondaryKeywords: ["data collection", "website usage data", "contact information"],
     primaryCta: discussNeeds,
     sections: [
@@ -669,7 +911,6 @@ export const redirects: Record<string, string> = {
   "/web-design-maintenance-services": "/web-maintenance-support",
   "/web-maintenance-services": "/web-maintenance-support",
   "/crm-admin-support": "/business-operations-support",
-  "/gohighlevel-virtual-assistant": "/business-operations-support",
   "/web-design-maintenance": "/web-maintenance-support",
   "/why-sagestone": "/about",
 };
@@ -680,7 +921,15 @@ export function stripTrailingSlash(path: string) {
 }
 
 export function canonicalUrl(path: string) {
-  const normalized = stripTrailingSlash(path);
+  let pathname = path;
+
+  try {
+    pathname = new URL(path, siteConfig.domain).pathname;
+  } catch {
+    pathname = path.split("?")[0].split("#")[0];
+  }
+
+  const normalized = stripTrailingSlash(`/${pathname.split("/").filter(Boolean).join("/")}`);
   return normalized === "/" ? `${siteConfig.domain}/` : `${siteConfig.domain}${normalized}/`;
 }
 
@@ -695,6 +944,57 @@ export function getPageByPath(path: string) {
 
 export function getRedirects() {
   return redirects;
+}
+
+const globalInternalLinks = [
+  "/",
+  "/services",
+  "/solutions",
+  "/experience",
+  "/industries-we-serve",
+  "/blog",
+  "/case-studies",
+  "/about",
+  "/faq",
+  "/contact",
+  "/operations-audit",
+  "/free-workflow-assessment",
+  "/virtual-assistant-services",
+  "/customer-support-outsourcing",
+  "/ecommerce-virtual-assistant",
+  "/gohighlevel-virtual-assistant",
+  "/business-operations-support",
+  "/web-maintenance-support",
+  "/terms",
+  "/privacy",
+];
+
+export function getInternalLinksByPath(path: string) {
+  const page = getPageByPath(path);
+  if (!page) return [];
+
+  const hubLinks =
+    path === "/blog"
+      ? [
+          ...sitemapEntries.filter((entry) => entry.kind === "blog" && entry.path !== "/blog").map((entry) => entry.path),
+          "/virtual-assistant-vs-in-house-admin",
+          "/outsourced-support-for-small-businesses",
+        ]
+      : path === "/case-studies"
+        ? sitemapEntries.filter((entry) => entry.kind === "case-study").map((entry) => entry.path)
+        : path === "/services"
+          ? sitemapEntries.filter((entry) => entry.kind === "service").map((entry) => entry.path)
+          : path === "/solutions"
+            ? sitemapEntries.filter((entry) => entry.kind === "service" || entry.path.startsWith("/solutions/")).map((entry) => entry.path)
+            : [];
+
+  const ctaLinks = [page.primaryCta.href, page.secondaryCta?.href].filter((href): href is string =>
+    Boolean(href && href.startsWith("/")),
+  );
+
+  return [...new Set([...globalInternalLinks, ...hubLinks, ...ctaLinks, ...(page.relatedPaths ?? [])])].filter(
+    (href) => href !== path,
+  );
 }
 
 export function pathToSlug(path: string) {

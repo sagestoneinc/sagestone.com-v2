@@ -7,6 +7,7 @@ import { TrackedLink } from "./tracked-link";
 
 const navItems = [
   { label: "Services", href: "/services" },
+  { label: "Solutions", href: "/solutions" },
   { label: "Industries", href: "/industries-we-serve" },
   { label: "Resources", href: "/blog" },
   { label: "Case Studies", href: "/case-studies" },

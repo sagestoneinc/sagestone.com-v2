@@ -8,15 +8,20 @@ const services = [
   ["/virtual-assistant-services", "Virtual Assistant Services"],
   ["/customer-support-outsourcing", "Customer Support Outsourcing"],
   ["/ecommerce-virtual-assistant", "E-commerce Virtual Assistant"],
+  ["/gohighlevel-virtual-assistant", "GoHighLevel Virtual Assistant"],
   ["/business-operations-support", "Business Operations Support"],
   ["/web-maintenance-support", "Website Maintenance Support"],
 ] as const;
 
 const company = [
   ["/about", "About"],
+  ["/experience", "Experience"],
+  ["/solutions", "Solutions"],
   ["/industries-we-serve", "Industries"],
   ["/case-studies", "Case Studies"],
   ["/blog", "Resources"],
+  ["/faq", "FAQ"],
+  ["/free-workflow-assessment", "Workflow Assessment"],
   ["/contact", "Contact"],
 ] as const;
 

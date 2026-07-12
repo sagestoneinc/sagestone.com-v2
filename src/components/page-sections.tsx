@@ -13,9 +13,13 @@ export function JsonLd({ data }: { data: object | null }) {
 }
 
 export function PageView({ page }: { page: SitePage }) {
-  const related = sitemapEntries
-    .filter((entry) => entry.path !== page.path && entry.kind === page.kind)
-    .slice(0, 3);
+  const declaredRelated = page.relatedPaths
+    ?.map((path) => sitemapEntries.find((entry) => entry.path === path))
+    .filter((entry): entry is SitePage => Boolean(entry));
+  const related =
+    declaredRelated?.length
+      ? declaredRelated
+      : sitemapEntries.filter((entry) => entry.path !== page.path && entry.kind === page.kind).slice(0, 3);
 
   return (
     <>
@@ -27,6 +31,7 @@ export function PageView({ page }: { page: SitePage }) {
       <Hero page={page} />
       <SupportSignals />
       <ContentSections page={page} />
+      <HubDirectory page={page} />
       {page.faqs ? <FaqBlock page={page} /> : null}
       {page.kind === "contact" ? <ContactBlock source={page.path === "/contact" ? "contact" : "assessment"} /> : null}
       {page.kind === "blog" || page.kind === "case-study" ? <EditorialBlock page={page} /> : null}
@@ -34,6 +39,52 @@ export function PageView({ page }: { page: SitePage }) {
       <FinalCta page={page} />
     </>
   );
+}
+
+function HubDirectory({ page }: { page: SitePage }) {
+  const directoryItems = getDirectoryItems(page);
+  if (!directoryItems.length) return null;
+
+  return (
+    <section className="section bg-white/54">
+      <div className="page-shell">
+        <h2 className="display text-5xl">Canonical paths</h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {directoryItems.map((item) => (
+            <Link key={item.path} href={item.path} className="panel block p-6 transition hover:-translate-y-1">
+              <h3 className="text-xl font-black">{item.h1}</h3>
+              <p className="mt-3 fine-print">{item.description}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function getDirectoryItems(page: SitePage) {
+  if (page.path === "/blog") {
+    return sitemapEntries.filter(
+      (entry) =>
+        (entry.kind === "blog" && entry.path !== "/blog") ||
+        entry.path === "/virtual-assistant-vs-in-house-admin" ||
+        entry.path === "/outsourced-support-for-small-businesses",
+    );
+  }
+
+  if (page.path === "/case-studies") {
+    return sitemapEntries.filter((entry) => entry.kind === "case-study");
+  }
+
+  if (page.path === "/services") {
+    return sitemapEntries.filter((entry) => entry.kind === "service");
+  }
+
+  if (page.path === "/solutions") {
+    return sitemapEntries.filter((entry) => entry.kind === "service" || entry.path.startsWith("/solutions/"));
+  }
+
+  return [];
 }
 
 function Hero({ page }: { page: SitePage }) {

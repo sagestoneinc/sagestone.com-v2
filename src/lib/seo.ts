@@ -4,7 +4,7 @@ import { canonicalUrl, siteConfig } from "./site";
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "Organization",
     name: siteConfig.name,
     url: `${siteConfig.domain}/`,
     logo: `${siteConfig.domain}${siteConfig.logo}`,
@@ -31,10 +31,17 @@ export function websiteJsonLd() {
     name: siteConfig.name,
     url: `${siteConfig.domain}/`,
     description: siteConfig.description,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: `${siteConfig.domain}/`,
+    },
   };
 }
 
 export function breadcrumbJsonLd(page: SitePage) {
+  if (page.path === "/") return null;
+
   const parts = page.path.split("/").filter(Boolean);
   const items = [
     {
@@ -87,6 +94,7 @@ export function pageJsonLd(page: SitePage) {
       description: page.description,
       datePublished: page.published,
       dateModified: page.modified,
+      image: `${siteConfig.domain}${siteConfig.ogImage}`,
       author: {
         "@type": "Organization",
         name: siteConfig.name,
