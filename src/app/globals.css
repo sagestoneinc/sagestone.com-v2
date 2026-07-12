@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+:root {
+  --ivory: #fafaf7;
+  --mist: #f4f6f1;
+  --sage: #7b9362;
+  --deep-sage: #596b4b;
+  --charcoal: #22272e;
+  --graphite: #3c4242;
+  --stone: #8e8e86;
+  --pebble: #d8d6cf;
+  --warm-stone: #cfc5b8;
+  --ink: #171b1c;
+  --surface: #ffffff;
+  --line: color-mix(in oklab, var(--charcoal) 16%, transparent);
+  --shadow: 0 24px 80px color-mix(in oklab, var(--charcoal) 13%, transparent);
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ivory);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(90deg, color-mix(in oklab, var(--pebble) 28%, transparent) 1px, transparent 1px),
+    linear-gradient(var(--ivory), var(--mist) 48%, var(--ivory));
+  background-size: 96px 100%, auto;
+  color: var(--charcoal);
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--sage);
+  color: var(--ivory);
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 3px solid var(--sage);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  border-radius: 999px;
+  background: var(--charcoal);
+  color: var(--ivory);
+  padding: 0.75rem 1rem;
+  font-weight: 800;
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.page-shell {
+  margin-inline: auto;
+  width: min(100% - 2rem, 1180px);
+}
+
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.button-primary,
+.button-secondary,
+.button-subtle {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 14px;
+  padding: 0.78rem 1rem;
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1.2;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.button-primary {
+  background: var(--deep-sage);
+  color: var(--ivory);
+  box-shadow: 0 16px 40px color-mix(in oklab, var(--deep-sage) 24%, transparent);
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  background: var(--charcoal);
+}
+
+.button-secondary {
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 78%, transparent);
+  color: var(--charcoal);
+}
+
+.button-secondary:hover,
+.button-subtle:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--deep-sage) 38%, transparent);
+}
+
+.button-subtle {
+  color: var(--deep-sage);
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: color-mix(in oklab, var(--surface) 84%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.fine-print {
+  color: color-mix(in oklab, var(--graphite) 76%, transparent);
+  font-size: 0.92rem;
+}
+
+.kicker {
+  max-width: 44rem;
+  color: var(--deep-sage);
+  font-weight: 850;
+}
+
+.nav-glass {
+  background: color-mix(in oklab, var(--ivory) 90%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
