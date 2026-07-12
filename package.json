@@ -4,8 +4,10 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite"
+    "build": "pnpm run seo:generate && vite build",
+    "dev": "vite",
+    "seo:generate": "node scripts/generate-sitemap.mjs",
+    "seo:check": "node scripts/seo-check.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",

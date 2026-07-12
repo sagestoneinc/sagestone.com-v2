@@ -5,6 +5,9 @@ import { Container } from "../ui-brand/primitives";
 import { services } from "../../content/site";
 
 const companyLinks = [
+  { label: "Solutions", to: "/solutions" },
+  { label: "Experience", to: "/experience" },
+  { label: "Blog", to: "/blog" },
   { label: "About", to: "/about" },
   { label: "Industries", to: "/industries" },
   { label: "Case Studies", to: "/case-studies" },
@@ -39,7 +42,7 @@ export function Footer() {
 
           <FooterCol title="Services">
             {services.map((s) => (
-              <FooterLink key={s.slug} to={`/services/${s.slug}`}>
+              <FooterLink key={s.slug} to={s.path}>
                 {s.title}
               </FooterLink>
             ))}

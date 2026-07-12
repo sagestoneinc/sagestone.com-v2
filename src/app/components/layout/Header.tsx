@@ -7,8 +7,10 @@ import { services } from "../../content/site";
 
 const nav = [
   { label: "Home", to: "/" },
+  { label: "Solutions", to: "/solutions", hasMenu: true },
+  { label: "Experience", to: "/experience" },
+  { label: "Blog", to: "/blog" },
   { label: "About", to: "/about" },
-  { label: "Services", to: "/services", hasMenu: true },
   { label: "Why Philippines", to: "/why-philippines" },
   { label: "Industries", to: "/industries" },
   { label: "Case Studies", to: "/case-studies" },
@@ -78,7 +80,7 @@ export function Header({
                       {services.map((s) => (
                         <Link
                           key={s.slug}
-                          to={`/services/${s.slug}`}
+                          to={s.path}
                           className="block rounded-xl px-4 py-3 text-[0.92rem] text-charcoal transition-colors hover:bg-sage/10 hover:text-sage dark:text-chalk"
                         >
                           {s.title}
