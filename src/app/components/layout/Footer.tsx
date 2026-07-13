@@ -56,7 +56,7 @@ export function Footer() {
           <FooterCol title="Contact">
             <li className="flex items-start gap-3 text-[0.95rem] text-chalk/60">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-sage" />
-              hello@sagestone.co
+              hello@sagestoneinc.com
             </li>
             <li className="flex items-start gap-3 text-[0.95rem] text-chalk/60">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-sage" />

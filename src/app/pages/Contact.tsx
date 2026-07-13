@@ -56,8 +56,8 @@ export function Contact() {
             </div>
 
             <div className="mt-10 flex flex-col gap-3 border-t border-border pt-8 text-[0.98rem] text-slate-olive dark:text-muted-foreground">
-              <a href="mailto:hello@sagestone.co" className="flex items-center gap-3 transition-colors hover:text-sage">
-                <Mail className="h-4 w-4 text-sage" /> hello@sagestone.co
+              <a href="mailto:hello@sagestoneinc.com" className="flex items-center gap-3 transition-colors hover:text-sage">
+                <Mail className="h-4 w-4 text-sage" /> hello@sagestoneinc.com
               </a>
               <a href="tel:+15550184420" className="flex items-center gap-3 transition-colors hover:text-sage">
                 <Phone className="h-4 w-4 text-sage" /> +1 (555) 018-4420

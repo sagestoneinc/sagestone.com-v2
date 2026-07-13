@@ -9,6 +9,7 @@ import { Industries } from "./pages/Industries";
 import { CaseStudies } from "./pages/CaseStudies";
 import { FAQ } from "./pages/FAQ";
 import { Contact } from "./pages/Contact";
+import { NotFound } from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
