@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import { Container, Section } from "../components/ui-brand/primitives";
 import { FAQAccordion, PageHero, CTABand } from "../components/ui-brand/components";
 import { faqs } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { breadcrumbSchema, faqPageSchema } from "../components/seo/schema";
 
 export function FAQ() {
   const categories = useMemo(
@@ -14,6 +17,17 @@ export function FAQ() {
 
   return (
     <>
+      <Seo
+        {...pageMeta.faq}
+        path="/faq"
+        jsonLd={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "FAQ", path: "/faq" },
+          ]),
+          faqPageSchema(faqs),
+        ]}
+      />
       <PageHero
         eyebrow="FAQ"
         title="Clear answers, calmly given."

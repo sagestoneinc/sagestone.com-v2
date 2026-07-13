@@ -2,6 +2,9 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow } from "../components/ui-brand/primitives";
 import { FAQAccordion, PageHero, CTABand } from "../components/ui-brand/components";
 import { images } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { breadcrumbSchema, faqPageSchema } from "../components/seo/schema";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -33,6 +36,17 @@ const philippinesFaqs = [
 export function WhyPhilippines() {
   return (
     <>
+      <Seo
+        {...pageMeta.whyPhilippines}
+        path="/why-philippines"
+        jsonLd={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Why the Philippines", path: "/why-philippines" },
+          ]),
+          faqPageSchema(philippinesFaqs),
+        ]}
+      />
       <PageHero
         eyebrow="Why the Philippines"
         title="A talent market built for dependable remote support."

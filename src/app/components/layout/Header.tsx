@@ -12,6 +12,7 @@ const nav = [
   { label: "Why Philippines", to: "/why-philippines" },
   { label: "Industries", to: "/industries" },
   { label: "Case Studies", to: "/case-studies" },
+  { label: "Insights", to: "/blog" },
   { label: "FAQ", to: "/faq" },
 ];
 

@@ -2,6 +2,9 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow } from "../components/ui-brand/primitives";
 import { CTABand, PageHero, NoiseOverlay } from "../components/ui-brand/components";
 import { stats, images } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { breadcrumbSchema } from "../components/seo/schema";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -15,6 +18,14 @@ const values = [
 export function About() {
   return (
     <>
+      <Seo
+        {...pageMeta.about}
+        path="/about"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <PageHero
         eyebrow="About SageStone"
         title="A steady operational partner for ambitious teams."

@@ -26,6 +26,9 @@ import {
   faqs,
   images,
 } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { faqPageSchema } from "../components/seo/schema";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -39,6 +42,7 @@ const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 export function Home() {
   return (
     <>
+      <Seo {...pageMeta.home} path="/" jsonLd={faqPageSchema(faqs)} />
       {/* ---------- Hero ---------- */}
       <Section className="pt-40 pb-24 md:pt-48 md:pb-32">
         <Container>
@@ -90,7 +94,8 @@ export function Home() {
               <div className="overflow-hidden rounded-[1.75rem] border border-border">
                 <ImageWithFallback
                   src={images.heroWorkspace}
-                  alt="A calm, modern workspace with natural light"
+                  alt="Dedicated remote support team workspace"
+                  loading="eager"
                   className="aspect-[4/5] w-full object-cover"
                 />
               </div>

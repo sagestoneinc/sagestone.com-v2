@@ -2,12 +2,23 @@ import { ArrowRight } from "lucide-react";
 import { Container, Section, SectionHeader, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { ServiceIndex, ProcessList, PageHero, CTABand, NoiseOverlay } from "../components/ui-brand/components";
 import { services, processSteps } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { breadcrumbSchema } from "../components/seo/schema";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
 export function Services() {
   return (
     <>
+      <Seo
+        {...pageMeta.services}
+        path="/services"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
       <PageHero
         eyebrow="Services"
         title="A complete support layer for your operations."

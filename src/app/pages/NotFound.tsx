@@ -1,20 +1,11 @@
-import { useEffect } from "react";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
 
 export function NotFound() {
-  // Prevent search engines from indexing the catch-all route as duplicate content.
-  useEffect(() => {
-    const meta = document.createElement("meta");
-    meta.name = "robots";
-    meta.content = "noindex, follow";
-    document.head.appendChild(meta);
-    return () => {
-      document.head.removeChild(meta);
-    };
-  }, []);
-
   return (
     <Section className="pt-40 pb-28 md:pt-48">
+      <Seo {...pageMeta.notFound} path="/404" noindex />
       <Container>
         <div className="mx-auto max-w-xl text-center">
           <Eyebrow className="mb-7">404</Eyebrow>

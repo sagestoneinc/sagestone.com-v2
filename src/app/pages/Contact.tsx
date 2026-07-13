@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Check, Mail, Phone } from "lucide-react";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { services } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta, SITE } from "../content/seo";
+import { breadcrumbSchema } from "../components/seo/schema";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -25,6 +28,15 @@ export function Contact() {
     "w-full rounded-xl border border-border bg-input-background px-4 py-3 text-[0.98rem] text-charcoal placeholder:text-slate-olive/60 transition-colors focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 dark:text-chalk dark:placeholder:text-muted-foreground";
 
   return (
+    <>
+      <Seo
+        {...pageMeta.contact}
+        path="/contact"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
     <Section className="pt-40 pb-28 md:pt-48">
       <Container>
         <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
@@ -59,8 +71,8 @@ export function Contact() {
               <a href="mailto:hello@sagestoneinc.com" className="flex items-center gap-3 transition-colors hover:text-sage">
                 <Mail className="h-4 w-4 text-sage" /> hello@sagestoneinc.com
               </a>
-              <a href="tel:+15550184420" className="flex items-center gap-3 transition-colors hover:text-sage">
-                <Phone className="h-4 w-4 text-sage" /> +1 (555) 018-4420
+              <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-3 transition-colors hover:text-sage">
+                <Phone className="h-4 w-4 text-sage" /> {SITE.phoneDisplay}
               </a>
             </div>
           </div>
@@ -118,6 +130,7 @@ export function Contact() {
         </div>
       </Container>
     </Section>
+    </>
   );
 }
 

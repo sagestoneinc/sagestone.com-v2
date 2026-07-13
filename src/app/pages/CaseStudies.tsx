@@ -1,10 +1,21 @@
 import { Container, Section } from "../components/ui-brand/primitives";
 import { PageHero, CaseStudyCard, TestimonialCard, CTABand } from "../components/ui-brand/components";
 import { caseStudies, testimonials } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { breadcrumbSchema } from "../components/seo/schema";
 
 export function CaseStudies() {
   return (
     <>
+      <Seo
+        {...pageMeta.caseStudies}
+        path="/case-studies"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Case Studies", path: "/case-studies" },
+        ])}
+      />
       <PageHero
         eyebrow="Case Studies"
         title="Proof, presented plainly."

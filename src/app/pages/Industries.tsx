@@ -1,5 +1,8 @@
 import { Container, Section } from "../components/ui-brand/primitives";
 import { PageHero, CTABand } from "../components/ui-brand/components";
+import { Seo } from "../components/seo/Seo";
+import { pageMeta } from "../content/seo";
+import { breadcrumbSchema } from "../components/seo/schema";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -39,6 +42,14 @@ const industryDetails = [
 export function Industries() {
   return (
     <>
+      <Seo
+        {...pageMeta.industries}
+        path="/industries"
+        jsonLd={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Industries", path: "/industries" },
+        ])}
+      />
       <PageHero
         eyebrow="Industries Served"
         title="Support shaped to your industry's realities."

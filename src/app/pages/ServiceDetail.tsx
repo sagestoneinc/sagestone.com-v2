@@ -4,6 +4,9 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { FAQAccordion, CTABand, NoiseOverlay } from "../components/ui-brand/components";
 import { services, serviceDetails } from "../content/site";
+import { Seo } from "../components/seo/Seo";
+import { serviceMeta } from "../content/seo";
+import { serviceSchema, faqPageSchema, breadcrumbSchema } from "../components/seo/schema";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -12,12 +15,31 @@ export function ServiceDetail() {
   const service = services.find((s) => s.slug === slug);
   const detail = slug ? serviceDetails[slug] : undefined;
 
-  if (!service || !detail) {
+  if (!service || !detail || !slug) {
     return <Navigate to="/services" replace />;
   }
 
+  const path = `/services/${slug}`;
+  const meta = serviceMeta[slug];
+  const title = meta?.title ?? `${service.title} | SageStone`;
+  const description = meta?.description ?? service.summary;
+
   return (
     <>
+      <Seo
+        title={title}
+        description={description}
+        path={path}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.title, path },
+          ]),
+          serviceSchema({ name: service.title, description: service.summary, path }),
+          faqPageSchema(detail.faqs),
+        ]}
+      />
       <Section className="pt-40 pb-16 md:pt-48 md:pb-20">
         <Container>
           <Link to="/services" className="mb-10 inline-flex items-center gap-2 text-[0.9rem] text-slate-olive transition-colors hover:text-sage dark:text-muted-foreground">
@@ -124,6 +146,57 @@ export function ServiceDetail() {
           <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20">
             <SectionHeader eyebrow="FAQ" title={`About ${service.title.toLowerCase()}`} />
             <FAQAccordion items={detail.faqs} />
+          </div>
+        </Container>
+      </Section>
+
+      {/* Related — contextual internal links */}
+      <Section className="py-20 md:py-28">
+        <Container>
+          <SectionHeader eyebrow="Keep Exploring" title="Related pages" />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Link
+              to="/why-philippines"
+              className="group rounded-2xl border border-border p-6 transition-colors hover:border-sage/40 hover:bg-sage/[0.04]"
+            >
+              <h3 className="text-[1.15rem] text-charcoal dark:text-chalk">Why the Philippines</h3>
+              <p className="mt-2 text-[0.95rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
+                Where our {service.title.toLowerCase()} talent comes from — and why it works.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-sage">
+                Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+            <Link
+              to="/industries"
+              className="group rounded-2xl border border-border p-6 transition-colors hover:border-sage/40 hover:bg-sage/[0.04]"
+            >
+              <h3 className="text-[1.15rem] text-charcoal dark:text-chalk">Industries we support</h3>
+              <p className="mt-2 text-[0.95rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
+                See how {service.title.toLowerCase()} fits agencies, e-commerce, real estate and more.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-sage">
+                Explore industries <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+            {services
+              .filter((s) => s.slug !== slug)
+              .slice(0, 1)
+              .map((s) => (
+                <Link
+                  key={s.slug}
+                  to={`/services/${s.slug}`}
+                  className="group rounded-2xl border border-border p-6 transition-colors hover:border-sage/40 hover:bg-sage/[0.04]"
+                >
+                  <h3 className="text-[1.15rem] text-charcoal dark:text-chalk">{s.title}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
+                    {s.summary}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-sage">
+                    View service <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              ))}
           </div>
         </Container>
       </Section>
