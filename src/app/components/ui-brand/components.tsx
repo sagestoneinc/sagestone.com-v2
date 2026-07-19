@@ -33,16 +33,17 @@ export function ServiceIndex({ services }: { services: Service[] }) {
             to={`/services/${service.slug}`}
             className="group block border-t border-border py-7 transition-colors last:border-b hover:bg-sage/[0.04] md:grid md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-10 md:py-10"
           >
-            {/* desktop-only leading number */}
+            {/* desktop-only leading number (decorative) */}
             <span
-              className="hidden text-[1.1rem] text-gold tabular-nums md:block"
+              aria-hidden="true"
+              className="hidden text-[1.1rem] text-gold-ink tabular-nums md:block"
               style={serifStyle}
             >
               {num}
             </span>
             <div>
               <h3 className="text-[1.5rem] leading-tight text-charcoal transition-colors group-hover:text-sage dark:text-chalk md:text-[1.85rem]">
-                <span className="mr-3 text-[0.95rem] text-gold tabular-nums md:hidden" style={serifStyle}>
+                <span aria-hidden="true" className="mr-3 text-[0.95rem] text-gold-ink tabular-nums md:hidden" style={serifStyle}>
                   {num}
                 </span>
                 {service.title}
@@ -51,7 +52,7 @@ export function ServiceIndex({ services }: { services: Service[] }) {
                 {service.summary}
               </p>
               {/* mobile CTA */}
-              <span className="mt-4 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-sage md:hidden">
+              <span className="mt-4 inline-flex items-center gap-1.5 text-[0.9rem] font-medium text-sage-ink md:hidden">
                 Explore service
                 <ArrowUpRight className="h-4 w-4" />
               </span>
@@ -80,12 +81,12 @@ export function ProcessList({
           key={step.number}
           className="border-t border-chalk/12 py-8 md:grid md:grid-cols-[auto_0.9fr_1.1fr] md:items-baseline md:gap-12 md:py-11"
         >
-          {/* desktop-only large number */}
-          <span className="hidden text-gold md:block md:text-[3.25rem] md:leading-none" style={serifStyle}>
+          {/* desktop-only large number (decorative; on Pine gold passes AA) */}
+          <span aria-hidden="true" className="hidden text-gold md:block md:text-[3.25rem] md:leading-none" style={serifStyle}>
             {step.number}
           </span>
           <h3 className="text-[1.45rem] leading-tight text-chalk md:text-[1.85rem]" style={serifStyle}>
-            <span className="mr-4 text-[1.15rem] text-gold tabular-nums md:hidden" style={serifStyle}>
+            <span aria-hidden="true" className="mr-4 text-[1.15rem] text-gold tabular-nums md:hidden" style={serifStyle}>
               {step.number}
             </span>
             {step.title}
@@ -183,7 +184,7 @@ export function CTABand({
             className="pointer-events-none absolute inset-0 opacity-[0.06]"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 20% 20%, #7E8A77 0, transparent 40%), radial-gradient(circle at 80% 80%, #B49A6C 0, transparent 40%)",
+                "radial-gradient(circle at 20% 20%, var(--sage) 0, transparent 40%), radial-gradient(circle at 80% 80%, var(--gold) 0, transparent 40%)",
             }}
             aria-hidden="true"
           />
@@ -263,7 +264,7 @@ export function CaseStudyCard({
         />
       </div>
       <div className="p-7">
-        <span className="text-[0.78rem] uppercase tracking-[0.18em] text-gold">
+        <span className="text-[0.78rem] uppercase tracking-[0.18em] text-gold-ink">
           {study.industry}
         </span>
         <h3 className="mt-3 text-[1.35rem] text-charcoal dark:text-chalk">{study.headline}</h3>

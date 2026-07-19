@@ -5,7 +5,10 @@
 
   /* --- SageStone brand palette --- */
   --sage: #7E8A77;        /* Stone Sage — primary brand */
-  --gold: #B49A6C;        /* Muted Gold — accent */
+  --sage-deep: #6D7867;   /* Sage pressed/hover */
+  --sage-ink: #59634F;    /* Sage darkened for AA text on light (5.6:1 on ivory) */
+  --gold: #B49A6C;        /* Muted Gold — accent (hairlines/decor) */
+  --gold-ink: #7E6636;    /* Gold darkened for AA text on light (4.9:1 on ivory) */
   --charcoal: #222622;    /* Deep Charcoal — primary text */
   --slate-olive: #5E655C; /* Slate Olive — secondary text */
   --ivory: #F5F1E8;       /* Warm Ivory — light backgrounds */
@@ -59,6 +62,9 @@
 }
 
 .dark {
+  /* On Pine, the base sage/gold already pass AA — ink tokens revert to them */
+  --sage-ink: var(--sage);
+  --gold-ink: var(--gold);
   --background: var(--pine);
   --foreground: var(--chalk);
   --card: #1e231f;
@@ -100,7 +106,10 @@
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-sage-ink: var(--sage-ink);
   --color-gold: var(--gold);
+  --color-gold-ink: var(--gold-ink);
   --color-charcoal: var(--charcoal);
   --color-slate-olive: var(--slate-olive);
   --color-ivory: var(--ivory);

@@ -91,7 +91,8 @@ export function Home() {
                 <ImageWithFallback
                   src={images.heroWorkspace}
                   alt="A calm, modern workspace with natural light"
-                  className="aspect-[4/5] w-full object-cover"
+                  loading="eager"
+                  className="aspect-[4/3] w-full object-cover sm:aspect-[4/5]"
                 />
               </div>
             </motion.div>
@@ -201,7 +202,7 @@ export function Home() {
                   },
                 ].map((item, i) => (
                   <div key={item.title} className="grid grid-cols-[auto_1fr] gap-5 py-6 first:pt-0">
-                    <span className="text-[1.05rem] text-gold tabular-nums" style={serif}>
+                    <span aria-hidden="true" className="text-[1.05rem] text-gold-ink tabular-nums" style={serif}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
@@ -246,7 +247,6 @@ export function Home() {
         <Container>
           <motion.div {...fadeUp}>
             <SectionHeader
-              eyebrow="Industries Served"
               title="Trusted across growth-focused teams"
               description="From agencies to real estate, SageStone adapts to the operational realities of the businesses we support."
             />
@@ -267,7 +267,7 @@ export function Home() {
             ))}
           </div>
           <div className="mt-14">
-            <Link to="/industries" className="group inline-flex items-center gap-2 font-medium text-sage">
+            <Link to="/industries" className="group inline-flex items-center gap-2 font-medium text-sage-ink">
               See all industries
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -279,7 +279,7 @@ export function Home() {
       <Section className="bg-cloud py-28 dark:bg-card md:py-40">
         <Container>
           <motion.div {...fadeUp}>
-            <SectionHeader eyebrow="Proof" title="Understated results, spoken plainly" />
+            <SectionHeader title="Understated results, spoken plainly" />
           </motion.div>
           <div className="mt-16 grid gap-8 lg:grid-cols-3">
             {testimonials.map((t, i) => (

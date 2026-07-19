@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import { MotionConfig } from "motion/react";
 import { Layout } from "./components/layout/Layout";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
@@ -13,8 +14,9 @@ import { NotFound } from "./pages/NotFound";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    <MotionConfig reducedMotion="user">
+      <BrowserRouter>
+        <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -27,7 +29,8 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </MotionConfig>
   );
 }
