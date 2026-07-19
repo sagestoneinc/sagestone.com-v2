@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Mail, Phone } from "lucide-react";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { services } from "../content/site";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const successRef = useRef<HTMLHeadingElement>(null);
+
+  // Move focus to the confirmation so screen-reader and keyboard users land on it
+  useEffect(() => {
+    if (submitted) successRef.current?.focus();
+  }, [submitted]);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -68,11 +74,11 @@ export function Contact() {
           {/* Right: form */}
           <div className="rounded-3xl border border-border bg-card p-8 shadow-[0_18px_40px_-28px_rgba(34,38,34,0.4)] md:p-10">
             {submitted ? (
-              <div className="flex h-full min-h-[400px] flex-col items-center justify-center text-center">
+              <div role="status" aria-live="polite" className="flex h-full min-h-[400px] flex-col items-center justify-center text-center">
                 <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-sage/15 text-sage">
-                  <Check className="h-8 w-8" />
+                  <Check className="h-8 w-8" aria-hidden="true" />
                 </span>
-                <h2 className="mt-6 text-[1.8rem] text-charcoal dark:text-chalk">Thank you.</h2>
+                <h2 ref={successRef} tabIndex={-1} className="mt-6 text-[1.8rem] text-charcoal outline-none dark:text-chalk">Thank you.</h2>
                 <p className="mt-3 max-w-sm text-[1.02rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
                   We've received your details and will be in touch within one business
                   day to arrange your discovery call.
@@ -85,17 +91,17 @@ export function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field label="Full name">
-                    <input required value={form.name} onChange={(e) => update("name", e.target.value)} className={inputBase} placeholder="Jane Doe" />
+                    <input required name="name" autoComplete="name" value={form.name} onChange={(e) => update("name", e.target.value)} className={inputBase} placeholder="Jane Doe" />
                   </Field>
                   <Field label="Work email">
-                    <input required type="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputBase} placeholder="jane@company.com" />
+                    <input required type="email" name="email" autoComplete="email" inputMode="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputBase} placeholder="jane@company.com" />
                   </Field>
                 </div>
-                <Field label="Company">
-                  <input value={form.company} onChange={(e) => update("company", e.target.value)} className={inputBase} placeholder="Company name" />
+                <Field label="Company" optional>
+                  <input name="organization" autoComplete="organization" value={form.company} onChange={(e) => update("company", e.target.value)} className={inputBase} placeholder="Company name" />
                 </Field>
-                <Field label="What do you need support with?">
-                  <select value={form.service} onChange={(e) => update("service", e.target.value)} className={inputBase}>
+                <Field label="What do you need support with?" optional>
+                  <select name="service" value={form.service} onChange={(e) => update("service", e.target.value)} className={`${inputBase} ${form.service === "" ? "text-slate-olive/70 dark:text-muted-foreground" : ""}`}>
                     <option value="">Select a service</option>
                     {services.map((s) => (
                       <option key={s.slug} value={s.title}>{s.title}</option>
@@ -103,8 +109,8 @@ export function Contact() {
                     <option value="Not sure yet">Not sure yet</option>
                   </select>
                 </Field>
-                <Field label="Tell us a little more">
-                  <textarea rows={4} value={form.message} onChange={(e) => update("message", e.target.value)} className={`${inputBase} resize-none`} placeholder="A sentence or two about your business and what you're hoping to solve." />
+                <Field label="Tell us a little more" optional>
+                  <textarea rows={4} name="message" value={form.message} onChange={(e) => update("message", e.target.value)} className={`${inputBase} resize-none`} placeholder="A sentence or two about your business and what you're hoping to solve." />
                 </Field>
                 <Button type="submit" size="lg" className="mt-2 w-full">
                   Book a Discovery Call
@@ -121,10 +127,25 @@ export function Contact() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  optional = false,
+  children,
+}: {
+  label: string;
+  optional?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-[0.9rem] font-medium text-charcoal dark:text-chalk">{label}</span>
+      <span className="text-[0.9rem] font-medium text-charcoal dark:text-chalk">
+        {label}
+        {optional && (
+          <span className="ml-1.5 font-normal text-slate-olive dark:text-muted-foreground">
+            (optional)
+          </span>
+        )}
+      </span>
       {children}
     </label>
   );

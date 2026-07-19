@@ -139,6 +139,8 @@ export function FAQAccordion({
           <div key={item.question}>
             <button
               type="button"
+              id={`faq-q-${i}`}
+              aria-controls={`faq-panel-${i}`}
               onClick={() => setOpen(isOpen ? null : i)}
               className="flex w-full items-center justify-between gap-6 px-7 py-6 text-left"
               aria-expanded={isOpen}
@@ -146,11 +148,14 @@ export function FAQAccordion({
               <span className="text-[1.08rem] font-medium text-charcoal dark:text-chalk">
                 {item.question}
               </span>
-              <span className="shrink-0 text-sage">
+              <span className="shrink-0 text-sage" aria-hidden="true">
                 {isOpen ? <Minus className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
               </span>
             </button>
             <div
+              id={`faq-panel-${i}`}
+              role="region"
+              aria-labelledby={`faq-q-${i}`}
               className={`grid transition-all duration-300 ease-out ${
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
               }`}
