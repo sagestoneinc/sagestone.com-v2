@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-19T00:00:00Z",
+  "title": "Design System: SageStone",
+  "extensions": {
+    "colorMeta": {
+      "sage": { "role": "primary", "displayName": "Stone Sage", "canonical": "#7E8A77", "tonalRamp": ["#20241E", "#333829", "#4C5342", "#66705C", "#7E8A77", "#9BA694", "#BCC4B6", "#DBE0D6", "#EFF2EB"] },
+      "gold": { "role": "secondary", "displayName": "Muted Gold", "canonical": "#B49A6C", "tonalRamp": ["#2E2618", "#453A26", "#5E5034", "#8A754C", "#B49A6C", "#C9B48F", "#DBCCB2", "#EBE1D2", "#F6F0E6"] },
+      "charcoal": { "role": "neutral", "displayName": "Deep Charcoal", "canonical": "#222622", "tonalRamp": ["#171B18", "#222622", "#333833", "#4A514A", "#5E655C", "#828A80", "#AAB2A7", "#D2D8CF", "#EEF1EC"] },
+      "ivory": { "role": "neutral", "displayName": "Warm Ivory", "canonical": "#F5F1E8", "tonalRamp": ["#3B382F", "#57534733", "#8A8474", "#B8B2A2", "#CFC7BB", "#E8E1D6", "#F5F1E8", "#FAF8F4", "#FDFCF9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Fraunces headlines only — section and page heads." },
+      "body": { "displayName": "Body", "purpose": "Inter reading copy, capped at 65–75ch." },
+      "label": { "displayName": "Eyebrow / Label", "purpose": "Uppercase tracked kicker paired with a gold hairline." }
+    },
+    "shadows": [
+      { "name": "rest-lift", "value": "0 1px 2px rgba(34,38,34,0.06)", "purpose": "Resting shadow-sm on primary buttons and select raised elements." },
+      { "name": "hover-lift", "value": "0 4px 12px rgba(34,38,34,0.10)", "purpose": "shadow-md response on hover for interactive surfaces." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "all 200ms ease", "purpose": "Default state transition for buttons and interactive elements." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "container", "value": "1200px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The canonical marketing CTA (e.g. 'Book a discovery call'). Pill-shaped, Stone Sage.",
+      "html": "<button class=\"ds-btn-primary\">Book a discovery call</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #7E8A77; color: #FAF8F4; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-weight: 500; font-size: 0.95rem; padding: 10px 20px; border: none; border-radius: 9999px; box-shadow: 0 1px 2px rgba(34,38,34,0.06); transition: all 200ms ease; cursor: pointer; } .ds-btn-primary:hover { background: #6D7867; box-shadow: 0 4px 12px rgba(34,38,34,0.10); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #FAF8F4, 0 0 0 4px #7E8A77; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Lower-commitment action (e.g. 'Explore services'). Outline that inverts on hover.",
+      "html": "<button class=\"ds-btn-secondary\">Explore services</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: transparent; color: #222622; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-weight: 500; font-size: 0.95rem; padding: 10px 20px; border: 1px solid rgba(34,38,34,0.20); border-radius: 9999px; transition: all 200ms ease; cursor: pointer; } .ds-btn-secondary:hover { background: #222622; color: #FAF8F4; } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 2px #FAF8F4, 0 0 0 4px #7E8A77; }"
+    },
+    {
+      "name": "Eyebrow",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "The brand kicker: gold hairline + uppercase tracked label. A deliberate signature, not per-section scaffolding.",
+      "html": "<span class=\"ds-eyebrow\"><span class=\"ds-eyebrow-line\"></span>Our Services</span>",
+      "css": ".ds-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.24em; color: #5E655C; } .ds-eyebrow-line { display: inline-block; height: 1px; width: 24px; background: #B49A6C; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat-at-rest content surface. Cloud fill on the Ivory page, tone-led separation.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">Executive Assistance</h3><p class=\"ds-card-body\">Discreet, senior-level support for leaders who need leverage, not oversight.</p></div>",
+      "css": ".ds-card { background: #FAF8F4; color: #222622; border: 1px solid rgba(34,38,34,0.12); border-radius: 10px; padding: 24px; } .ds-card-title { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.5rem; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 8px; } .ds-card-body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1.05rem; line-height: 1.65; color: #5E655C; margin: 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Contact/inquiry field. White on the warm page, sage focus ring.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"you@company.com\" />",
+      "css": ".ds-input { width: 100%; background: #FFFFFF; color: #222622; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; line-height: 1.5; padding: 10px 14px; border: 1px solid rgba(34,38,34,0.12); border-radius: 10px; transition: box-shadow 200ms ease; } .ds-input::placeholder { color: #5E655C; } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(126,138,119,0.5); border-color: #7E8A77; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Bedrock",
+    "overview": "SageStone is the calm opposite of transactional outsourcing, and the interface has to feel that way before a single word is read. The system is built on stone and sage: warm ivory light, soft neutral surfaces, deep charcoal ink, and a single muted-gold accent used like a struck line in a ledger. Fraunces carries the headlines with quiet editorial warmth; Inter does the honest, legible work of the body. Reassurance is the job, and reassurance is delivered through restraint. Depth is tonal, not dramatic — surfaces are mostly flat, layered by subtle shifts in the stone-and-ivory ramp, with shadow used only as a whisper of lift on interactive elements.",
+    "keyCharacteristics": [
+      "Warm-neutral stone palette with one muted-gold accent, held to a whisper",
+      "Fraunces (display) + Inter (body): editorial warmth over honest legibility",
+      "Flat, tonally-layered surfaces; shadow only as a response to state",
+      "Soft-rounded, restrained components; pill-shaped primary actions",
+      "Calm density — generous whitespace, no visual crowding"
+    ],
+    "rules": [
+      { "name": "The One Gold Rule", "body": "Muted Gold appears on ≤10% of any screen — a hairline, a mark, a single detail. It is never a fill, never a gradient, never a second voice. Its scarcity is the entire point.", "section": "colors" },
+      { "name": "The Grounded Green Rule", "body": "Stone Sage is greyed and calm by design. Never brighten or saturate it toward a 'fresh/eco' green; that reads as wellness startup, not bedrock.", "section": "colors" },
+      { "name": "The Deliberate Eyebrow Rule", "body": "The uppercase tracked eyebrow with its gold hairline is a chosen brand signature — but it earns its place per section, not by reflex on every one.", "section": "typography" },
+      { "name": "The Serif-Where-It-Counts Rule", "body": "Fraunces is for headings and rare display moments only. Body copy is always Inter.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. If a shadow is doing decorative work rather than signaling state, delete it and separate the surfaces with tone instead.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Warm Ivory (#F5F1E8) as the page ground and let Cloud/Soft Stone layer depth tonally.",
+      "Do hold Muted Gold to ≤10% of any screen — hairlines and marks only.",
+      "Do set headlines in Fraunces and body in Inter; cap body measure at 65–75ch.",
+      "Do use the pill primary button in Stone Sage → Sage Deep on hover for the 'Book a discovery call' CTA.",
+      "Do keep surfaces flat at rest; use shadow only as a state response.",
+      "Do meet WCAG 2.1 AA — verify Slate Olive and Muted Gold on Ivory hit ≥4.5:1 for body text.",
+      "Do provide a prefers-reduced-motion alternative for every motion-driven animation.",
+      "Do vary section spacing and eyebrow cadence for rhythm."
+    ],
+    "donts": [
+      "Don't ship the cheap, high-volume BPO look — no crowded, price-war, call-center layouts.",
+      "Don't ship generic SaaS clichés — no purple gradients, no hero-metric template, no endless identical card grids.",
+      "Don't ship stiff corporate consulting — no jargon walls, no rigid enterprise stock photography.",
+      "Don't ship loud, gimmicky startup energy — no neon, no aggressive urgency, no emoji spam.",
+      "Don't brighten or saturate Stone Sage toward a fresh/eco green.",
+      "Don't put the tracked eyebrow on every single section by reflex.",
+      "Don't use border-left/border-right > 1px as a colored accent stripe.",
+      "Don't use gradient text or decorative glassmorphism.",
+      "Don't set long-form body copy in Fraunces."
+    ]
+  }
+}
