@@ -1,16 +1,20 @@
+import { lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { MotionConfig } from "motion/react";
 import { Layout } from "./components/layout/Layout";
 import { Home } from "./pages/Home";
-import { About } from "./pages/About";
-import { Services } from "./pages/Services";
-import { ServiceDetail } from "./pages/ServiceDetail";
-import { WhyPhilippines } from "./pages/WhyPhilippines";
-import { Industries } from "./pages/Industries";
-import { CaseStudies } from "./pages/CaseStudies";
-import { FAQ } from "./pages/FAQ";
-import { Contact } from "./pages/Contact";
-import { NotFound } from "./pages/NotFound";
+
+// Home stays eager (the landing route → best LCP). The rest split into
+// their own chunks and load on navigation.
+const About = lazy(() => import("./pages/About").then((m) => ({ default: m.About })));
+const Services = lazy(() => import("./pages/Services").then((m) => ({ default: m.Services })));
+const ServiceDetail = lazy(() => import("./pages/ServiceDetail").then((m) => ({ default: m.ServiceDetail })));
+const WhyPhilippines = lazy(() => import("./pages/WhyPhilippines").then((m) => ({ default: m.WhyPhilippines })));
+const Industries = lazy(() => import("./pages/Industries").then((m) => ({ default: m.Industries })));
+const CaseStudies = lazy(() => import("./pages/CaseStudies").then((m) => ({ default: m.CaseStudies })));
+const FAQ = lazy(() => import("./pages/FAQ").then((m) => ({ default: m.FAQ })));
+const Contact = lazy(() => import("./pages/Contact").then((m) => ({ default: m.Contact })));
+const NotFound = lazy(() => import("./pages/NotFound").then((m) => ({ default: m.NotFound })));
 
 export default function App() {
   return (

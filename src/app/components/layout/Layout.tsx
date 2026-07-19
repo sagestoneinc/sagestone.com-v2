@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -20,7 +20,9 @@ export function Layout() {
     <div className="flex min-h-screen flex-col bg-background">
       <Header dark={dark} onToggleDark={() => setDark((v) => !v)} />
       <main className="flex-1">
-        <Outlet />
+        <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </div>
