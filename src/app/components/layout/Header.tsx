@@ -64,7 +64,7 @@ export function Header({
                   className={({ isActive }) =>
                     `flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] transition-colors ${
                       isActive
-                        ? "text-sage"
+                        ? "text-sage-ink"
                         : "text-charcoal hover:text-sage dark:text-chalk"
                     }`
                   }
@@ -96,7 +96,7 @@ export function Header({
                 className={({ isActive }) =>
                   `rounded-full px-4 py-2 text-[0.95rem] transition-colors ${
                     isActive
-                      ? "text-sage"
+                      ? "text-sage-ink"
                       : "text-charcoal hover:text-sage dark:text-chalk"
                   }`
                 }
@@ -141,7 +141,7 @@ export function Header({
                 end={item.to === "/"}
                 className={({ isActive }) =>
                   `rounded-xl px-4 py-3 text-[1.05rem] ${
-                    isActive ? "bg-sage/10 text-sage" : "text-charcoal dark:text-chalk"
+                    isActive ? "bg-sage/10 text-sage-ink" : "text-charcoal dark:text-chalk"
                   }`
                 }
               >

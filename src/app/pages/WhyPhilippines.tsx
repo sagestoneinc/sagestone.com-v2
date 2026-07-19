@@ -66,7 +66,7 @@ export function WhyPhilippines() {
                   key={a.title}
                   className="grid grid-cols-[auto_1fr] items-baseline gap-6 border-t border-border py-8 last:border-b md:gap-10 md:py-9"
                 >
-                  <span className="text-[1.05rem] text-gold tabular-nums" style={serif}>
+                  <span aria-hidden="true" className="text-[1.05rem] text-gold-ink tabular-nums" style={serif}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>

@@ -64,7 +64,7 @@ export function ServiceDetail() {
                   key={c.title}
                   className="grid grid-cols-[auto_1fr] items-baseline gap-6 border-t border-border py-8 last:border-b md:gap-10 md:py-9"
                 >
-                  <span className="text-[1.05rem] text-gold tabular-nums" style={serif}>
+                  <span aria-hidden="true" className="text-[1.05rem] text-gold-ink tabular-nums" style={serif}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
@@ -89,7 +89,7 @@ export function ServiceDetail() {
             <div>
               {detail.useCases.map((u, i) => (
                 <div key={u} className="grid grid-cols-[auto_1fr] items-baseline gap-6 border-t border-border py-7 last:border-b md:gap-10">
-                  <span className="text-[1.05rem] text-gold tabular-nums" style={serif}>
+                  <span aria-hidden="true" className="text-[1.05rem] text-gold-ink tabular-nums" style={serif}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-[1.25rem] leading-snug text-charcoal dark:text-chalk md:text-[1.45rem]">{u}</span>

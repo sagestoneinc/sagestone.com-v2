@@ -72,7 +72,7 @@ export function Services() {
               { n: "03", title: "How we start", body: "A short discovery call, thoughtful matching, and a structured onboarding — usually within days." },
             ].map((b) => (
               <div key={b.n} className="border-t border-border pt-7">
-                <span className="text-[1.05rem] text-gold" style={serif}>{b.n}</span>
+                <span aria-hidden="true" className="text-[1.05rem] text-gold-ink" style={serif}>{b.n}</span>
                 <h3 className="mt-4 text-[1.45rem] text-charcoal dark:text-chalk">{b.title}</h3>
                 <p className="mt-3 text-[1rem] leading-relaxed text-slate-olive dark:text-muted-foreground">{b.body}</p>
               </div>

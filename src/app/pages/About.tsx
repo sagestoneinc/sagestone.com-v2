@@ -65,7 +65,7 @@ export function About() {
           <div className="mt-16 grid gap-x-14 gap-y-12 sm:grid-cols-2">
             {values.map((v, i) => (
               <div key={v.title} className="grid grid-cols-[auto_1fr] items-baseline gap-6 border-t border-border pt-7">
-                <span className="text-[1.05rem] text-gold tabular-nums" style={serif}>
+                <span aria-hidden="true" className="text-[1.05rem] text-gold-ink tabular-nums" style={serif}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>

@@ -51,7 +51,7 @@ export function Industries() {
             {industryDetails.map((ind, i) => (
               <div key={ind.name} className="flex h-full flex-col border-t border-border pt-8">
                 <div className="flex items-baseline gap-5">
-                  <span className="text-[1.05rem] text-gold tabular-nums" style={serif}>
+                  <span aria-hidden="true" className="text-[1.05rem] text-gold-ink tabular-nums" style={serif}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="text-[1.7rem] text-charcoal dark:text-chalk md:text-[2rem]">{ind.name}</h3>
@@ -67,7 +67,7 @@ export function Industries() {
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {ind.roles.map((r) => (
-                    <li key={r} className="rounded-full border border-sage/30 px-3.5 py-1.5 text-[0.85rem] text-sage">
+                    <li key={r} className="rounded-full border border-sage/30 px-3.5 py-1.5 text-[0.85rem] text-sage-ink">
                       {r}
                     </li>
                   ))}
