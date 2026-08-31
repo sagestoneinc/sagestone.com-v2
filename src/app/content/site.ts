@@ -8,10 +8,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-/* ---------- Imagery (Unsplash, brand-aligned: calm, natural light) ---------- */
+/* ---------- Imagery (local founder portrait + Unsplash: calm, natural light) ---------- */
 export const images = {
-  heroWorkspace:
-    "https://images.unsplash.com/photo-1774853094610-89be6f1a7690?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+  heroFounder: "/founder-hero.jpg",
   officeGlass:
     "https://images.unsplash.com/photo-1765371514743-45bd8e6c0a28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
   woodenDesk:
