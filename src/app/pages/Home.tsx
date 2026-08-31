@@ -89,10 +89,10 @@ export function Home() {
             >
               <div className="overflow-hidden rounded-[1.75rem] border border-border">
                 <ImageWithFallback
-                  src={images.heroWorkspace}
-                  alt="A calm, modern workspace with natural light"
+                  src={images.heroFounder}
+                  alt="SageStone's founder at work in a warm, naturally lit office"
                   loading="eager"
-                  className="aspect-[4/3] w-full object-cover sm:aspect-[4/5]"
+                  className="aspect-[4/3] w-full object-cover object-top sm:aspect-[4/5]"
                 />
               </div>
             </motion.div>
