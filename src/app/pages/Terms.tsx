@@ -14,7 +14,7 @@ const sections = [
   { id: "confidentiality", title: "Confidentiality" },
   { id: "third-party-platforms", title: "Third-Party Platforms" },
   { id: "intellectual-property", title: "Intellectual Property" },
-  { id: "text-messaging-terms", title: "Text Messaging Terms" },
+  { id: "text-messaging-terms", title: "SMS Terms & Conditions" },
   { id: "disclaimers", title: "Disclaimers" },
   { id: "limitation-of-liability", title: "Limitation of Liability" },
   { id: "termination", title: "Termination" },
@@ -226,9 +226,9 @@ export function Terms() {
                 </P>
               </Clause>
 
-              <Clause index={9} id="text-messaging-terms" title="Text Messaging Terms">
+              <Clause index={9} id="text-messaging-terms" title="SMS Terms & Conditions">
                 <P>
-                  SageStone may communicate with prospects and clients by text message
+                  Sage Stone (SageStone Inc.) may communicate with prospects and clients by text message
                   (SMS and MMS) about inquiries, scheduling, and active engagements.
                   By giving consent, you agree to the following terms, which mirror
                   the SMS section of our{" "}
@@ -237,9 +237,7 @@ export function Terms() {
 
                 <Callout>
                   <strong className="font-semibold text-charcoal dark:text-chalk">
-                    We do not sell, rent, share, or otherwise transfer mobile phone
-                    numbers or SMS consent data to any third party or affiliate for
-                    their own marketing or promotional purposes.
+                    No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. We do not sell, rent, share, or otherwise transfer mobile phone numbers or SMS consent data to any third party or affiliate for their own marketing or promotional purposes.
                   </strong>{" "}
                   Your number is used only by SageStone to communicate with you.
                 </Callout>

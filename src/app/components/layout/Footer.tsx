@@ -20,7 +20,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
-              <Monogram className="h-9 w-auto text-sage" />
+              <Monogram className="h-9 w-[1.4rem] text-sage" />
               <span
                 className="text-[1.5rem] leading-none"
                 style={{ fontFamily: "var(--font-display)", fontWeight: 600 }}
@@ -76,6 +76,7 @@ export function Footer() {
           <div className="flex gap-6">
             <Link to="/privacy" className="transition-colors hover:text-chalk">Privacy Policy</Link>
             <Link to="/terms" className="transition-colors hover:text-chalk">Terms of Service</Link>
+            <Link to="/sms-terms" className="transition-colors hover:text-chalk">SMS Terms</Link>
           </div>
         </div>
       </Container>

@@ -1,30 +1,21 @@
 import { Link } from "react-router";
 
 /**
- * SageStone "Bedrock Monogram" — an interlocking S mark built from two
- * mirrored crescent strokes. Uses currentColor so it adapts to context.
+ * SageStone approved Bedrock Monogram loaded from the brand asset.
+ * Uses currentColor so it adapts to header, footer, and dark mode contexts.
  */
-export function Monogram({ className = "h-10 w-auto" }: { className?: string }) {
+export function Monogram({ className = "h-10 w-[1.55rem]" }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 88 104"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
+    <span
+      className={`inline-block shrink-0 ${className}`}
+      style={{
+        aspectRatio: "880 / 1432",
+        backgroundColor: "currentColor",
+        WebkitMask: 'url("/sagestone-monogram.svg") center / contain no-repeat',
+        mask: 'url("/sagestone-monogram.svg") center / contain no-repeat',
+      }}
       aria-hidden="true"
-    >
-      {/* Left crescent (the stone spine) */}
-      <path
-        d="M40 4C18 4 4 20 4 42c0 16 9 27 26 33-14 4-22 14-22 27h16c0-11 8-18 22-22V57c-14-4-22-11-22-22 0-13 9-21 22-21V4Z"
-        fill="currentColor"
-      />
-      {/* Right S stroke */}
-      <path
-        d="M48 100c22 0 36-16 36-38 0-16-9-27-26-33 14-4 22-14 22-27H64c0 11-8 18-22 22v23c14 4 22 11 22 22 0 13-9 21-22 21v10Z"
-        fill="currentColor"
-        opacity="0.72"
-      />
-    </svg>
+    />
   );
 }
 
@@ -32,7 +23,7 @@ export function Monogram({ className = "h-10 w-auto" }: { className?: string }) 
 export function Logo({
   className = "",
   showTagline = false,
-  monogramClassName = "h-9 w-auto text-sage",
+  monogramClassName = "h-9 w-[1.4rem] text-sage",
 }: {
   className?: string;
   showTagline?: boolean;

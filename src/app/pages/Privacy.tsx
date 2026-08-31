@@ -62,7 +62,7 @@ export function Privacy() {
 
             <div className="max-w-3xl">
               <P>
-                SageStone Inc. ("SageStone," "we," "us," or "our") provides structured
+                Sage Stone, legally SageStone Inc. ("SageStone," "we," "us," or "our") provides structured
                 remote support services to growth-focused businesses. This Privacy
                 Policy explains what information we collect through our website,
                 our forms, and our conversations with you, how we use it, and the
@@ -135,9 +135,7 @@ export function Privacy() {
 
                 <Callout>
                   <strong className="font-semibold text-charcoal dark:text-chalk">
-                    We do not sell, rent, share, or otherwise transfer mobile phone
-                    numbers or SMS consent data to any third party or affiliate for
-                    their own marketing or promotional purposes.
+                    No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. We do not sell, rent, share, or otherwise transfer mobile phone numbers or SMS consent data to any third party or affiliate for their own marketing or promotional purposes.
                   </strong>{" "}
                   Mobile numbers collected for text messaging are used solely by
                   SageStone to communicate with you.
@@ -267,12 +265,9 @@ export function Privacy() {
                   ]}
                 />
                 <Callout>
-                  Mobile phone numbers and SMS consent data are treated separately and
-                  more strictly than other information.{" "}
+                  Mobile phone numbers and SMS consent data are treated separately and more strictly than other information. {" "}
                   <strong className="font-semibold text-charcoal dark:text-chalk">
-                    They are never sold, rented, shared, or transferred to any third
-                    party or affiliate for that party's own marketing or promotional
-                    purposes.
+                    No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. They are never sold, rented, shared, or transferred to any third party or affiliate for that party's own marketing or promotional purposes.
                   </strong>{" "}
                   See{" "}
                   <a

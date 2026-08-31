@@ -17,6 +17,7 @@ export function Contact() {
     name: "",
     email: "",
     company: "",
+    phone: "",
     service: "",
     message: "",
     // Optional. Never required to submit — SMS consent cannot be a condition
@@ -34,6 +35,11 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (sending) return;
+
+    if (form.smsConsent && !form.phone.trim()) {
+      setError("Please enter a mobile phone number if you want to receive text messages from Sage Stone.");
+      return;
+    }
 
     setSending(true);
     setError(null);
@@ -125,6 +131,9 @@ export function Contact() {
                 <Field label="Company" optional>
                   <input name="organization" autoComplete="organization" value={form.company} onChange={(e) => update("company", e.target.value)} className={inputBase} placeholder="Company name" />
                 </Field>
+                <Field label="Mobile phone" optional>
+                  <input type="tel" name="phone" autoComplete="tel" inputMode="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputBase} placeholder="+1 (555) 000-0000" />
+                </Field>
                 <Field label="What do you need support with?" optional>
                   <select name="service" value={form.service} onChange={(e) => update("service", e.target.value)} className={`${inputBase} ${form.service === "" ? "text-slate-olive/70 dark:text-muted-foreground" : ""}`}>
                     <option value="">Select a service</option>
@@ -150,19 +159,24 @@ export function Contact() {
                     htmlFor="sms-consent"
                     className="cursor-pointer text-[0.85rem] font-normal leading-relaxed text-slate-olive dark:text-muted-foreground"
                   >
-                    I agree to receive text messages from SageStone Inc. about my
-                    inquiry. Message and data rates may apply. Message frequency
-                    varies. Reply STOP to opt out. See our{" "}
+                    I agree to receive SMS/text messages from Sage Stone (SageStone Inc.) at the mobile number I provided about my inquiry, scheduling, service updates, and customer support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase. See our {" "}
                     <Link
                       to="/privacy"
                       className="text-sage-ink underline decoration-sage/40 underline-offset-4 transition-colors hover:text-sage dark:text-sage dark:hover:text-sage-deep"
                     >
                       Privacy Policy
+                    </Link>{" "}
+                    and {" "}
+                    <Link
+                      to="/sms-terms"
+                      className="text-sage-ink underline decoration-sage/40 underline-offset-4 transition-colors hover:text-sage dark:text-sage dark:hover:text-sage-deep"
+                    >
+                      SMS Terms & Conditions
                     </Link>
                     .
                   </label>
                 </div>
-                {/* Honeypot: hidden from people, catnip for bots. */}
+                {/* Honeypot: hidden from real users to reduce spam submissions. */}
                 <input
                   type="text"
                   name="website"
@@ -182,9 +196,7 @@ export function Contact() {
                   {sending ? "Sending…" : "Book a Discovery Call"}
                 </Button>
                 <p className="text-center text-[0.82rem] text-slate-olive dark:text-muted-foreground">
-                  By submitting, you agree to be contacted about your inquiry.
-                  Consent to text messages is optional and is not a condition of
-                  any purchase.
+                  By submitting, you agree to be contacted about your inquiry. Consent to text messages is optional and is not a condition of any purchase.
                 </p>
               </form>
             )}

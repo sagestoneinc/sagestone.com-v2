@@ -1,8 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sage Stone">
-  <rect width="512" height="512" rx="112" fill="#4F5D50"/>
-  <svg x="152" y="78" width="208" height="356" viewBox="0 0 880 1432" preserveAspectRatio="xMidYMid meet">
-    <g transform="translate(0.000000,1432.000000) scale(0.100000,-0.100000)"
-fill="#F5F1E8" stroke="none">
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="880.000000pt" height="1432.000000pt" viewBox="0 0 880.000000 1432.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.16, written by Peter Selinger 2001-2019
+</metadata>
+<g transform="translate(0.000000,1432.000000) scale(0.100000,-0.100000)"
+fill="currentColor" stroke="none">
 <path d="M4105 13988 c-28 -5 -212 -6 -415 -2 -338 5 -378 4 -535 -16 -93 -12
 -172 -23 -176 -25 -3 -3 -70 -15 -149 -29 -168 -30 -406 -99 -557 -162 -136
 -57 -351 -164 -425 -212 -125 -80 -347 -238 -423 -300 -203 -167 -431 -415
@@ -44,5 +50,4 @@ fill="#F5F1E8" stroke="none">
 -89 284 -226 541 -482 901 -148 209 -477 546 -736 754 -331 266 -537 426 -691
 537 -292 210 -921 677 -960 713 -48 44 -111 67 -125 45z"/>
 </g>
-  </svg>
 </svg>
