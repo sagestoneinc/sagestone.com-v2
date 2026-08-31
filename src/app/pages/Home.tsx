@@ -166,7 +166,7 @@ export function Home() {
       <Section className="py-28 md:py-40">
         <Container>
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center lg:gap-24">
-            <motion.div {...fadeUp} className="order-2 lg:order-1">
+            <motion.div {...fadeUp} className="order-2 lg:order-1 lg:-ml-8 lg:w-[calc(100%+4rem)] xl:-ml-12 xl:w-[calc(100%+5rem)]">
               <div className="overflow-hidden rounded-2xl border border-border">
                 <ImageWithFallback
                   src="/why-sagestone-hero.png"
