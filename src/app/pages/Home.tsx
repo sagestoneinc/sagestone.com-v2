@@ -167,13 +167,12 @@ export function Home() {
         <Container>
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center lg:gap-24">
             <motion.div {...fadeUp} className="order-2 lg:order-1">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="overflow-hidden rounded-2xl border border-border">
-                  <ImageWithFallback src={images.woodenDesk} alt="Calm workspace" className="aspect-[3/4] w-full object-cover" />
-                </div>
-                <div className="mt-12 overflow-hidden rounded-2xl border border-border">
-                  <ImageWithFallback src={images.deskShelves} alt="Modern desk" className="aspect-[3/4] w-full object-cover" />
-                </div>
+              <div className="overflow-hidden rounded-2xl border border-border">
+                <ImageWithFallback
+                  src="/why-sagestone-hero.png"
+                  alt="SageStone remote support network illustration"
+                  className="aspect-[16/9] w-full object-cover"
+                />
               </div>
             </motion.div>
             <motion.div {...fadeUp} className="order-1 lg:order-2">
