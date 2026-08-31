@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SageStone">
+  <!-- Bedrock Monogram on a Stone Sage tile — favicon direction from the brand kit -->
+  <rect width="512" height="512" rx="112" fill="#7E8A77"/>
+  <g transform="translate(129 106) scale(2.885)" fill="#EEE9E0">
+    <path d="M40 4C18 4 4 20 4 42c0 16 9 27 26 33-14 4-22 14-22 27h16c0-11 8-18 22-22V57c-14-4-22-11-22-22 0-13 9-21 22-21V4Z"/>
+    <path d="M48 100c22 0 36-16 36-38 0-16-9-27-26-33 14-4 22-14 22-27H64c0 11-8 18-22 22v23c14 4 22 11 22 22 0 13-9 21-22 21v10Z" opacity="0.72"/>
+  </g>
+</svg>

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Check, Mail, Phone } from "lucide-react";
+import { submitContact, ContactConfigError } from "../lib/contact";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { services } from "../content/site";
 
@@ -21,23 +22,34 @@ export function Contact() {
     // Optional. Never required to submit — SMS consent cannot be a condition
     // of contacting us (A2P 10DLC / TCPA).
     smsConsent: false,
+    // Honeypot — hidden from real users.
+    website: "",
   });
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const update = (key: string, value: string) => setForm((f) => ({ ...f, [key]: value }));
   const updateSmsConsent = (value: boolean) => setForm((f) => ({ ...f, smsConsent: value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = {
-      ...form,
-      // Carrier review requires a record of how and when consent was captured.
-      smsConsentSource: form.smsConsent ? "web form" : null,
-      smsConsentAt: form.smsConsent ? new Date().toISOString() : null,
-    };
-    // Note: hook this up to your backend or scheduling provider — `payload`
-    // is the shape to send, consent fields included.
-    void payload;
-    setSubmitted(true);
+    if (sending) return;
+
+    setSending(true);
+    setError(null);
+
+    try {
+      await submitContact(form);
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof ContactConfigError
+          ? "This form isn't connected yet. Please email hello@sagestoneinc.com and we'll pick it up right away."
+          : "Something went wrong sending your message. Please try again, or email hello@sagestoneinc.com."
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputBase =
@@ -150,8 +162,24 @@ export function Contact() {
                     .
                   </label>
                 </div>
-                <Button type="submit" size="lg" className="mt-2 w-full">
-                  Book a Discovery Call
+                {/* Honeypot: hidden from people, catnip for bots. */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={form.website}
+                  onChange={(e) => update("website", e.target.value)}
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
+                {error && (
+                  <p role="alert" className="rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-[0.9rem] leading-relaxed text-destructive">
+                    {error}
+                  </p>
+                )}
+                <Button type="submit" size="lg" className="mt-2 w-full" disabled={sending}>
+                  {sending ? "Sending…" : "Book a Discovery Call"}
                 </Button>
                 <p className="text-center text-[0.82rem] text-slate-olive dark:text-muted-foreground">
                   By submitting, you agree to be contacted about your inquiry.
