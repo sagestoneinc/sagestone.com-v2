@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 import { Check, Mail, Phone } from "lucide-react";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { services } from "../content/site";
@@ -17,13 +18,25 @@ export function Contact() {
     company: "",
     service: "",
     message: "",
+    // Optional. Never required to submit — SMS consent cannot be a condition
+    // of contacting us (A2P 10DLC / TCPA).
+    smsConsent: false,
   });
 
   const update = (key: string, value: string) => setForm((f) => ({ ...f, [key]: value }));
+  const updateSmsConsent = (value: boolean) => setForm((f) => ({ ...f, smsConsent: value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Note: hook this up to your backend or scheduling provider.
+    const payload = {
+      ...form,
+      // Carrier review requires a record of how and when consent was captured.
+      smsConsentSource: form.smsConsent ? "web form" : null,
+      smsConsentAt: form.smsConsent ? new Date().toISOString() : null,
+    };
+    // Note: hook this up to your backend or scheduling provider — `payload`
+    // is the shape to send, consent fields included.
+    void payload;
     setSubmitted(true);
   };
 
@@ -65,8 +78,8 @@ export function Contact() {
               <a href="mailto:hello@sagestoneinc.com" className="flex items-center gap-3 transition-colors hover:text-sage">
                 <Mail className="h-4 w-4 text-sage" /> hello@sagestoneinc.com
               </a>
-              <a href="tel:+15550184420" className="flex items-center gap-3 transition-colors hover:text-sage">
-                <Phone className="h-4 w-4 text-sage" /> +1 (555) 018-4420
+              <a href="tel:+12149452234" className="flex items-center gap-3 transition-colors hover:text-sage">
+                <Phone className="h-4 w-4 text-sage" /> +1 (214) 945-2234
               </a>
             </div>
           </div>
@@ -112,11 +125,38 @@ export function Contact() {
                 <Field label="Tell us a little more" optional>
                   <textarea rows={4} name="message" value={form.message} onChange={(e) => update("message", e.target.value)} className={`${inputBase} resize-none`} placeholder="A sentence or two about your business and what you're hoping to solve." />
                 </Field>
+                <div className="mt-1 flex items-start gap-3 rounded-xl border border-border bg-input-background/60 p-4">
+                  <input
+                    id="sms-consent"
+                    name="smsConsent"
+                    type="checkbox"
+                    checked={form.smsConsent}
+                    onChange={(e) => updateSmsConsent(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-border accent-sage focus:outline-none focus-visible:ring-2 focus-visible:ring-sage/40"
+                  />
+                  <label
+                    htmlFor="sms-consent"
+                    className="cursor-pointer text-[0.85rem] font-normal leading-relaxed text-slate-olive dark:text-muted-foreground"
+                  >
+                    I agree to receive text messages from SageStone Inc. about my
+                    inquiry. Message and data rates may apply. Message frequency
+                    varies. Reply STOP to opt out. See our{" "}
+                    <Link
+                      to="/privacy"
+                      className="text-sage-ink underline decoration-sage/40 underline-offset-4 transition-colors hover:text-sage dark:text-sage dark:hover:text-sage-deep"
+                    >
+                      Privacy Policy
+                    </Link>
+                    .
+                  </label>
+                </div>
                 <Button type="submit" size="lg" className="mt-2 w-full">
                   Book a Discovery Call
                 </Button>
                 <p className="text-center text-[0.82rem] text-slate-olive dark:text-muted-foreground">
                   By submitting, you agree to be contacted about your inquiry.
+                  Consent to text messages is optional and is not a condition of
+                  any purchase.
                 </p>
               </form>
             )}
