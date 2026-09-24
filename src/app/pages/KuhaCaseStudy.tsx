@@ -107,19 +107,37 @@ const workstreams = [
   },
 ];
 
-// TODO(kuha): replace with real, verifiable metrics. Do not publish invented numbers.
+// Source: Kuha store dashboard, all-time (24 Aug 2025 – 24 Sep 2026).
+// Update these figures when refreshing the case study.
+const RESULTS_PERIOD = "August 2025 to September 2026";
 const results = [
-  { value: "[METRIC]", label: "Metric 1, e.g. events hosted since launch" },
-  { value: "[METRIC]", label: "Metric 2, e.g. photos shared by guests" },
-  { value: "[METRIC]", label: "Metric 3, e.g. organic search growth" },
+  { value: "34", label: "Paid orders" },
+  { value: "₱11,436", label: "Total revenue" },
+  { value: "₱681", label: "Average order value" },
+  { value: "0", label: "Refunds requested" },
 ];
 
-// TODO(kuha): replace with an approved quote from the Kuha team.
-const testimonial = {
-  quote: "[PLACEHOLDER quote from the Kuha team]",
-  name: "[PLACEHOLDER name]",
-  role: "[PLACEHOLDER role], Kuha",
-};
+// Feedback from Kuha hosts and guests.
+const testimonials = [
+  {
+    quote:
+      "Kuha made collecting our wedding photos so easy. Our guests just scanned the QR code and uploaded their photos—no app, no account, no complicated instructions. We ended up with so many candid moments we would have otherwise missed.",
+    name: "Wedding Host",
+    role: "Kuha customer",
+  },
+  {
+    quote:
+      "The live slideshow was such a fun addition to our event. Seeing everyone's photos appear throughout the celebration made the experience more interactive, and our guests really enjoyed it.",
+    name: "Wedding Host",
+    role: "Kuha customer",
+  },
+  {
+    quote:
+      "Ang dali gamitin ng Kuha! We just shared the QR code and our guests started uploading right away. Hindi na namin kailangan mangulit after the event para makahingi ng pictures. Everything was already there.",
+    name: "Event Host",
+    role: "Kuha customer",
+  },
+];
 
 /* ---------- Image slot (lazy by default) ---------- */
 function Shot({ shot, className = "", eager = false }: { shot: Shot; className?: string; eager?: boolean }) {
@@ -275,19 +293,28 @@ export function KuhaCaseStudy() {
       {/* ---------- Results ---------- */}
       <Section className="bg-cloud py-24 dark:bg-card md:py-32">
         <Container>
-          <SectionHeader eyebrow="Outcomes" title="Results" />
-          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+          <SectionHeader
+            eyebrow="Outcomes"
+            title="Results"
+            description={`Kuha's store results from ${RESULTS_PERIOD}.`}
+          />
+          <div className="mt-14 grid gap-x-6 gap-y-10 grid-cols-2 lg:grid-cols-4">
             {results.map((r) => (
               <div key={r.label} className="border-t border-border pt-6">
-                <p className="break-words text-[2.4rem] leading-none text-charcoal dark:text-chalk md:text-[2.8rem]" style={serif}>
+                <p className="break-words text-[2.2rem] leading-none text-charcoal dark:text-chalk md:text-[2.8rem]" style={serif}>
                   {r.value}
                 </p>
                 <p className="mt-3 text-[1rem] leading-relaxed text-slate-olive dark:text-muted-foreground">{r.label}</p>
               </div>
             ))}
           </div>
-          <div className="mt-16 max-w-2xl">
-            <TestimonialCard {...testimonial} />
+          <h3 className="mt-20 text-[1.5rem] leading-tight text-charcoal dark:text-chalk md:text-[1.85rem]">
+            What Kuha hosts say
+          </h3>
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            {testimonials.map((t) => (
+              <TestimonialCard key={t.quote} {...t} />
+            ))}
           </div>
         </Container>
       </Section>
