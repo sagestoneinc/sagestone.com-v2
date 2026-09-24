@@ -374,7 +374,7 @@ export const caseStudies: CaseStudy[] = [
       "A new consumer app launching in a price-sensitive market, with no marketing team and global competitors.",
     solution:
       "We built the go-to-market strategy, content operations, AI publishing workflow, SEO foundation, and sales materials.",
-    outcome: "34 celebrations powered, with zero refunds requested.",
+    outcome: "500+ events powered and 50,000+ guest photos collected.",
     image: "/case-studies/kuha/kuha-live-slideshow.webp",
     to: "/case-studies/kuha",
   },

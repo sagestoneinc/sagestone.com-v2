@@ -113,11 +113,12 @@ const workstreams = [
   },
 ];
 
-// Source: Kuha store dashboard, all-time (24 Aug 2025 – 24 Sep 2026):
-// 34 paid orders, 0 refunds. Keep every claim here traceable to real data.
-const RESULTS_PERIOD = "August 2025 to September 2026";
+// Sources (keep every claim traceable to real data):
+// - Events and photos: published on kuha.app, includes free albums (Sep 2026).
+// - Refunds: Kuha store dashboard, all-time to 24 Sep 2026 (0 refunds).
 const results = [
-  { value: "34", label: "Celebrations powered by Kuha" },
+  { value: "500+", label: "Events powered by Kuha" },
+  { value: "50,000+", label: "Guest photos collected" },
   { value: "100%", label: "Refund-free: not a single refund requested" },
   { value: "0", label: "Apps or accounts guests need to share photos" },
 ];
@@ -317,9 +318,9 @@ export function KuhaCaseStudy() {
           <SectionHeader
             eyebrow="Outcomes"
             title="Results"
-            description={`Kuha's results from ${RESULTS_PERIOD}.`}
+            description="Kuha's results to date, as of September 2026."
           />
-          <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-3">
+          <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
             {results.map((r) => (
               <div key={r.label} className="border-t border-border pt-6">
                 <p className="break-words text-[2.2rem] leading-none text-charcoal dark:text-chalk md:text-[2.8rem]" style={serif}>
