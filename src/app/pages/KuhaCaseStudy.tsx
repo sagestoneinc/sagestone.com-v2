@@ -107,14 +107,13 @@ const workstreams = [
   },
 ];
 
-// Source: Kuha store dashboard, all-time (24 Aug 2025 – 24 Sep 2026).
-// Update these figures when refreshing the case study.
+// Source: Kuha store dashboard, all-time (24 Aug 2025 – 24 Sep 2026):
+// 34 paid orders, 0 refunds. Keep every claim here traceable to real data.
 const RESULTS_PERIOD = "August 2025 to September 2026";
 const results = [
-  { value: "34", label: "Paid orders" },
-  { value: "₱11,436", label: "Total revenue" },
-  { value: "₱681", label: "Average order value" },
-  { value: "0", label: "Refunds requested" },
+  { value: "34", label: "Celebrations powered by Kuha" },
+  { value: "100%", label: "Refund-free: not a single refund requested" },
+  { value: "0", label: "Apps or accounts guests need to share photos" },
 ];
 
 // Feedback from Kuha hosts and guests.
@@ -296,9 +295,9 @@ export function KuhaCaseStudy() {
           <SectionHeader
             eyebrow="Outcomes"
             title="Results"
-            description={`Kuha's store results from ${RESULTS_PERIOD}.`}
+            description={`Kuha's results from ${RESULTS_PERIOD}.`}
           />
-          <div className="mt-14 grid gap-x-6 gap-y-10 grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-3">
             {results.map((r) => (
               <div key={r.label} className="border-t border-border pt-6">
                 <p className="break-words text-[2.2rem] leading-none text-charcoal dark:text-chalk md:text-[2.8rem]" style={serif}>
