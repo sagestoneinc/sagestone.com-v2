@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ImageIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container, Section, SectionHeader, Eyebrow, Button, Card } from "../components/ui-brand/primitives";
 import { TestimonialCard } from "../components/ui-brand/components";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
@@ -9,40 +9,53 @@ const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
 /* ---------- Content ----------
  * Everything marked TODO(kuha) needs real material before this goes live.
- * Images: drop files into public/case-studies/kuha/ and set `src` below.
- * Until `src` is set, a branded placeholder renders in its place.
+ * Images live in public/case-studies/kuha/.
  */
 
-type Shot = { src?: string; alt: string; caption?: string };
+type Shot = { src?: string; alt: string; caption?: string; portrait?: boolean };
 
 // TODO(kuha): Kuha logo, e.g. "/case-studies/kuha/kuha-logo.svg".
 const kuhaLogo: Shot = { src: undefined, alt: "Kuha logo" };
 
-const shots: Record<"hero" | "social" | "landing" | "blog", Shot> = {
-  // TODO(kuha): hero screenshot, e.g. "/case-studies/kuha/kuha-guest-gallery.webp"
-  hero: {
-    src: undefined,
-    alt: "Kuha guest view on a phone: a shared event photo gallery opened by scanning a QR code at a wedding table",
+const hero: Shot = {
+  src: "/case-studies/kuha/kuha-live-slideshow.webp",
+  alt: "Kuha live slideshow on a venue screen at a wedding reception, showing guest wishes beside a Scan to join QR code",
+};
+
+// What guests see on their phones after scanning the QR code.
+const productShots: Shot[] = [
+  {
+    src: "/case-studies/kuha/kuha-guest-album.webp",
+    alt: "Kuha guest album on a phone with Add Photos and live Gallery options for a wedding",
+    caption: "Guest album: upload photos and browse every moment.",
+    portrait: true,
   },
-  // TODO(kuha): social calendar / template grid screenshot
-  social: {
+  {
+    src: "/case-studies/kuha/kuha-rsvp-form.webp",
+    alt: "Kuha RSVP form on a phone asking for name, Philippine mobile number, email, and attendance",
+    caption: "Built-in RSVP for hosts.",
+    portrait: true,
+  },
+];
+
+// TODO(kuha): screenshots of our own deliverables. Each renders once `src` is set.
+const workShots: Shot[] = [
+  {
     src: undefined,
     alt: "Grid of Kuha Instagram carousel and reel templates from the 12-week social content calendar",
     caption: "Branded carousel and reel templates from the 12-week calendar.",
   },
-  // TODO(kuha): landing page screenshot
-  landing: {
+  {
     src: undefined,
     alt: "Kuha landing page showing peso pricing tiers for Filipino weddings, debuts, and birthdays",
     caption: "Landing page copy and peso pricing tiers.",
   },
-  // TODO(kuha): blog / MCP publishing screenshot
-  blog: {
+  {
     src: undefined,
     alt: "Kuha blog article drafted and published through the custom MCP server content workflow",
     caption: "Blog post drafted and published through the MCP workflow.",
   },
-};
+];
 
 const scope = ["Go-to-market", "Content operations", "AI workflows", "SEO & growth", "Sales enablement"];
 
@@ -108,33 +121,25 @@ const testimonial = {
   role: "[PLACEHOLDER role], Kuha",
 };
 
-/* ---------- Image slot (lazy, with branded placeholder) ---------- */
+/* ---------- Image slot (lazy by default) ---------- */
 function Shot({ shot, className = "", eager = false }: { shot: Shot; className?: string; eager?: boolean }) {
+  if (!shot.src) return null;
   return (
     <figure className={className}>
-      <div className="aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-cloud dark:bg-card">
-        {shot.src ? (
-          <ImageWithFallback
-            src={shot.src}
-            alt={shot.alt}
-            loading={eager ? "eager" : "lazy"}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div
-            role="img"
-            aria-label={shot.alt}
-            className="flex h-full w-full flex-col items-center justify-center gap-3 bg-sage/10 p-6 text-center"
-          >
-            <ImageIcon className="h-7 w-7 text-sage" strokeWidth={1.5} aria-hidden="true" />
-            <span className="max-w-xs text-[0.85rem] leading-snug text-slate-olive dark:text-muted-foreground">
-              Screenshot coming soon
-            </span>
-          </div>
-        )}
+      <div
+        className={`overflow-hidden border border-border bg-cloud dark:bg-card ${
+          shot.portrait ? "aspect-[9/16] rounded-[1.75rem] shadow-[0_18px_40px_-24px_rgba(34,38,34,0.45)]" : "aspect-[16/10] rounded-2xl"
+        }`}
+      >
+        <ImageWithFallback
+          src={shot.src}
+          alt={shot.alt}
+          loading={eager ? "eager" : "lazy"}
+          className="h-full w-full object-cover"
+        />
       </div>
       {shot.caption && (
-        <figcaption className="mt-3 text-[0.9rem] text-slate-olive dark:text-muted-foreground">{shot.caption}</figcaption>
+        <figcaption className="mt-3 text-[0.9rem] leading-snug text-slate-olive dark:text-muted-foreground">{shot.caption}</figcaption>
       )}
     </figure>
   );
@@ -178,7 +183,7 @@ export function KuhaCaseStudy() {
                 </Button>
               </div>
             </div>
-            <Shot shot={shots.hero} eager />
+            <Shot shot={hero} eager />
           </div>
 
           {/* Engagement facts */}
@@ -221,6 +226,11 @@ export function KuhaCaseStudy() {
               </p>
             </div>
           </div>
+          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-2 gap-4 sm:gap-10">
+            {productShots.map((shot) => (
+              <Shot key={shot.alt} shot={shot} />
+            ))}
+          </div>
         </Container>
       </Section>
 
@@ -252,11 +262,13 @@ export function KuhaCaseStudy() {
             ))}
           </div>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-3">
-            <Shot shot={shots.social} />
-            <Shot shot={shots.landing} />
-            <Shot shot={shots.blog} />
-          </div>
+          {workShots.some((w) => w.src) && (
+            <div className="mt-16 grid gap-8 md:grid-cols-3">
+              {workShots.map((w) => (
+                <Shot key={w.alt} shot={w} />
+              ))}
+            </div>
+          )}
         </Container>
       </Section>
 

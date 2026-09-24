@@ -40,7 +40,7 @@ const kuhaJsonLd = {
   // TODO(kuha): update if the publish date changes; add dateModified on edits.
   datePublished: "2026-09-24",
   inLanguage: "en",
-  // TODO(kuha): add "image": "<absolute URL>" once the hero screenshot exists.
+  image: `${SITE_URL}/case-studies/kuha/kuha-og.jpg`,
   author: { "@type": "Organization", name: "Sage Stone Inc.", url: SITE_URL },
   publisher: {
     "@type": "Organization",
@@ -108,7 +108,7 @@ export const routeMeta: RouteMeta[] = [
     title: "Kuha Case Study: Event Photo App Launch | SageStone",
     description: KUHA_DESCRIPTION,
     ogType: "article",
-    // TODO(kuha): set image: "/case-studies/kuha/og.jpg" (1200×630) once it exists.
+    image: "/case-studies/kuha/kuha-og.jpg",
     jsonLd: kuhaJsonLd,
   },
   {

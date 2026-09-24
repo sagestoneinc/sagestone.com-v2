@@ -375,8 +375,7 @@ export const caseStudies: CaseStudy[] = [
     solution:
       "We built the go-to-market strategy, content operations, AI publishing workflow, SEO foundation, and sales materials.",
     outcome: "A complete launch system the founding team runs without a marketing hire.",
-    // TODO(kuha): set to a screenshot, e.g. "/case-studies/kuha/kuha-guest-gallery.webp"
-    image: undefined,
+    image: "/case-studies/kuha/kuha-live-slideshow.webp",
     to: "/case-studies/kuha",
   },
   {
