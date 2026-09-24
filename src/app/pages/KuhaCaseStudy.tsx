@@ -8,14 +8,18 @@ import { KUHA_URL } from "../content/seo";
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
 /* ---------- Content ----------
- * Everything marked TODO(kuha) needs real material before this goes live.
+ * Everything marked TODO(kuha) is optional material still to add.
  * Images live in public/case-studies/kuha/.
  */
 
 type Shot = { src?: string; alt: string; caption?: string; portrait?: boolean };
 
-// TODO(kuha): Kuha logo, e.g. "/case-studies/kuha/kuha-logo.svg".
-const kuhaLogo: Shot = { src: undefined, alt: "Kuha logo" };
+// Kuha brand rule: ink logo on light grounds, white logo on dark.
+const kuhaLogo = {
+  ink: "/case-studies/kuha/kuha-logo-ink.png",
+  white: "/case-studies/kuha/kuha-logo-white.png",
+  alt: "Kuha logo",
+};
 
 const hero: Shot = {
   src: "/case-studies/kuha/kuha-live-slideshow.webp",
@@ -38,24 +42,26 @@ const productShots: Shot[] = [
   },
 ];
 
-// TODO(kuha): screenshots of our own deliverables. Each renders once `src` is set.
+// Screenshots of our deliverables. A slot renders once its `src` is set.
 const workShots: Shot[] = [
+  {
+    src: "/case-studies/kuha/kuha-pricing-comparison.webp",
+    alt: "Kuha landing page pricing comparison: the traditional way at over ₱10,000 versus the Kuha Luxe album at ₱1,999",
+    caption: "Landing page positioning and peso pricing against the traditional way.",
+  },
+  {
+    src: "/case-studies/kuha/kuha-blog.webp",
+    alt: "The Kuha Blog index with articles on digital invitations, event QR code placement, and venue tech",
+    caption: "The Kuha Blog, drafted and published through the MCP workflow.",
+  },
+  // TODO(kuha): social calendar / carousel template grid screenshot.
   {
     src: undefined,
     alt: "Grid of Kuha Instagram carousel and reel templates from the 12-week social content calendar",
     caption: "Branded carousel and reel templates from the 12-week calendar.",
   },
-  {
-    src: undefined,
-    alt: "Kuha landing page showing peso pricing tiers for Filipino weddings, debuts, and birthdays",
-    caption: "Landing page copy and peso pricing tiers.",
-  },
-  {
-    src: undefined,
-    alt: "Kuha blog article drafted and published through the custom MCP server content workflow",
-    caption: "Blog post drafted and published through the MCP workflow.",
-  },
 ];
+const visibleWorkShots = workShots.filter((w) => w.src);
 
 const scope = ["Go-to-market", "Content operations", "AI workflows", "SEO & growth", "Sales enablement"];
 
@@ -208,10 +214,26 @@ export function KuhaCaseStudy() {
             <div>
               <dt className="text-[0.72rem] uppercase tracking-[0.2em] text-gold-ink">Client</dt>
               <dd className="mt-3 flex items-center gap-3 text-[1.05rem] text-charcoal dark:text-chalk">
-                {kuhaLogo.src ? (
-                  <img src={kuhaLogo.src} alt={kuhaLogo.alt} loading="lazy" decoding="async" className="h-7 w-auto" />
-                ) : null}
-                Kuha (Philippine event-tech startup)
+                <img
+                  src={kuhaLogo.ink}
+                  alt={kuhaLogo.alt}
+                  width={360}
+                  height={246}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-[3.25rem] w-auto dark:hidden"
+                />
+                <img
+                  src={kuhaLogo.white}
+                  alt=""
+                  aria-hidden="true"
+                  width={360}
+                  height={246}
+                  loading="lazy"
+                  decoding="async"
+                  className="hidden h-[3.25rem] w-auto dark:block"
+                />
+                <span>Kuha, a Philippine event-tech startup</span>
               </dd>
             </div>
             <div>
@@ -279,9 +301,9 @@ export function KuhaCaseStudy() {
             ))}
           </div>
 
-          {workShots.some((w) => w.src) && (
-            <div className="mt-16 grid gap-8 md:grid-cols-3">
-              {workShots.map((w) => (
+          {visibleWorkShots.length > 0 && (
+            <div className={`mt-16 grid gap-8 ${visibleWorkShots.length > 2 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+              {visibleWorkShots.map((w) => (
                 <Shot key={w.alt} shot={w} />
               ))}
             </div>
