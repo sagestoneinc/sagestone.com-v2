@@ -68,9 +68,15 @@
   </url>
   <url>
     <loc>https://www.sagestoneinc.com/case-studies</loc>
-    <lastmod>2026-07-12</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.sagestoneinc.com/case-studies/kuha</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.sagestoneinc.com/faq</loc>

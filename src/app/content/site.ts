@@ -350,7 +350,34 @@ export const testimonials = [
 ];
 
 /* ---------- Case studies ---------- */
-export const caseStudies = [
+export type CaseStudy = {
+  slug: string;
+  client: string;
+  industry: string;
+  headline: string;
+  challenge: string;
+  solution: string;
+  outcome: string;
+  /** Omit to render a branded placeholder tile. */
+  image?: string;
+  /** Route of the full write-up, when one exists. */
+  to?: string;
+};
+
+export const caseStudies: CaseStudy[] = [
+  {
+    slug: "kuha",
+    client: "Kuha",
+    industry: "Event Tech · Product Launch",
+    headline: "Launching Kuha, a QR event photo platform",
+    challenge:
+      "A new consumer app launching in a price-sensitive market, with no marketing team and global competitors.",
+    solution:
+      "We built the go-to-market strategy, content operations, AI publishing workflow, SEO foundation, and sales materials.",
+    outcome: "500+ events powered and 50,000+ guest photos collected.",
+    image: "/case-studies/kuha/kuha-live-slideshow.webp",
+    to: "/case-studies/kuha",
+  },
   {
     slug: "northline-studio",
     client: "Northline Studio",

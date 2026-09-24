@@ -256,17 +256,29 @@ export function CaseStudyCard({
     industry: string;
     headline: string;
     outcome: string;
-    image: string;
+    image?: string;
+    to?: string;
   };
 }) {
-  return (
-    <article className="group overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_rgba(34,38,34,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-24px_rgba(34,38,34,0.35)]">
+  const body = (
+    <>
       <div className="aspect-[16/10] overflow-hidden">
-        <ImageWithFallback
-          src={study.image}
-          alt={study.client}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {study.image ? (
+          <ImageWithFallback
+            src={study.image}
+            alt={study.client}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="flex h-full w-full items-center justify-center bg-sage/10 transition-transform duration-500 group-hover:scale-105"
+          >
+            <span className="text-[2.4rem] text-sage-ink" style={serifStyle}>
+              {study.client}
+            </span>
+          </div>
+        )}
       </div>
       <div className="p-7">
         <span className="text-[0.78rem] uppercase tracking-[0.18em] text-gold-ink">
@@ -277,7 +289,24 @@ export function CaseStudyCard({
           <span className="text-[0.7rem] uppercase tracking-[0.18em] text-slate-olive dark:text-muted-foreground">Outcome</span>
           <p className="mt-1.5 text-[1rem] leading-snug text-charcoal dark:text-chalk">{study.outcome}</p>
         </div>
+        {study.to && (
+          <span className="mt-6 inline-flex items-center gap-1.5 text-[0.92rem] font-medium text-sage-ink">
+            Read the case study
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </span>
+        )}
       </div>
+    </>
+  );
+  return (
+    <article className="group overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_rgba(34,38,34,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-24px_rgba(34,38,34,0.35)]">
+      {study.to ? (
+        <Link to={study.to} className="block h-full">
+          {body}
+        </Link>
+      ) : (
+        body
+      )}
     </article>
   );
 }
