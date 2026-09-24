@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { RouteHead } from "./RouteHead";
 
 export function Layout() {
   const [dark, setDark] = useState(false);
@@ -18,6 +19,7 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <RouteHead />
       <Header dark={dark} onToggleDark={() => setDark((v) => !v)} />
       <main className="flex-1">
         <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>

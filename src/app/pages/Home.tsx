@@ -16,6 +16,7 @@ import {
   ServiceIndex,
   ProcessList,
   NoiseOverlay,
+  CaseStudyCard,
 } from "../components/ui-brand/components";
 import {
   services,
@@ -25,6 +26,7 @@ import {
   industries,
   faqs,
   images,
+  caseStudies,
 } from "../content/site";
 
 const fadeUp = {
@@ -270,6 +272,32 @@ export function Home() {
               See all industries
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------- Our Work ---------- */}
+      <Section className="border-t border-border py-28 md:py-40">
+        <Container>
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <motion.div {...fadeUp}>
+              <SectionHeader
+                eyebrow="Our Work"
+                title="Systems behind real launches"
+                description="Operations, content, and go-to-market work we've built for growing teams and new products."
+              />
+            </motion.div>
+            <Link to="/case-studies" className="group inline-flex shrink-0 items-center gap-2 font-medium text-sage-ink">
+              All case studies
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.slice(0, 3).map((s, i) => (
+              <motion.div key={s.slug} {...fadeUp} transition={{ ...fadeUp.transition, delay: i * 0.08 }}>
+                <CaseStudyCard study={s} />
+              </motion.div>
+            ))}
           </div>
         </Container>
       </Section>
