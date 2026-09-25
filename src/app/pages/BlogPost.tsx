@@ -83,7 +83,10 @@ export function BlogPost() {
             <img
               src={post.image}
               alt={post.imageAlt ?? ""}
-              className="mx-auto aspect-[16/9] w-full max-w-4xl rounded-2xl border border-border object-cover"
+              width={1200}
+              height={630}
+              {...({ fetchpriority: "high" } as Record<string, string>)}
+              className="mx-auto aspect-[1200/630] w-full max-w-4xl rounded-2xl border border-border object-cover"
             />
           </Container>
         )}

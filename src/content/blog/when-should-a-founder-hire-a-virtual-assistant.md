@@ -11,6 +11,13 @@ Most founders hire help later than they should. Early on, doing everything yours
 
 A virtual assistant is often the first hire that gives a founder time back. Here's how to tell when it's time.
 
+:::takeaways
+- If recurring admin keeps pushing strategy, sales, or product work to "later", it's time.
+- Onboarding takes hours once. The tasks then leave your plate every week.
+- Start with frequent, rules-based, low-risk tasks that drain your energy.
+- If your real need is protecting one leader's time, consider an executive assistant instead.
+:::
+
 ## Seven signs you're ready
 
 ### 1. You're doing the same tasks every week
@@ -40,6 +47,18 @@ If new clients, projects, or opportunities wait on your personal bandwidth, supp
 ### 7. You feel like you can't take a day off
 
 If the business stalls whenever you step away, too much depends on you alone.
+
+:::checklist Quick self-check
+- [x] I do the same admin tasks every week
+- [x] Important work only happens after hours
+- [x] Follow-ups are slipping
+- [x] I answer the same questions repeatedly
+- [x] My calendar decides my day
+- [x] Growth waits on my availability
+- [x] Things stall when I take a day off
+
+If three or more sound familiar, support will likely pay for itself in time.
+:::
 
 ## "But I don't have time to train someone"
 

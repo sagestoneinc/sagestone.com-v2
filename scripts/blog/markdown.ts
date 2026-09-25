@@ -4,8 +4,19 @@
 //   # – #### headings (h2–h4 get slug ids), paragraphs, blank-line separation
 //   - / * unordered lists, 1. ordered lists (single level)
 //   > blockquotes, --- horizontal rules, ``` fenced code blocks
-//   **bold**, *italic*, `code`, [links](url), ![images](src "title")
+//   **bold**, *italic*, `code`, [links](url), ![images](src "caption")
+//   | tables | with a | --- | separator row
+//   - [x] checklist items (rendered with a check mark)
+//   :::tip / :::note / :::takeaways / :::checklist [Optional title] ... :::
+//   An image on its own line becomes a <figure>; its "title" is the caption.
 // Raw HTML in the source is escaped, never passed through.
+
+const CALLOUT_TITLES: Record<string, string> = {
+  tip: "Tip",
+  note: "Note",
+  takeaways: "Key takeaways",
+  checklist: "Checklist",
+};
 
 export type Heading = { depth: number; text: string; id: string };
 
@@ -54,13 +65,28 @@ export function markdownToHtml(md: string): { html: string; headings: Heading[];
   let quote: string[] = [];
 
   const flushPara = () => {
-    if (para.length) out.push(`<p>${inline(para.join(" "))}</p>`);
+    const img = para.length === 1 ? /^!\[[^\]]*\]\([^)\s]+(?:\s+"([^"]*)")?\)$/.exec(para[0]) : null;
+    if (img) {
+      const caption = img[1] ? `<figcaption>${inline(img[1])}</figcaption>` : "";
+      out.push(`<figure>${inline(para[0].replace(/\s+"[^"]*"\)$/, ")"))}${caption}</figure>`);
+    } else if (para.length) out.push(`<p>${inline(para.join(" "))}</p>`);
     para = [];
   };
+  const listItem = (item: string) => {
+    const task = /^\[( |x|X)\]\s+(.*)$/.exec(item);
+    return task
+      ? `<li class="task"><span class="task-mark" aria-hidden="true">✓</span><span>${inline(task[2])}</span></li>`
+      : `<li>${inline(item)}</li>`;
+  };
   const flushList = () => {
-    if (list) out.push(`<${list.type}>${list.items.map((i) => `<li>${inline(i)}</li>`).join("")}</${list.type}>`);
+    if (list) {
+      const isTasks = list.items.every((i) => /^\[( |x|X)\]\s/.test(i));
+      out.push(`<${list.type}${isTasks ? ' class="tasks"' : ""}>${list.items.map(listItem).join("")}</${list.type}>`);
+    }
     list = null;
   };
+  const cells = (row: string) =>
+    row.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => inline(c.trim()));
   const flushQuote = () => {
     if (quote.length) out.push(`<blockquote><p>${inline(quote.join(" "))}</p></blockquote>`);
     quote = [];
@@ -84,6 +110,30 @@ export function markdownToHtml(md: string): { html: string; headings: Heading[];
     }
     if (!trimmed) {
       flushAll();
+      continue;
+    }
+    const callout = /^:::(\w+)\s*(.*)$/.exec(trimmed);
+    if (callout && CALLOUT_TITLES[callout[1]]) {
+      flushAll();
+      const inner: string[] = [];
+      while (++i < lines.length && lines[i].trim() !== ":::") inner.push(lines[i]);
+      const title = callout[2] || CALLOUT_TITLES[callout[1]];
+      out.push(
+        `<aside class="callout callout-${callout[1]}"><p class="callout-title">${inline(title)}</p>${markdownToHtml(inner.join("\n")).html}</aside>`,
+      );
+      continue;
+    }
+    if (trimmed.startsWith("|") && i + 1 < lines.length && /^\|?\s*:?-{3,}/.test(lines[i + 1].trim())) {
+      flushAll();
+      const head = cells(trimmed);
+      const rows: string[][] = [];
+      i++; // skip the separator row
+      while (i + 1 < lines.length && lines[i + 1].trim().startsWith("|")) rows.push(cells(lines[++i]));
+      out.push(
+        `<div class="table-wrap"><table><thead><tr>${head.map((c) => `<th>${c}</th>`).join("")}</tr></thead><tbody>${rows
+          .map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`)
+          .join("")}</tbody></table></div>`,
+      );
       continue;
     }
     const h = /^(#{1,4})\s+(.*)$/.exec(trimmed);

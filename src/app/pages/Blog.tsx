@@ -26,13 +26,28 @@ export function Blog() {
                 <li key={post.slug} className="border-t border-border last:border-b">
                   <Link
                     to={`/blog/${post.slug}`}
-                    className="group grid gap-4 py-10 md:grid-cols-[12rem_1fr_auto] md:items-baseline md:gap-10"
+                    className="group grid gap-5 py-10 md:grid-cols-[18rem_1fr_auto] md:items-center md:gap-10"
                   >
-                    <div className="flex flex-row gap-3 text-[0.85rem] text-slate-olive dark:text-muted-foreground md:flex-col md:gap-1">
-                      <time dateTime={post.date}>{formatPostDate(post.date)}</time>
-                      <span className="uppercase tracking-[0.16em] text-gold-ink">{post.category}</span>
-                    </div>
+                    {post.image ? (
+                      <div className="overflow-hidden rounded-2xl border border-border">
+                        <img
+                          src={post.image}
+                          alt=""
+                          width={1200}
+                          height={630}
+                          loading="lazy"
+                          decoding="async"
+                          className="aspect-[1200/630] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                      </div>
+                    ) : (
+                      <div aria-hidden="true" />
+                    )}
                     <div>
+                      <div className="mb-3 flex flex-wrap gap-x-3 text-[0.85rem] text-slate-olive dark:text-muted-foreground">
+                        <span className="uppercase tracking-[0.16em] text-gold-ink">{post.category}</span>
+                        <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+                      </div>
                       <h2
                         className="text-[1.6rem] leading-tight text-charcoal transition-colors group-hover:text-sage dark:text-chalk md:text-[2rem]"
                         style={serif}

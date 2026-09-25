@@ -11,11 +11,20 @@ services: [virtual-assistant-services, executive-assistant-services]
 
 This guide breaks down the work a virtual assistant can reliably own, the work that should stay with you, and a simple way to decide what to hand over first.
 
+:::takeaways
+- A virtual assistant owns **recurring, rules-based work**: anything weekly, checklist-shaped, and not dependent on your judgment.
+- Inbox, scheduling, admin, follow-through, and research are the usual starting points.
+- Keep direction-setting decisions, key relationships, and pattern-less judgment calls.
+- Start with 2–3 draining tasks and **write down how you do them** before handing over.
+:::
+
 ## The short answer
 
 A good virtual assistant handles **recurring, rules-based work that follows a pattern**. If a task happens every day or week, can be explained in a checklist, and doesn't require your personal judgment each time, it's a strong candidate.
 
 That covers far more of a typical week than most people expect.
+
+![Two columns: delegate recurring, rules-based work such as inbox triage, scheduling, CRM updates, invoice follow-ups, research, and weekly admin; keep strategy, key relationships, hiring, and judgment calls](/blog/diagrams/delegate-vs-keep.webp "A simple split: delegate the recurring, rules-based work and keep judgment and direction.")
 
 ## Work a virtual assistant can own
 
@@ -70,6 +79,10 @@ Try this in one sitting:
 5. **Write down how you do them today**, even roughly. A short screen recording works too.
 
 That last step matters more than any other. The quality of support depends on the clarity of the handoff. If your processes live only in your head, start by [documenting them](/blog/how-to-document-repetitive-processes).
+
+:::tip
+If a task only lives in your head, record yourself doing it once. A ten-minute screen recording is often enough for someone else to take it over.
+:::
 
 ## Virtual assistant or executive assistant?
 

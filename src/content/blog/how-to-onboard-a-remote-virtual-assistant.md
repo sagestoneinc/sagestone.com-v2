@@ -11,6 +11,15 @@ Most virtual assistant relationships are decided in the first few weeks. When on
 
 Here's a practical plan for the first 30 days.
 
+:::takeaways
+- Start with **3–5 recurring tasks**, not everything at once.
+- Set up access properly, scoped to what the starting tasks need.
+- Week 1 is for context, week 2 for supervised ownership, and weeks 3–4 for independence.
+- **Fast, specific feedback** is the habit that makes it work.
+:::
+
+![Timeline of the first 30 days: before day 1 prepare tasks, access, and docs; week 1 context and shadowing; week 2 supervised ownership; weeks 3 to 4 independence and new tasks](/blog/diagrams/onboarding-30-day-timeline.webp "The first 30 days, from preparation to independence.")
+
 ## Before day one: prepare three things
 
 ### 1. A starting task list
@@ -23,11 +32,11 @@ Not sure what to include? Start with our guide to [what a virtual assistant actu
 
 List every tool your assistant needs and give access with the right permissions:
 
-- Email and calendar (delegated access rather than shared passwords where possible)
-- Your project management or task tool
-- Shared drives and documents
-- Your CRM, help desk, or other systems the tasks touch
-- A password manager for any shared credentials
+- [x] Email and calendar (delegated access rather than shared passwords where possible)
+- [x] Your project management or task tool
+- [x] Shared drives and documents
+- [x] Your CRM, help desk, or other systems the tasks touch
+- [x] A password manager for any shared credentials
 
 Only grant what the starting tasks require. You can expand access as the scope grows.
 
@@ -66,12 +75,14 @@ By now, the starting tasks should run with light review.
 
 The single most important habit is **fast, specific feedback**. Vague frustration ("this isn't quite right") slows everything down. Clear feedback ("replies to existing clients should be warmer and use their first name") compounds quickly.
 
-A simple weekly review helps:
+A short weekly review, using the questions below, keeps it on track.
 
+:::tip Weekly review questions
 1. What went well this week?
 2. What needed rework, and why?
 3. What should we document or clarify?
 4. What's the next thing to hand over?
+:::
 
 ## Common onboarding mistakes
 
