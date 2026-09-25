@@ -8,7 +8,6 @@ import { KUHA_URL } from "../content/seo";
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
 /* ---------- Content ----------
- * Everything marked TODO(kuha) is optional material still to add.
  * Images live in public/case-studies/kuha/.
  */
 
@@ -54,11 +53,30 @@ const workShots: Shot[] = [
     alt: "The Kuha Blog index with articles on digital invitations, event QR code placement, and venue tech",
     caption: "The Kuha Blog, drafted and published through the MCP workflow.",
   },
-  // TODO(kuha): social calendar / carousel template grid screenshot.
+];
+
+// From Kuha's branded asset library (content operations). Only product screens
+// and templates: guest photos were cleared for Kuha's own marketing, not ours.
+const assetLibrary: Shot[] = [
   {
-    src: undefined,
-    alt: "Grid of Kuha Instagram carousel and reel templates from the 12-week social content calendar",
-    caption: "Branded carousel and reel templates from the 12-week calendar.",
+    src: "/case-studies/kuha/kuha-qr-templates.webp",
+    alt: "Set of Kuha QR code standee templates in floral and minimalist designs for event tables",
+    caption: "QR standee templates",
+  },
+  {
+    src: "/case-studies/kuha/kuha-invitation-design.webp",
+    alt: "Kuha digital invitation design: an ivory You're Invited card with a script title and couple photo",
+    caption: "Digital invitation designs",
+  },
+  {
+    src: "/case-studies/kuha/kuha-qr-table-sign.webp",
+    alt: "Kuha QR code sign on a wedding reception table beside a white flower arrangement",
+    caption: "Event-table signage in use",
+  },
+  {
+    src: "/case-studies/kuha/kuha-photo-challenge.webp",
+    alt: "Kuha photo challenge game screen listing tasks for guests, such as a photo of someone dancing",
+    caption: "Feature spotlight: photo challenge",
   },
 ];
 const visibleWorkShots = workShots.filter((w) => w.src);
@@ -309,6 +327,24 @@ export function KuhaCaseStudy() {
               ))}
             </div>
           )}
+
+          <div className="mt-16">
+            <h3 className="text-[1.35rem] leading-tight text-charcoal dark:text-chalk">From the branded asset library</h3>
+            <p className="mt-2 max-w-2xl text-[1rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
+              The templates and feature shots behind the 12-week social calendar, organized by feature so every post
+              has on-brand visuals ready to go.
+            </p>
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+              {assetLibrary.map((a) => (
+                <figure key={a.alt}>
+                  <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-cloud dark:bg-card">
+                    <ImageWithFallback src={a.src} alt={a.alt} className="h-full w-full object-cover" />
+                  </div>
+                  <figcaption className="mt-2 text-[0.88rem] text-slate-olive dark:text-muted-foreground">{a.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
         </Container>
       </Section>
 
