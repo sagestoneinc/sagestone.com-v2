@@ -102,7 +102,7 @@ export const blogPostPath = (slug: string) => `${BLOG_PATH}/${slug}`;
 
 const blogPostRoutes: RouteMeta[] = posts.map((p) => ({
   path: blogPostPath(p.slug),
-  title: `${p.title} | SageStone`.length <= 60 ? `${p.title} | SageStone` : clip(p.title, 60),
+  title: p.seoTitle ?? (`${p.title} | SageStone`.length <= 60 ? `${p.title} | SageStone` : clip(p.title, 60)),
   description: clip(p.description),
   ogType: "article",
   image: p.image,

@@ -2,6 +2,8 @@ declare module "virtual:blog" {
   export type BlogPostMeta = {
     slug: string;
     title: string;
+    /** Optional shorter <title> when the headline is too long for 60 chars. */
+    seoTitle?: string;
     description: string;
     /** YYYY-MM-DD */
     date: string;

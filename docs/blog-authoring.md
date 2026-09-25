@@ -18,6 +18,7 @@ This guide works for people and for AI assistants drafting posts.
 | Field | Required | Notes |
 |---|---|---|
 | `title` | yes | The H1. Keep it under 50 characters so the title tag (`<title> \| SageStone`) stays under 60. Longer titles are trimmed in the tab title only. |
+| `seoTitle` | no | A shorter browser-tab title (under 60 characters, including "\| SageStone") when the headline is too long. |
 | `description` | yes | Under 155 characters. Used for the meta description and post cards. |
 | `date` | yes | `YYYY-MM-DD`. |
 | `updated` | no | `YYYY-MM-DD`. Set it when you make a meaningful edit. |
@@ -46,7 +47,13 @@ Headings (`##`, `###`, `####`), paragraphs, `-` and `1.` lists, `**bold**`, `*it
 
 ## Topic backlog (from the SEO audit)
 
-- Virtual assistants: What does a VA actually handle? (published) · VA vs. executive assistant · How much does a virtual assistant cost? · How to onboard a remote VA · When should a founder hire a VA? · VA SOP checklist
-- Customer support: Customer support outsourcing guide · In-house vs. outsourced support (published) · E-commerce customer support SOP · Shopify customer support outsourcing · Customer service QA checklist
-- Operations: How to build remote operations systems · Back office outsourcing guide · Operations tasks founders should delegate · How to document repetitive processes (published)
-- Industry guides: E-commerce VA guide · Real estate VA guide · Property management VA guide · Agency operations assistant guide
+Published: What does a VA actually handle? · VA vs. executive assistant · How to onboard a remote VA · When should a founder hire a VA? · In-house vs. outsourced support · Customer service QA checklist · How to document repetitive processes · Operations tasks founders should delegate · Real estate VA guide
+
+Still to write:
+
+- Virtual assistants: How much does a virtual assistant cost? (needs real SageStone pricing or ranges) · VA SOP checklist
+- Customer support: Customer support outsourcing guide · E-commerce customer support SOP · Shopify customer support outsourcing
+- Operations: How to build remote operations systems · Back office outsourcing guide
+- Industry guides: E-commerce VA guide · Property management VA guide · Agency operations assistant guide
+
+Every published post has a matching LinkedIn post in `docs/social/linkedin-posts.md`. Add one there when you publish.
