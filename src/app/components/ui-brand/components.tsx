@@ -203,9 +203,12 @@ export function CTABand({
                 Book a Discovery Call
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button to="/services" size="lg" variant="ghost" className="text-chalk hover:text-sage">
-                Explore Services
-              </Button>
+              <Link
+                to="/solutions"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-chalk/25 px-7 py-3.5 text-[1rem] font-medium text-chalk transition-colors hover:border-sage hover:text-sage focus:outline-none focus-visible:ring-2 focus-visible:ring-sage"
+              >
+                See What We Can Take Off Your Plate
+              </Link>
             </div>
           </div>
         </div>
@@ -219,16 +222,20 @@ export function PageHero({
   eyebrow,
   title,
   description,
+  breadcrumbs,
   children,
 }: {
   eyebrow: string;
   title: ReactNode;
   description?: ReactNode;
+  /** Visible trail after "Home"; the last item is the current page. */
+  breadcrumbs?: { name: string; to?: string }[];
   children?: ReactNode;
 }) {
   return (
     <Section className="pt-40 pb-16 md:pt-48 md:pb-20">
       <Container>
+        {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
         <div className="max-w-3xl">
           <Eyebrow className="mb-7">{eyebrow}</Eyebrow>
           <h1 className="text-[2.9rem] leading-[1.0] tracking-[-0.03em] text-charcoal dark:text-chalk md:text-[4.25rem]">
@@ -308,5 +315,68 @@ export function CaseStudyCard({
         body
       )}
     </article>
+  );
+}
+
+/* ---------- Breadcrumbs (visible trail; JSON-LD comes from seo.ts) ---------- */
+export function Breadcrumbs({ items }: { items: { name: string; to?: string }[] }) {
+  return (
+    <nav aria-label="Breadcrumb" className="mb-10">
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.88rem] text-slate-olive dark:text-muted-foreground">
+        <li>
+          <Link to="/" className="transition-colors hover:text-sage">Home</Link>
+        </li>
+        {items.map((item) => (
+          <li key={item.name} className="flex items-center gap-2">
+            <span aria-hidden="true">/</span>
+            {item.to ? (
+              <Link to={item.to} className="transition-colors hover:text-sage">{item.name}</Link>
+            ) : (
+              <span aria-current="page" className="text-charcoal dark:text-chalk">{item.name}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/* ---------- Related links (internal linking between services, industries, solutions, posts) ---------- */
+export function RelatedLinks({
+  eyebrow,
+  title,
+  items,
+  columns = 3,
+}: {
+  eyebrow?: string;
+  title: string;
+  items: { to: string; title: string; body?: string }[];
+  columns?: 2 | 3;
+}) {
+  if (!items.length) return null;
+  return (
+    <div>
+      {eyebrow && <Eyebrow className="mb-5">{eyebrow}</Eyebrow>}
+      <h2 className="text-[1.75rem] leading-[1.1] tracking-[-0.02em] text-charcoal dark:text-chalk md:text-[2.2rem]">{title}</h2>
+      <div className={`mt-10 grid gap-5 sm:grid-cols-2 ${columns === 3 ? "lg:grid-cols-3" : ""}`}>
+        {items.map((item) => (
+          <Link
+            key={item.to}
+            to={item.to}
+            className="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-sage/50 hover:shadow-[0_18px_40px_-24px_rgba(34,38,34,0.35)]"
+          >
+            <span className="text-[1.2rem] leading-snug text-charcoal transition-colors group-hover:text-sage dark:text-chalk" style={serifStyle}>
+              {item.title}
+            </span>
+            {item.body && (
+              <span className="mt-2 flex-1 text-[0.95rem] leading-relaxed text-slate-olive dark:text-muted-foreground">{item.body}</span>
+            )}
+            <span className="mt-4 inline-flex items-center gap-1.5 text-[0.88rem] font-medium text-sage-ink">
+              Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

@@ -6,18 +6,18 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <!-- route-head:start (replaced per route by scripts/prerender.mjs; source: src/app/content/seo.ts) -->
-      <title>Dedicated Virtual Assistants & Outsourcing | SageStone</title>
-      <meta name="description" content="Scale your operations with dedicated Filipino virtual assistants, customer support & back-office talent. Onboard in 24–72 hours. Book a discovery call." />
+      <title>Virtual Assistants &amp; Remote Operations Support | SageStone</title>
+      <meta name="description" content="SageStone provides dedicated virtual assistants, customer support, executive assistance, and remote operations support for growing businesses." />
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href="https://www.sagestoneinc.com/" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="SageStone" />
-      <meta property="og:title" content="Dedicated Virtual Assistants & Outsourcing | SageStone" />
-      <meta property="og:description" content="Scale your operations with dedicated Filipino virtual assistants, customer support & back-office talent. Onboard in 24–72 hours." />
+      <meta property="og:title" content="Virtual Assistants &amp; Remote Operations Support | SageStone" />
+      <meta property="og:description" content="SageStone provides dedicated virtual assistants, customer support, executive assistance, and remote operations support for growing businesses." />
       <meta property="og:url" content="https://www.sagestoneinc.com/" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Dedicated Virtual Assistants & Outsourcing | SageStone" />
-      <meta name="twitter:description" content="Scale your operations with dedicated Filipino virtual assistants, customer support & back-office talent." />
+      <meta name="twitter:title" content="Virtual Assistants &amp; Remote Operations Support | SageStone" />
+      <meta name="twitter:description" content="SageStone provides dedicated virtual assistants, customer support, executive assistance, and remote operations support for growing businesses." />
       <!-- route-head:end -->
 
       <!-- Brand icons — Bedrock Monogram on a Stone Sage tile -->
@@ -36,15 +36,42 @@
 
       <div id="root"></div>
 
+      <!-- Site-wide entity graph. @ids match jeselcura.me, which declares the same
+           Organization and its founder, so the two sites resolve to one entity. -->
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "SageStone Inc",
-        "url": "https://www.sagestoneinc.com/",
-        "description": "Dedicated Filipino virtual assistants, customer support, and back-office talent for U.S. founders and growing teams.",
-        "email": "hello@sagestoneinc.com",
-        "sameAs": []
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.sagestoneinc.com/#organization",
+            "name": "SageStone",
+            "legalName": "Sage Stone Inc.",
+            "url": "https://www.sagestoneinc.com/",
+            "logo": "https://www.sagestoneinc.com/icon-512.png",
+            "description": "SageStone provides dedicated virtual assistants, customer support outsourcing, executive assistance, and remote operations support for growing businesses.",
+            "email": "hello@sagestoneinc.com",
+            "founder": { "@id": "https://www.jeselcura.me/#person" },
+            "knowsAbout": ["Virtual Assistant Services", "Customer Support Outsourcing", "Executive Assistance", "Remote Operations Support", "Back Office Support", "Workflow Support"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.sagestoneinc.com/#website",
+            "name": "SageStone",
+            "url": "https://www.sagestoneinc.com/",
+            "publisher": { "@id": "https://www.sagestoneinc.com/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.jeselcura.me/#person",
+            "name": "Jesel Cura",
+            "url": "https://www.jeselcura.me/",
+            "jobTitle": "Founder",
+            "worksFor": { "@id": "https://www.sagestoneinc.com/#organization" },
+            "sameAs": ["https://www.jeselcura.me/", "https://www.linkedin.com/in/jeselcura"]
+          }
+        ]
       }
       </script>
 

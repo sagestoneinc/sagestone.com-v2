@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { blogPlugin } from './scripts/blog/plugin'
 
 
 function figmaAssetResolver() {
@@ -19,6 +20,8 @@ function figmaAssetResolver() {
 export default defineConfig({
   plugins: [
     figmaAssetResolver(),
+    // Markdown blog posts → `virtual:blog` (see scripts/blog/plugin.ts)
+    blogPlugin(path.resolve(__dirname, 'src/content/blog')),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),

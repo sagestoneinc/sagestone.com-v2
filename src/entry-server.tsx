@@ -3,7 +3,7 @@ import { renderToPipeableStream } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { AppRoutes } from "./app/App";
 
-export { routeMeta, renderHeadTags } from "./app/content/seo";
+export { routeMeta, notFoundMeta, renderHeadTags, renderSitemap } from "./app/content/seo";
 
 /** Render a route to HTML, waiting for lazy route chunks to resolve. */
 export function render(url: string): Promise<string> {

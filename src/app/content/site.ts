@@ -10,7 +10,7 @@ import {
 
 /* ---------- Imagery (local founder portrait + Unsplash: calm, natural light) ---------- */
 export const images = {
-  heroFounder: "/founder-hero.jpg",
+  heroFounder: "/founder-hero.webp",
   officeGlass:
     "https://images.unsplash.com/photo-1765371514743-45bd8e6c0a28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
   woodenDesk:
@@ -38,24 +38,45 @@ export type Service = {
   title: string;
   summary: string;
   outcome: string;
+  /** Keyword-led H1 for the service page. */
+  h1: string;
+  /** <title>, under 60 chars. */
+  seoTitle: string;
+  /** Meta description, under 155 chars. */
+  metaDescription: string;
+  /** Related industry and solution slugs, for internal linking. */
+  industries: string[];
+  solutions: string[];
 };
 
 export const services: Service[] = [
   {
-    slug: "virtual-assistant",
+    slug: "virtual-assistant-services",
     icon: Briefcase,
     title: "Virtual Assistant Services",
     summary:
       "Dependable day-to-day support that keeps your calendar, inbox, and priorities in order.",
     outcome: "Reclaim focus for the work only you can do.",
+    h1: "Virtual Assistant Services for Founders and Growing Teams",
+    seoTitle: "Virtual Assistant Services for Growing Teams | SageStone",
+    metaDescription:
+      "Dedicated virtual assistants who manage your inbox, calendar, research, and admin inside your tools, with SageStone oversight for consistent quality.",
+    industries: ["agencies", "professional-services", "real-estate"],
+    solutions: ["inbox-calendar-management", "administrative-support", "crm-administration"],
   },
   {
-    slug: "customer-support",
+    slug: "customer-support-outsourcing",
     icon: Headset,
     title: "Customer Support Outsourcing",
     summary:
       "Consistent, on-brand responses across every channel your customers rely on.",
     outcome: "Faster resolution, steadier satisfaction.",
+    h1: "Customer Support Outsourcing for Growing Businesses",
+    seoTitle: "Customer Support Outsourcing Services | SageStone",
+    metaDescription:
+      "Outsourced customer support across email, chat, and help desk: on-brand replies, clear escalation paths, and quality oversight from SageStone.",
+    industries: ["ecommerce", "saas", "service-businesses"],
+    solutions: ["shopify-customer-support", "customer-onboarding-support", "sop-documentation"],
   },
   {
     slug: "workflow-support",
@@ -64,36 +85,59 @@ export const services: Service[] = [
     summary:
       "Structured operational help that removes bottlenecks and keeps processes moving.",
     outcome: "Cleaner handoffs, fewer dropped tasks.",
+    h1: "Workflow Support That Keeps Operations Moving",
+    seoTitle: "Workflow Support & Process Coordination | SageStone",
+    metaDescription:
+      "Structured workflow support that removes bottlenecks: task coordination, clean handoffs, documentation, and follow-through inside your tools.",
+    industries: ["agencies", "service-businesses", "professional-services"],
+    solutions: ["sop-documentation", "crm-administration", "administrative-support"],
   },
   {
-    slug: "back-office",
+    slug: "back-office-support",
     icon: ClipboardList,
     title: "Back Office Support",
     summary:
       "Reliable data, documentation, and administrative work handled with precision.",
     outcome: "Accurate records without the overhead.",
+    h1: "Back Office Support Handled with Precision",
+    seoTitle: "Back Office Support Outsourcing | SageStone",
+    metaDescription:
+      "Outsourced back office support for data entry, records, documentation, and admin, handled accurately and consistently with SageStone oversight.",
+    industries: ["real-estate", "ecommerce", "professional-services"],
+    solutions: ["administrative-support", "crm-administration", "sop-documentation"],
   },
   {
-    slug: "executive-assistance",
+    slug: "executive-assistant-services",
     icon: UserCog,
     title: "Executive Assistance",
     summary:
       "Discreet, senior-level support for leaders who need leverage, not oversight.",
     outcome: "A trusted right hand for the details.",
+    h1: "Executive Assistant Services for Busy Leaders",
+    seoTitle: "Remote Executive Assistant Services | SageStone",
+    metaDescription:
+      "Discreet remote executive assistants who manage calendars, inboxes, travel, and meeting prep so leaders can focus on high-leverage work.",
+    industries: ["saas", "agencies", "professional-services"],
+    solutions: ["inbox-calendar-management", "administrative-support", "crm-administration"],
   },
   {
-    slug: "remote-operations",
+    slug: "remote-operations-support",
     icon: Settings2,
     title: "Remote Operations Support",
     summary:
       "Embedded operators who help your systems run smoothly as you scale.",
     outcome: "Operational excellence, built in.",
+    h1: "Remote Operations Support for Scaling Teams",
+    seoTitle: "Remote Operations Support Services | SageStone",
+    metaDescription:
+      "Embedded remote operators who run recurring processes, keep systems tidy, and document how work gets done so your business scales calmly.",
+    industries: ["ecommerce", "saas", "service-businesses"],
+    solutions: ["sop-documentation", "customer-onboarding-support", "crm-administration"],
   },
 ];
 
 /* ---------- Per-service detail content ---------- */
 export type ServiceDetail = {
-  heroTitle: string;
   intro: string;
   image: string;
   capabilities: { title: string; body: string }[];
@@ -103,8 +147,7 @@ export type ServiceDetail = {
 };
 
 export const serviceDetails: Record<string, ServiceDetail> = {
-  "virtual-assistant": {
-    heroTitle: "Virtual assistants who keep your priorities in order",
+  "virtual-assistant-services": {
     intro:
       "A SageStone virtual assistant is a dependable, embedded partner — handling the day-to-day so you can stay focused on the work that moves your business forward.",
     image: images.laptopPlant,
@@ -126,8 +169,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     faqs: faqPlaceholders("virtual assistant"),
   },
-  "customer-support": {
-    heroTitle: "Customer support that stays consistent and on-brand",
+  "customer-support-outsourcing": {
     intro:
       "SageStone customer support brings steady, thoughtful responses to every channel your customers rely on — protecting satisfaction as your volume grows.",
     image: images.officeArt,
@@ -150,7 +192,6 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     faqs: faqPlaceholders("customer support"),
   },
   "workflow-support": {
-    heroTitle: "Workflow support that removes the bottlenecks",
     intro:
       "We map how work actually moves through your business, then place structured support where handoffs break down — so processes stay smooth and predictable.",
     image: images.deskChair,
@@ -172,8 +213,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     faqs: faqPlaceholders("workflow support"),
   },
-  "back-office": {
-    heroTitle: "Back office support handled with precision",
+  "back-office-support": {
     intro:
       "Reliable administrative, data, and documentation work — quietly kept accurate so your team can operate without the overhead.",
     image: images.deskShelves,
@@ -195,8 +235,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     faqs: faqPlaceholders("back office support"),
   },
-  "executive-assistance": {
-    heroTitle: "Executive assistance for leaders who need leverage",
+  "executive-assistant-services": {
     intro:
       "Discreet, senior-level support that anticipates needs and handles detail — giving leaders room to focus on what matters most.",
     image: images.woodenDesk,
@@ -218,8 +257,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     faqs: faqPlaceholders("executive assistance"),
   },
-  "remote-operations": {
-    heroTitle: "Remote operations support that scales with you",
+  "remote-operations-support": {
     intro:
       "Embedded operators who help your systems run smoothly — bringing structure and steadiness to operations as your business grows.",
     image: images.officeGlass,
@@ -262,34 +300,6 @@ function faqPlaceholders(name: string) {
     },
   ];
 }
-
-/* ---------- Industries ---------- */
-export const industries = [
-  {
-    name: "Agencies",
-    description: "Account, project, and delivery support that protects billable focus.",
-  },
-  {
-    name: "E-commerce Brands",
-    description: "Order, listing, and customer care handled with consistency.",
-  },
-  {
-    name: "Real Estate Teams",
-    description: "Transaction coordination, CRM hygiene, and client follow-through.",
-  },
-  {
-    name: "Founder-led Businesses",
-    description: "A dependable operational layer as the business grows.",
-  },
-  {
-    name: "Service Companies",
-    description: "Scheduling, dispatch, and back-office support that scales.",
-  },
-  {
-    name: "Professional Firms",
-    description: "Structured administrative and client-facing assistance.",
-  },
-];
 
 /* ---------- Process ---------- */
 export const processSteps = [

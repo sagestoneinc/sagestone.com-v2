@@ -23,11 +23,11 @@ import {
   stats,
   testimonials,
   processSteps,
-  industries,
   faqs,
   images,
   caseStudies,
 } from "../content/site";
+import { industryPages } from "../content/industries";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -46,7 +46,7 @@ export function Home() {
         <Container>
           <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
             <motion.div {...fadeUp}>
-              <Eyebrow>Remote Operations &amp; Support Partner</Eyebrow>
+              <Eyebrow>Remote Operations &amp; Virtual Assistant Services</Eyebrow>
               <h1 className="mt-8 text-[2.65rem] leading-[1.0] tracking-[-0.03em] text-charcoal dark:text-chalk sm:text-[3.25rem] sm:leading-[0.98] md:text-[4.75rem]">
                 Structured support
                 <br className="hidden sm:block" /> for businesses{" "}
@@ -54,9 +54,10 @@ export function Home() {
                 <span className="text-sage">built to grow.</span>
               </h1>
               <p className="mt-7 max-w-lg text-[1.1rem] leading-relaxed text-slate-olive dark:text-muted-foreground sm:mt-9 sm:text-[1.2rem]">
-                SageStone embeds dependable remote talent into your workflows — so
-                your operations run with the clarity, precision, and calm your growth
-                deserves.
+                SageStone provides dedicated virtual assistants, customer support
+                outsourcing, executive assistance, and remote operations support for
+                growing businesses — embedded in your workflows with the clarity,
+                precision, and calm your growth deserves.
               </p>
               <div className="mt-9 flex flex-col items-stretch gap-4 sm:mt-11 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
                 <Button to="/contact" size="lg" className="w-full sm:w-auto">
@@ -94,6 +95,9 @@ export function Home() {
                   src={images.heroFounder}
                   alt="SageStone's founder at work in a warm, naturally lit office"
                   loading="eager"
+                  {...({ fetchpriority: "high" } as Record<string, string>)}
+                  width={1023}
+                  height={1537}
                   className="aspect-[4/3] w-full object-cover object-top sm:aspect-[4/5]"
                 />
               </div>
@@ -171,8 +175,10 @@ export function Home() {
             <motion.div {...fadeUp} className="order-2 lg:order-1 lg:-ml-8 lg:w-[calc(100%+4rem)] xl:-ml-12 xl:w-[calc(100%+5rem)]">
               <div className="overflow-hidden rounded-2xl border border-border">
                 <ImageWithFallback
-                  src="/why-sagestone-hero.png"
+                  src="/why-sagestone-hero.webp"
                   alt="SageStone remote support network illustration"
+                  width={1600}
+                  height={900}
                   className="aspect-[16/9] w-full object-cover"
                 />
               </div>
@@ -253,17 +259,21 @@ export function Home() {
             />
           </motion.div>
           <div className="mt-16 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {industries.map((industry, i) => (
+            {industryPages.map((industry, i) => (
               <motion.div
-                key={industry.name}
+                key={industry.slug}
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: (i % 3) * 0.06 }}
                 className="border-t border-border pt-6"
               >
-                <h3 className="text-[1.35rem] text-charcoal dark:text-chalk">{industry.name}</h3>
-                <p className="mt-3 text-[1rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
-                  {industry.description}
-                </p>
+                <Link to={`/industries/${industry.slug}`} className="group block">
+                  <h3 className="text-[1.35rem] text-charcoal transition-colors group-hover:text-sage dark:text-chalk">
+                    {industry.name}
+                  </h3>
+                  <p className="mt-3 text-[1rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
+                    {industry.pains[0]}
+                  </p>
+                </Link>
               </motion.div>
             ))}
           </div>
