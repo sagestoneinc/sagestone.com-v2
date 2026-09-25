@@ -1,5 +1,6 @@
 ---
 title: How to Document Repetitive Processes So You Can Delegate Them
+seoTitle: How to Document Repetitive Processes | SageStone
 description: A step-by-step method for turning the work in your head into clear SOPs that anyone on your team, or your support partner, can follow.
 date: 2026-09-25
 category: Operations

@@ -14,6 +14,8 @@ import { markdownToHtml, parseFrontmatter, type Heading } from "./markdown";
 export type BlogPostMeta = {
   slug: string;
   title: string;
+  /** Optional shorter <title> when the headline is too long for 60 chars. */
+  seoTitle?: string;
   description: string;
   date: string;
   updated?: string;
@@ -55,6 +57,7 @@ export function blogPlugin(dir: string): Plugin {
         const meta: BlogPostMeta = {
           slug,
           title: String(data.title),
+          seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
           description: String(data.description),
           date: String(data.date),
           updated: data.updated ? String(data.updated) : undefined,
