@@ -12,6 +12,7 @@ const nav = [
   { label: "Why Philippines", to: "/why-philippines" },
   { label: "Industries", to: "/industries" },
   { label: "Case Studies", to: "/case-studies" },
+  { label: "Blog", to: "/blog" },
   { label: "FAQ", to: "/faq" },
 ];
 
@@ -50,8 +51,9 @@ export function Header({
       <Container className="flex h-20 items-center justify-between">
         <Logo />
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {nav.map((item) =>
+        <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1">
+          {/* The logo links home, so the desktop nav skips "Home" to save space. */}
+          {nav.filter((item) => item.to !== "/").map((item) =>
             item.hasMenu ? (
               <div
                 key={item.to}
@@ -62,7 +64,7 @@ export function Header({
                 <NavLink
                   to={item.to}
                   className={({ isActive }) =>
-                    `flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] transition-colors ${
+                    `flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[0.9rem] transition-colors xl:px-4 xl:text-[0.95rem] ${
                       isActive
                         ? "text-sage-ink"
                         : "text-charcoal hover:text-sage dark:text-chalk"
@@ -94,7 +96,7 @@ export function Header({
                 to={item.to}
                 end={item.to === "/"}
                 className={({ isActive }) =>
-                  `rounded-full px-4 py-2 text-[0.95rem] transition-colors ${
+                  `whitespace-nowrap rounded-full px-2.5 py-2 text-[0.9rem] transition-colors xl:px-4 xl:text-[0.95rem] ${
                     isActive
                       ? "text-sage-ink"
                       : "text-charcoal hover:text-sage dark:text-chalk"
@@ -116,7 +118,7 @@ export function Header({
           >
             {dark ? <Sun className="h-[1.15rem] w-[1.15rem]" /> : <Moon className="h-[1.15rem] w-[1.15rem]" />}
           </button>
-          <Button to="/contact" className="hidden sm:inline-flex">
+          <Button to="/contact" className="hidden whitespace-nowrap sm:inline-flex">
             Book a Call
           </Button>
           <button

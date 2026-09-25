@@ -1,0 +1,84 @@
+/* Article typography for Markdown blog posts (.blog-prose wraps the HTML
+   produced by scripts/blog/markdown.ts). Uses the site's theme tokens. */
+.blog-prose {
+  color: var(--charcoal);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+.dark .blog-prose { color: var(--chalk); }
+
+.blog-prose > * + * { margin-top: 1.4em; }
+
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 7rem;
+}
+.blog-prose h2 { font-size: 1.85rem; margin-top: 2.2em; }
+.blog-prose h3 { font-size: 1.4rem; margin-top: 1.8em; }
+.blog-prose h4 { font-size: 1.15rem; margin-top: 1.6em; }
+.blog-prose h2 + *,
+.blog-prose h3 + *,
+.blog-prose h4 + * { margin-top: 0.8em; }
+
+.blog-prose p,
+.blog-prose li { color: var(--slate-olive); }
+.dark .blog-prose p,
+.dark .blog-prose li { color: var(--muted-foreground); }
+.blog-prose strong { color: var(--charcoal); font-weight: 600; }
+.dark .blog-prose strong { color: var(--chalk); }
+
+.blog-prose a {
+  color: var(--sage-ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--gold) 60%, transparent);
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+.blog-prose a:hover { color: var(--sage); }
+
+.blog-prose ul,
+.blog-prose ol { padding-left: 1.4em; }
+.blog-prose ul { list-style: disc; }
+.blog-prose ol { list-style: decimal; }
+.blog-prose li + li { margin-top: 0.5em; }
+.blog-prose li::marker { color: var(--sage); }
+
+.blog-prose blockquote {
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25em;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+.blog-prose blockquote p { color: var(--charcoal); }
+.dark .blog-prose blockquote p { color: var(--chalk); }
+
+.blog-prose hr { border: 0; border-top: 1px solid var(--border); margin: 2.5em 0; }
+
+.blog-prose code {
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--sage) 12%, transparent);
+  border-radius: 0.35em;
+  padding: 0.1em 0.35em;
+}
+.blog-prose pre {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.1em 1.3em;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.blog-prose pre code { background: none; padding: 0; }
+
+.blog-prose img { border-radius: 1rem; border: 1px solid var(--border); }
+
+@media (max-width: 640px) {
+  .blog-prose { font-size: 1.04rem; }
+  .blog-prose h2 { font-size: 1.55rem; }
+}

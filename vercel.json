@@ -1,23 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/services/virtual-assistant", "destination": "/services/virtual-assistant-services", "statusCode": 301 },
+    { "source": "/services/customer-support", "destination": "/services/customer-support-outsourcing", "statusCode": 301 },
+    { "source": "/services/back-office", "destination": "/services/back-office-support", "statusCode": 301 },
+    { "source": "/services/executive-assistance", "destination": "/services/executive-assistant-services", "statusCode": 301 },
+    { "source": "/services/remote-operations", "destination": "/services/remote-operations-support", "statusCode": 301 }
+  ],
   "rewrites": [
-    { "source": "/privacy", "destination": "/privacy/index.html" },
-    { "source": "/sms-terms", "destination": "/sms-terms/index.html" },
-    { "source": "/about", "destination": "/about/index.html" },
-    { "source": "/services", "destination": "/services/index.html" },
-    { "source": "/services/virtual-assistant", "destination": "/services/virtual-assistant/index.html" },
-    { "source": "/services/customer-support", "destination": "/services/customer-support/index.html" },
-    { "source": "/services/workflow-support", "destination": "/services/workflow-support/index.html" },
-    { "source": "/services/back-office", "destination": "/services/back-office/index.html" },
-    { "source": "/services/executive-assistance", "destination": "/services/executive-assistance/index.html" },
-    { "source": "/services/remote-operations", "destination": "/services/remote-operations/index.html" },
-    { "source": "/why-philippines", "destination": "/why-philippines/index.html" },
-    { "source": "/industries", "destination": "/industries/index.html" },
-    { "source": "/case-studies", "destination": "/case-studies/index.html" },
-    { "source": "/case-studies/kuha", "destination": "/case-studies/kuha/index.html" },
-    { "source": "/faq", "destination": "/faq/index.html" },
-    { "source": "/contact", "destination": "/contact/index.html" },
-    { "source": "/terms", "destination": "/terms/index.html" },
-    { "source": "/(.*)", "destination": "/app-shell.html" }
+    { "source": "/:path*", "destination": "/:path*/index.html" }
   ]
 }

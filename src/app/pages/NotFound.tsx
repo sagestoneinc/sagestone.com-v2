@@ -1,18 +1,6 @@
-import { useEffect } from "react";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 
 export function NotFound() {
-  // Prevent search engines from indexing the catch-all route as duplicate content.
-  useEffect(() => {
-    const meta = document.createElement("meta");
-    meta.name = "robots";
-    meta.content = "noindex, follow";
-    document.head.appendChild(meta);
-    return () => {
-      document.head.removeChild(meta);
-    };
-  }, []);
-
   return (
     <Section className="pt-40 pb-28 md:pt-48">
       <Container>

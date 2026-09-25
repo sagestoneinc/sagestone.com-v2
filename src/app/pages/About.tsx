@@ -2,6 +2,7 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow } from "../components/ui-brand/primitives";
 import { CTABand, PageHero, NoiseOverlay } from "../components/ui-brand/components";
 import { stats, images } from "../content/site";
+import { FOUNDER } from "../content/founder";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -74,6 +75,39 @@ export function About() {
                 </div>
               </div>
             ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ---------- Founder ---------- */}
+      <Section className="py-28 md:py-40" id="founder">
+        <Container>
+          <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20">
+            <div className="mx-auto w-full max-w-sm overflow-hidden rounded-[1.75rem] border border-border lg:mx-0">
+              <ImageWithFallback
+                src={FOUNDER.photo}
+                alt={`${FOUNDER.name}, founder of SageStone`}
+                width={1023}
+                height={1537}
+                className="aspect-[4/5] w-full object-cover object-top"
+              />
+            </div>
+            <div>
+              <Eyebrow className="mb-6">Meet the Founder</Eyebrow>
+              <h2 className="text-[2.15rem] leading-[1.08] tracking-[-0.02em] text-charcoal dark:text-chalk md:text-[3rem]">
+                {FOUNDER.name}
+              </h2>
+              <p className="mt-3 text-[0.85rem] uppercase tracking-[0.18em] text-gold-ink">{FOUNDER.role}</p>
+              <p className="mt-7 max-w-xl text-[1.1rem] leading-relaxed text-slate-olive dark:text-muted-foreground">{FOUNDER.bio}</p>
+              <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[0.98rem] font-medium">
+                <a href={FOUNDER.url} className="text-sage-ink underline decoration-gold/60 underline-offset-4 hover:text-sage">
+                  Jesel Cura's website: jeselcura.me
+                </a>
+                <a href={FOUNDER.linkedin} className="text-sage-ink underline decoration-gold/60 underline-offset-4 hover:text-sage">
+                  LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
         </Container>
       </Section>

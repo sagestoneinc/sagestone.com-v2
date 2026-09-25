@@ -3,14 +3,24 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { Monogram } from "../brand/Logo";
 import { Container } from "../ui-brand/primitives";
 import { services } from "../../content/site";
+import { industryPages } from "../../content/industries";
+import { solutionPages } from "../../content/solutions";
+import { FOUNDER } from "../../content/founder";
 
 const companyLinks = [
   { label: "About", to: "/about" },
-  { label: "Industries", to: "/industries" },
+  { label: "How It Works", to: "/how-it-works" },
   { label: "Case Studies", to: "/case-studies" },
   { label: "Why the Philippines", to: "/why-philippines" },
   { label: "FAQ", to: "/faq" },
   { label: "Contact", to: "/contact" },
+];
+
+const resourceLinks = [
+  { label: "Blog", to: "/blog" },
+  { label: "Kuha Case Study", to: "/case-studies/kuha" },
+  { label: "All Solutions", to: "/solutions" },
+  { label: "All Industries", to: "/industries" },
 ];
 
 export function Footer() {
@@ -71,8 +81,39 @@ export function Footer() {
           </FooterCol>
         </div>
 
+        <div className="mt-14 grid gap-12 border-t border-chalk/10 pt-12 md:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="hidden lg:block" aria-hidden="true" />
+          <FooterCol title="Industries">
+            {industryPages.map((i) => (
+              <FooterLink key={i.slug} to={`/industries/${i.slug}`}>
+                {i.name}
+              </FooterLink>
+            ))}
+          </FooterCol>
+          <FooterCol title="Solutions">
+            {solutionPages.map((sol) => (
+              <FooterLink key={sol.slug} to={`/solutions/${sol.slug}`}>
+                {sol.name}
+              </FooterLink>
+            ))}
+          </FooterCol>
+          <FooterCol title="Resources">
+            {resourceLinks.map((l) => (
+              <FooterLink key={l.to} to={l.to}>
+                {l.label}
+              </FooterLink>
+            ))}
+          </FooterCol>
+        </div>
+
         <div className="mt-14 flex flex-col gap-4 border-t border-chalk/10 pt-8 text-[0.85rem] text-chalk/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} SageStone. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} SageStone. All rights reserved. Founded by{" "}
+            <a href={FOUNDER.url} className="text-chalk/70 underline decoration-chalk/25 underline-offset-4 transition-colors hover:text-sage">
+              {FOUNDER.name}
+            </a>
+            .
+          </p>
           <div className="flex gap-6">
             <Link to="/privacy" className="transition-colors hover:text-chalk">Privacy Policy</Link>
             <Link to="/terms" className="transition-colors hover:text-chalk">Terms of Service</Link>

@@ -1,9 +1,11 @@
-import { useParams, Navigate, Link } from "react-router";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { useParams } from "react-router";
+import { ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Container, Section, SectionHeader, Eyebrow, Button } from "../components/ui-brand/primitives";
-import { FAQAccordion, CTABand, NoiseOverlay } from "../components/ui-brand/components";
+import { FAQAccordion, CTABand, NoiseOverlay, Breadcrumbs, RelatedLinks } from "../components/ui-brand/components";
 import { services, serviceDetails } from "../content/site";
+import { industryLinks, solutionLinks, postLinksForServices } from "../content/links";
+import { NotFound } from "./NotFound";
 
 const serif = { fontFamily: "var(--font-display)", fontWeight: 600 } as const;
 
@@ -13,21 +15,19 @@ export function ServiceDetail() {
   const detail = slug ? serviceDetails[slug] : undefined;
 
   if (!service || !detail) {
-    return <Navigate to="/services" replace />;
+    return <NotFound />;
   }
 
   return (
     <>
       <Section className="pt-40 pb-16 md:pt-48 md:pb-20">
         <Container>
-          <Link to="/services" className="mb-10 inline-flex items-center gap-2 text-[0.9rem] text-slate-olive transition-colors hover:text-sage dark:text-muted-foreground">
-            <ArrowLeft className="h-4 w-4" /> All services
-          </Link>
+          <Breadcrumbs items={[{ name: "Services", to: "/services" }, { name: service.title }]} />
           <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20">
             <div>
               <Eyebrow className="mb-7">{service.title}</Eyebrow>
               <h1 className="text-[2.6rem] leading-[1.0] tracking-[-0.03em] text-charcoal dark:text-chalk md:text-[3.6rem]">
-                {detail.heroTitle}
+                {service.h1}
               </h1>
               <p className="mt-8 max-w-xl text-[1.2rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
                 {detail.intro}
@@ -42,7 +42,7 @@ export function ServiceDetail() {
               </div>
             </div>
             <div className="overflow-hidden rounded-[1.75rem] border border-border">
-              <ImageWithFallback src={detail.image} alt={service.title} className="aspect-[5/4] w-full object-cover" />
+              <ImageWithFallback src={detail.image} alt={service.title} loading="eager" className="aspect-[5/4] w-full object-cover" />
             </div>
           </div>
         </Container>
@@ -115,6 +115,15 @@ export function ServiceDetail() {
               </div>
             ))}
           </div>
+        </Container>
+      </Section>
+
+      {/* Internal links: industries, solutions, related reading */}
+      <Section className="py-24 md:py-32">
+        <Container className="flex flex-col gap-20">
+          <RelatedLinks eyebrow="Industries" title={`${service.title} by industry`} items={industryLinks(service.industries)} />
+          <RelatedLinks eyebrow="Solutions" title="Specific work we take off your plate" items={solutionLinks(service.solutions)} />
+          <RelatedLinks eyebrow="From the Blog" title="Related reading" items={postLinksForServices([service.slug])} />
         </Container>
       </Section>
 
