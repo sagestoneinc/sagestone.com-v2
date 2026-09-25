@@ -11,6 +11,12 @@ Fast replies are only half of good customer support. The other half is consisten
 
 That's what quality assurance (QA) is for. You don't need a large team or special software to start. You need a clear checklist and a regular habit of using it.
 
+:::takeaways
+- A QA checklist turns "good support" into something everyone can see and improve.
+- Score replies on **accuracy, resolution, tone, clarity, and process**.
+- Run a short review every week, and fix the system behind repeated errors, not just the reply.
+:::
+
 ## Why QA matters as support grows
 
 When one person answers every ticket, quality lives in their head. As soon as a second person, a new hire, or an outsourced team joins, you need a shared definition of a good reply. Without one:
@@ -27,36 +33,38 @@ Score each reviewed ticket against these points. A simple yes / partly / no work
 
 ### Accuracy
 
-- The answer is factually correct and matches current policy.
-- Order, account, or product details were checked, not assumed.
-- Any links or instructions work and are up to date.
+- [x] The answer is factually correct and matches current policy.
+- [x] Order, account, or product details were checked, not assumed.
+- [x] Any links or instructions work and are up to date.
 
 ### Resolution
 
-- The customer's actual question was answered, not just acknowledged.
-- The reply resolves the issue or clearly explains the next step and timing.
-- Anything that needed escalation was escalated through the right path.
+- [x] The customer's actual question was answered, not just acknowledged.
+- [x] The reply resolves the issue or clearly explains the next step and timing.
+- [x] Anything that needed escalation was escalated through the right path.
 
 ### Tone and brand voice
 
-- The reply sounds like your brand: warm, clear, and human.
-- The customer's name and context were used naturally.
-- Frustration was acknowledged without being defensive.
+- [x] The reply sounds like your brand: warm, clear, and human.
+- [x] The customer's name and context were used naturally.
+- [x] Frustration was acknowledged without being defensive.
 
 ### Clarity
 
-- The reply is easy to scan, with short paragraphs and clear steps.
-- No internal jargon or unexplained abbreviations.
-- The customer knows exactly what happens next.
+- [x] The reply is easy to scan, with short paragraphs and clear steps.
+- [x] No internal jargon or unexplained abbreviations.
+- [x] The customer knows exactly what happens next.
 
 ### Process
 
-- The ticket was tagged and categorized correctly.
-- Internal notes capture what was done and why.
-- Saved replies were used where they fit, and personalized.
-- Response time met the target for that channel.
+- [x] The ticket was tagged and categorized correctly.
+- [x] Internal notes capture what was done and why.
+- [x] Saved replies were used where they fit, and personalized.
+- [x] Response time met the target for that channel.
 
 ## How to run QA each week
+
+![The weekly QA loop in five steps: sample tickets, score them against the checklist, coach with specific feedback, fix replies, policies and SOPs, and track trends](/blog/diagrams/qa-weekly-loop.webp "Five steps, every week. Fixes go into documentation, not just the reply.")
 
 1. **Sample tickets.** Review a set number each week across agents and channels. Include a few difficult conversations, not just easy ones.
 2. **Score against the checklist.** Keep it quick. The goal is patterns, not perfection.

@@ -11,6 +11,15 @@ Real estate runs on responsiveness. Leads expect quick replies, transactions hav
 
 A real estate virtual assistant takes on that admin so agents can spend more time with clients. Here's what the role can cover and how to set it up well.
 
+:::takeaways
+- A real estate VA covers **transaction coordination, CRM upkeep, listing admin, scheduling, and property management support**.
+- Your team keeps approvals and client judgment. The VA keeps the process moving.
+- Start with 2–3 areas and a written contract-to-close checklist.
+- Limit access to what each role needs, and use secure document storage.
+:::
+
+![Where a real estate virtual assistant helps across four stages: lead, listing and showings, under contract, and closing, with example tasks for each](/blog/diagrams/real-estate-pipeline.webp "Example support at each stage, from first lead to closing.")
+
 ## What a real estate virtual assistant can handle
 
 ### Transaction coordination

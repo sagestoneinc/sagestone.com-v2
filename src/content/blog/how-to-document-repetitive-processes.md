@@ -14,6 +14,15 @@ Standard operating procedures (SOPs) fix that. They don't need to be long or for
 
 Here's a practical method you can use this week.
 
+:::takeaways
+- Start with a process that's **frequent, rules-based, and painful**.
+- Record yourself doing it, then turn the recording into numbered steps.
+- An SOP isn't finished until **someone else** has followed it.
+- Keep SOPs in one place and update them the moment something changes.
+:::
+
+![The six-step SOP method: pick a process, record it, write the steps, test it with someone else, store it in one place, and maintain it](/blog/diagrams/sop-six-steps.webp "The six-step method in this guide.")
+
 ## Step 1: Pick the right process to start with
 
 Don't start by documenting everything. Start with a process that is:
@@ -47,6 +56,10 @@ Now write the SOP. Keep this structure:
 - **Done means:** how to know it was completed correctly
 
 Write each step as an instruction. "Open the order in the admin and check the fulfillment status" is better than "check the order."
+
+:::tip
+Write each step as an instruction that starts with a verb. "Open the order and check the fulfillment status" is easier to follow than "check the order."
+:::
 
 ## Step 4: Test it with someone else
 

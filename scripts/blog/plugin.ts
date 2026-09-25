@@ -65,8 +65,14 @@ export function blogPlugin(dir: string): Plugin {
           category: data.category ? String(data.category) : "Operations",
           tags: list(data.tags),
           services: list(data.services),
-          image: data.image ? String(data.image) : undefined,
-          imageAlt: data.imageAlt ? String(data.imageAlt) : undefined,
+          // Frontmatter image wins; otherwise use a generated cover if one exists
+          // (scripts/blog/generate-covers.mjs → public/blog/covers/<slug>.jpg).
+          image: data.image ? String(data.image) : coverFor(slug),
+          imageAlt: data.imageAlt
+            ? String(data.imageAlt)
+            : coverFor(slug)
+              ? `${String(data.title)}: SageStone blog cover`
+              : undefined,
           readingMinutes: Math.max(1, Math.round(text.split(" ").length / 225)),
         };
         return { meta, html, headings, draft: String(data.draft) === "true", file };
@@ -75,12 +81,16 @@ export function blogPlugin(dir: string): Plugin {
   };
 
   let isBuild = false;
+  let publicDir = path.resolve(blogDir, "../../../public");
+  const coverFor = (slug: string) =>
+    fs.existsSync(path.join(publicDir, "blog/covers", `${slug}.jpg`)) ? `/blog/covers/${slug}.jpg` : undefined;
   const published = () => readAll().filter((p) => !(isBuild && p.draft));
 
   return {
     name: "sagestone-blog",
     configResolved(config) {
       isBuild = config.command === "build";
+      if (config.publicDir) publicDir = config.publicDir;
     },
     resolveId(id) {
       if (id === VIRTUAL_INDEX || id.startsWith(BODY_PREFIX)) return RESOLVED + id;

@@ -11,6 +11,13 @@ services: [virtual-assistant-services, executive-assistant-services]
 
 The two most common versions are the **virtual assistant** and the **executive assistant**. They overlap, but they solve different problems. Picking the wrong one usually means either underusing a skilled person or expecting judgment the role wasn't set up for.
 
+:::takeaways
+- A **virtual assistant owns tasks**; an **executive assistant owns a leader's time**.
+- Choose a VA to clear recurring work, and an EA when one person's calendar and inbox are the bottleneck.
+- EAs need more context and trust, so they take longer to onboard.
+- Many founders start with a VA and grow into executive support.
+:::
+
 ## The core difference
 
 The simplest way to think about it:
@@ -19,6 +26,17 @@ The simplest way to think about it:
 - An **executive assistant owns a person's time.** They protect one leader's priorities, manage their communication, and make sure nothing important slips.
 
 Both can work remotely. Both handle email and calendars. The difference is in scope, context, and trust.
+
+## Side by side
+
+| | Virtual assistant | Executive assistant |
+| --- | --- | --- |
+| Owns | Recurring, defined tasks | One leader's time and priorities |
+| Supports | One person or a whole team | Usually one leader |
+| Works from | Checklists and SOPs | Context, preferences, and judgment |
+| Access | Scoped to each task | Broad, with high discretion |
+| Onboarding | Task by task | Longer: learning how you think |
+| Best when | Admin is piling up | A leader's week is the bottleneck |
 
 ## What a virtual assistant typically handles
 

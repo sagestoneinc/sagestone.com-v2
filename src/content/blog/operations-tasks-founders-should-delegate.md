@@ -11,6 +11,13 @@ Founders are usually the last people to notice they've become the bottleneck. Th
 
 Delegation is the fix, but "delegate more" is vague advice. Here are twelve specific operational tasks that founders commonly hold onto, and that someone else can usually run well with a little documentation.
 
+:::takeaways
+- Twelve operational tasks founders commonly hold onto too long, across communication, customers, finance, and systems.
+- Score each task for **time spent** and **energy drained**, and start with the highest scores.
+- Only delegate tasks that can be written as steps. Document the rest first.
+- Start with three, hand them over properly, then add more.
+:::
+
 ## Communication and coordination
 
 ### 1. Inbox triage
@@ -75,6 +82,8 @@ Score each task from 1 to 3 on two questions:
 2. **How much does it drain your energy?**
 
 Start with the tasks that score highest on both. Then check one more thing: **can the task be described in steps?** If yes, it's ready to delegate. If not, document your decision process first.
+
+![A two-by-two delegation matrix plotting time spent against energy drained: high time and high drain means delegate first, one high score means delegate next, and low on both means leave for later](/blog/diagrams/delegation-matrix.webp "Plot each task by time and energy. Start in the top-right corner.")
 
 ## What should stay with you
 

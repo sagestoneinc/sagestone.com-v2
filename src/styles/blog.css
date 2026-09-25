@@ -82,3 +82,108 @@
   .blog-prose { font-size: 1.04rem; }
   .blog-prose h2 { font-size: 1.55rem; }
 }
+
+/* ---------- Visual blocks: callouts, tables, checklists, figures ---------- */
+.blog-prose .callout {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.6rem 1.4rem;
+  background: var(--card);
+}
+.blog-prose .callout > * + * { margin-top: 0.8em; }
+.blog-prose .callout-title {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+}
+.blog-prose .callout-title + * { margin-top: 0.7em; }
+.blog-prose .callout p,
+.blog-prose .callout li { color: var(--charcoal); font-size: 1.02rem; }
+.dark .blog-prose .callout p,
+.dark .blog-prose .callout li { color: var(--chalk); }
+
+/* Key takeaways: dark Midnight Pine card */
+.blog-prose .callout-takeaways {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: #EEE9E0;
+}
+.blog-prose .callout-takeaways .callout-title { color: var(--gold); }
+.blog-prose .callout-takeaways p,
+.blog-prose .callout-takeaways li,
+.blog-prose .callout-takeaways strong { color: #EEE9E0; }
+.blog-prose .callout-takeaways a { color: #C9D1C3; }
+.blog-prose .callout-takeaways li::marker { color: var(--gold); }
+.dark .blog-prose .callout-takeaways { background: color-mix(in srgb, var(--sage) 14%, var(--pine)); border-color: var(--border); }
+
+/* Tip: sage accent bar */
+.blog-prose .callout-tip { border-left: 4px solid var(--sage); background: color-mix(in srgb, var(--sage) 8%, var(--card)); }
+/* Note: gold accent bar */
+.blog-prose .callout-note { border-left: 4px solid var(--gold); background: color-mix(in srgb, var(--gold) 8%, var(--card)); }
+
+/* Checklists */
+.blog-prose ul.tasks { list-style: none; padding-left: 0; }
+.blog-prose li.task { display: flex; gap: 0.8em; align-items: flex-start; }
+.blog-prose .task-mark {
+  flex: none;
+  width: 1.45em;
+  height: 1.45em;
+  margin-top: 0.2em;
+  border-radius: 999px;
+  background: var(--sage);
+  color: var(--cloud);
+  font-size: 0.75em;
+  display: grid;
+  place-items: center;
+}
+.blog-prose .callout-takeaways .task-mark { background: var(--gold); color: var(--pine); }
+
+/* Tables */
+.blog-prose .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 1.1rem;
+}
+.blog-prose table { width: 100%; border-collapse: collapse; font-size: 0.98rem; line-height: 1.5; }
+.blog-prose th {
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  background: var(--card);
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+}
+.blog-prose td { padding: 0.9rem 1.1rem; vertical-align: top; color: var(--slate-olive); border-top: 1px solid var(--border); }
+.blog-prose tr:first-child td { border-top: 0; }
+.blog-prose td:first-child { color: var(--charcoal); font-weight: 500; }
+.dark .blog-prose td { color: var(--muted-foreground); }
+.dark .blog-prose td:first-child { color: var(--chalk); }
+
+/* Figures (diagrams and images) */
+.blog-prose figure { margin: 2.2em 0; }
+.blog-prose figure img { width: 100%; height: auto; background: #FAF8F4; }
+.blog-prose figcaption {
+  margin-top: 0.75em;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--slate-olive);
+  text-align: center;
+}
+.dark .blog-prose figcaption { color: var(--muted-foreground); }
+
+@media (max-width: 640px) {
+  /* Keep diagram text readable: swipe sideways instead of shrinking. */
+  .blog-prose figure { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .blog-prose figure img { min-width: 620px; }
+  .blog-prose figcaption { position: sticky; left: 0; max-width: calc(100vw - 3rem); text-align: left; }
+  .blog-prose .callout { padding: 1.25rem 1.2rem; }
+  .blog-prose th, .blog-prose td { padding: 0.75rem 0.85rem; }
+}

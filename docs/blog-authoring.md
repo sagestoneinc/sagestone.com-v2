@@ -35,6 +35,43 @@ Service slugs: `virtual-assistant-services`, `customer-support-outsourcing`, `wo
 
 Headings (`##`, `###`, `####`), paragraphs, `-` and `1.` lists, `**bold**`, `*italic*`, `` `code` ``, links, images, `>` blockquotes, `---` rules, and fenced code blocks. Raw HTML is escaped, not rendered. Don't use `#` in the body, because the title is already the page's H1.
 
+### Visual blocks
+
+Use these so posts don't read as walls of text:
+
+```
+:::takeaways
+- Three or four one-line bullets near the top of every post
+:::
+
+:::tip Optional custom title
+A short practical tip.
+:::
+
+:::note
+Context or a caveat.
+:::
+
+:::checklist Quick self-check
+- [x] An item rendered with a check mark
+:::
+
+| Column | Column |
+| --- | --- |
+| Tables | for comparisons |
+
+![Descriptive alt text](/blog/diagrams/name.webp "Caption shown under the image")
+```
+
+An image on its own line becomes a captioned figure.
+
+## Images
+
+- **Cover images** are generated automatically from the post title and category. After adding a post, run `node scripts/blog/generate-covers.mjs`. It creates `public/blog/covers/<slug>.jpg`, which becomes the post hero, the blog index thumbnail, and the image that LinkedIn and other link previews show. Add a short label for the new post in the `LABELS` map in that script. Use `--all` to regenerate every cover after a design change.
+- **Diagrams** live in `scripts/blog/generate-diagrams.mjs` as small HTML templates in brand colors. Add one there, run `node scripts/blog/generate-diagrams.mjs`, and reference it as a figure.
+- Both scripts need Playwright with Chromium (`npm i -g playwright`). It's not a project dependency, and the generated images are committed.
+- **Photos:** put them in `public/blog/` as WebP, always with alt text. Only use photos you have the rights and consent to publish.
+
 ## Writing guidelines
 
 - **Voice:** SageStone's company voice, plain and calm. Write "we" for SageStone.

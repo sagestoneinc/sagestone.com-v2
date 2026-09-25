@@ -11,6 +11,12 @@ At some point, every growing business hits the same wall: customer questions arr
 
 The fix is dedicated support. The question is whether to build it in-house or outsource it. Both can work. The right choice depends on your stage, your volume, and how much of your team's time you want to spend managing support instead of doing it.
 
+:::takeaways
+- In-house gives you **control and deep product knowledge**, but it takes time to hire, train, and manage.
+- Outsourcing gives you **speed and ready-made structure**, but it needs a clear handoff.
+- Most growing teams land on a **hybrid**: outsourced tier-one, clear escalation rules, and an internal owner.
+:::
+
 ## What in-house support gives you
 
 **Direct control.** Your support team sits inside your company, absorbs your culture, and can be pulled into product conversations easily.
@@ -29,6 +35,16 @@ The fix is dedicated support. The question is whether to build it in-house or ou
 
 **The tradeoffs:** you need to invest in a clear handoff. Outsourced support is only as good as the information and rules it's given, and some very technical questions will always need your team.
 
+## At a glance
+
+| | In-house | Outsourced |
+| --- | --- | --- |
+| Time to coverage | Hiring and training time | Faster, with a partner's process |
+| Structure | Built by you | Escalations, QA, and docs included |
+| Flexibility | Fixed headcount | Scales for launches and peaks |
+| Product depth | Grows over time | Depends on documentation |
+| Management | Your team's time | Shared with the partner |
+
 ## Questions that point to the right model
 
 Work through these honestly:
@@ -45,6 +61,8 @@ For most growing businesses, the answer isn't either/or. A common pattern:
 - **Outsourced tier-one support** handles the high-volume, well-documented questions across email, chat, and your help desk.
 - **Clear escalation rules** route anything sensitive, such as refunds above a set amount, technical bugs, and upset VIP customers, to your team.
 - **An internal owner** reviews trends, updates policies, and feeds recurring issues back into the product.
+
+![The hybrid support model: outsourced tier-one support handles high-volume questions, escalation rules route sensitive cases, and an in-house owner reviews trends and updates policies](/blog/diagrams/support-hybrid-model.webp "The hybrid model: outsourced tier-one, clear escalations, and an in-house owner.")
 
 This keeps your team focused on the conversations that need them, while customers get fast, consistent answers to everything else.
 
