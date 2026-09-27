@@ -147,24 +147,25 @@ function notification(s) {
     ...rows.slice(5).map(([k, v]) => `${`${k}:`.padEnd(12)} ${v || "—"}`),
   ].join("\n");
 
-  const html =
-    `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.55;color:#222622;max-width:620px">` +
-    `<p style="margin:0 0 12px">New contact form submission from sagestoneinc.com</p>` +
-    `<table cellpadding="6" style="border-collapse:collapse">` +
-    rows
-      .slice(0, 5)
-      .map(([k, v]) => `<tr><td style="color:#5d6659;vertical-align:top">${k}</td><td>${escapeHtml(v) || "—"}</td></tr>`)
-      .join("") +
-    `</table>` +
-    `<p style="margin:16px 0 4px;color:#5d6659">Message</p>` +
-    `<p style="margin:0;white-space:pre-wrap">${escapeHtml(s.message)}</p>` +
-    `<hr style="border:none;border-top:1px solid #ddd;margin:20px 0">` +
-    `<table cellpadding="4" style="border-collapse:collapse;font-size:12px;color:#5d6659">` +
-    rows
-      .slice(5)
-      .map(([k, v]) => `<tr><td style="vertical-align:top">${k}</td><td>${escapeHtml(v) || "—"}</td></tr>`)
-      .join("") +
-    `</table></div>`;
+  const detailRow = ([k, v]) =>
+    `<tr><td style="padding:6px 16px 6px 0;color:${C.muted};vertical-align:top;white-space:nowrap">${k}</td>` +
+    `<td style="padding:6px 0;color:${C.ink}">${escapeHtml(v) || "—"}</td></tr>`;
+
+  const html = layout({
+    preheader: `${s.name} (${s.email}) sent an enquiry about ${s.service}.`,
+    body:
+      heading("New website enquiry") +
+      `<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:15px;line-height:1.5;margin:0 0 20px">` +
+      rows.slice(0, 5).map(detailRow).join("") +
+      `</table>` +
+      `<p style="margin:0 0 6px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:${C.muted}">Message</p>` +
+      `<div style="margin:0 0 24px;padding:16px 18px;background:${C.ivory};border-left:3px solid ${C.sage};border-radius:4px;white-space:pre-wrap;font-size:15px;line-height:1.6;color:${C.ink}">${escapeHtml(s.message)}</div>` +
+      button(`mailto:${s.email}`, `Reply to ${s.name.split(/\s+/)[0]}`) +
+      `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px 0 0;font-size:12px;line-height:1.5;border-top:1px solid ${C.rule};width:100%">` +
+      `<tr><td style="height:12px"></td></tr>` +
+      rows.slice(5).map(detailRow).join("") +
+      `</table>`,
+  });
 
   return {
     from: from("SageStone Website"),
@@ -200,14 +201,19 @@ function confirmation(s) {
     "https://www.sagestoneinc.com",
   ].join("\n");
 
-  const html =
-    `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#222622;max-width:560px">` +
-    `<p>Hi ${escapeHtml(firstName)},</p>` +
-    `<p>Thank you for reaching out to SageStone. We have received your inquiry, and one of our team members will reach out as soon as we can, usually within one business day.</p>` +
-    `<p>If you need to add anything in the meantime, just reply to this email.</p>` +
-    `<p>Warm regards,<br>The SageStone Team<br>` +
-    `<a href="https://www.sagestoneinc.com" style="color:#4f5a4a">sagestoneinc.com</a></p>` +
-    `</div>`;
+  const p = (t) => `<p style="margin:0 0 16px">${t}</p>`;
+  const html = layout({
+    preheader: "Thanks for reaching out. One of our team members will be in touch soon.",
+    body:
+      heading("We’ve received your inquiry") +
+      `<div style="font-size:16px;line-height:1.65;color:${C.ink}">` +
+      p(`Hi ${escapeHtml(firstName)},`) +
+      p("Thank you for reaching out to SageStone. We have received your inquiry, and one of our team members will reach out as soon as we can, usually within one business day.") +
+      p("If you need to add anything in the meantime, just reply to this email.") +
+      `</div>` +
+      `<div style="margin:8px 0 28px">${button(`${SITE}/how-it-works`, "See how we work")}</div>` +
+      `<p style="margin:0;font-size:16px;line-height:1.6;color:${C.ink}">Warm regards,<br><strong>The SageStone Team</strong></p>`,
+  });
 
   return {
     from: from("SageStone"),
@@ -217,6 +223,65 @@ function confirmation(s) {
     textbody: text,
     htmlbody: html,
   };
+}
+
+// ---------- Branded email layout ----------
+
+const SITE = "https://www.sagestoneinc.com";
+const C = {
+  sage: "#7E8A77",
+  sageInk: "#59634F",
+  ivory: "#F5F1E8",
+  ink: "#222622",
+  muted: "#5E655C",
+  rule: "#E4E0D6",
+};
+const FONT = "Georgia,'Times New Roman',serif";
+const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,Helvetica,sans-serif";
+
+function heading(text) {
+  return `<h1 style="margin:0 0 20px;font-family:${FONT};font-size:26px;line-height:1.25;font-weight:600;color:${C.ink}">${text}</h1>`;
+}
+
+/** Table-based button: renders as a button in Outlook as well as web clients. */
+function button(href, label) {
+  return (
+    `<table role="presentation" cellpadding="0" cellspacing="0"><tr>` +
+    `<td style="border-radius:999px;background:${C.sageInk}">` +
+    `<a href="${escapeHtml(href)}" style="display:inline-block;padding:12px 26px;font-family:${SANS};font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:999px">${escapeHtml(label)}</a>` +
+    `</td></tr></table>`
+  );
+}
+
+/**
+ * Shared shell for every email: ivory background, logo header, white card,
+ * contact footer. Tables and inline styles only, because that's what Gmail,
+ * Outlook and Apple Mail all render consistently. The logo is served from the
+ * site (public/email/logo.png, generated by scripts/email/generate-email-assets.mjs).
+ */
+function layout({ preheader, body }) {
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>SageStone</title></head>
+<body style="margin:0;padding:0;background:${C.ivory}">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${escapeHtml(preheader)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.ivory}"><tr><td align="center" style="padding:32px 16px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px">
+<tr><td style="padding:0 8px 24px">
+<a href="${SITE}" style="text-decoration:none"><img src="${SITE}/email/logo.png" width="193" height="56" alt="SageStone" style="display:block;border:0;width:193px;height:56px"></a>
+</td></tr>
+<tr><td style="background:#ffffff;border:1px solid ${C.rule};border-top:4px solid ${C.sage};border-radius:12px;padding:36px 36px 32px;font-family:${SANS};color:${C.ink}">
+${body}
+</td></tr>
+<tr><td style="padding:24px 8px 0;font-family:${SANS};font-size:12px;line-height:1.6;color:${C.muted}">
+<strong style="color:${C.ink}">SageStone Inc.</strong> · Supporting Ambition<br>
+<a href="${SITE}" style="color:${C.sageInk};text-decoration:none;white-space:nowrap">sagestoneinc.com</a> ·
+<a href="mailto:${DEFAULT_TO}" style="color:${C.sageInk};text-decoration:none;white-space:nowrap">${DEFAULT_TO}</a> ·
+<a href="tel:+12149452234" style="color:${C.sageInk};text-decoration:none;white-space:nowrap">+1 (214) 945-2234</a>
+</td></tr>
+</table>
+</td></tr></table>
+</body></html>`;
 }
 
 function clean(value, max) {
