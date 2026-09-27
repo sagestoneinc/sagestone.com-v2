@@ -28,7 +28,7 @@ No server, no third-party form service, no monthly cost.
 8. **Deploy**, then authorise when prompted. Google will warn that the script
    is unverified — choose **Advanced → Go to (project name)** and allow it.
    The permissions it asks for are spreadsheet access and permission to send
-   email as you.
+   email as you (through Gmail).
 9. Copy the **Web app URL**. It ends in `/exec`.
 
 To confirm it's live, open that URL in a browser. You should see
@@ -50,12 +50,29 @@ build time, not read at runtime, so an existing deployment will not see it.
 For local development, copy `.env.example` to `.env.local` and set the same
 value.
 
+### 3. Send notifications from noreply@sagestoneinc.com (optional)
+
+Notifications are sent from `noreply@sagestoneinc.com` once that address is a
+**"Send mail as"** alias on the Google account that owns the script. Until then
+they come from the owner's own address, so nothing breaks in the meantime.
+
+1. Make sure `noreply@sagestoneinc.com` can receive mail once, for verification.
+   On Google Workspace, add it as an alias of the owner's user (Admin console →
+   Users → the user → **Add alternate emails**) or as a Google Group.
+2. In Gmail for the owner's account: **Settings → See all settings → Accounts →
+   Send mail as → Add another email address**. Enter `noreply@sagestoneinc.com`
+   and complete the verification.
+3. Nothing to redeploy: the script checks the account's aliases on every send.
+
+Reply-to stays set to the person who submitted, so replying from the
+notification still goes to them.
+
 ## What gets recorded
 
 | Column | Notes |
 | --- | --- |
 | Received at | Server timestamp |
-| Name, Email, Company, Service, Message | Form fields |
+| Name, Email, Phone, Company, Service, Message | Form fields |
 | SMS consent | `YES` / `no` |
 | Consent source | `web form` when consent was given |
 | Consent given at | ISO timestamp, for A2P 10DLC records |
@@ -70,6 +87,8 @@ Editing the script is not enough on its own. After changing
 `scripts/contact-form.gs`, paste the new version into Apps Script and then
 **Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy**.
 That keeps the same `/exec` URL, so `VITE_CONTACT_ENDPOINT` does not change.
+If the new version needs new permissions (for example, the switch to Gmail for
+the sender alias), run any function once from the editor and approve them.
 
 ## Known limitations
 

@@ -14,11 +14,17 @@
 var SHEET_ID = '1TleysrZC4UHRCp2XmxzpVx7ffIqm5m9rJwux8Ma5mrU';
 var SHEET_NAME = 'Submissions';
 var NOTIFY_EMAIL = 'hello@sagestoneinc.com';
+// Sender for notifications. Gmail only sends from an address that is set up as
+// a "Send mail as" alias on the account that owns this script; until it is,
+// notifications fall back to the owner's own address.
+var FROM_EMAIL = 'noreply@sagestoneinc.com';
+var FROM_NAME = 'SageStone Website';
 
 var HEADERS = [
   'Received at',
   'Name',
   'Email',
+  'Phone',
   'Company',
   'Service',
   'Message',
@@ -51,6 +57,7 @@ function doPost(e) {
       new Date(),
       trim_(data.name),
       trim_(data.email),
+      trim_(data.phone),
       trim_(data.company),
       trim_(data.service),
       trim_(data.message),
@@ -89,6 +96,11 @@ function getSheet_() {
     sheet.appendRow(HEADERS);
     sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
+  } else if (sheet.getRange(1, 4).getValue() !== 'Phone') {
+    // Sheets created before the Phone column existed: insert it after Email
+    // so existing rows stay aligned with their headers.
+    sheet.insertColumnAfter(3);
+    sheet.getRange(1, 4).setValue('Phone').setFontWeight('bold');
   }
 
   return sheet;
@@ -105,6 +117,7 @@ function sendNotification_(data) {
     '',
     'Name:      ' + (data.name || '—'),
     'Email:     ' + (data.email || '—'),
+    'Phone:     ' + (data.phone || '—'),
     'Company:   ' + (data.company || '—'),
     'Service:   ' + (data.service || '—'),
     '',
@@ -117,13 +130,16 @@ function sendNotification_(data) {
     'User agent:  ' + (data.userAgent || '—'),
   ];
 
-  var options = { name: 'SageStone Website' };
+  var options = { name: FROM_NAME };
+  if (GmailApp.getAliases().indexOf(FROM_EMAIL) !== -1) {
+    options.from = FROM_EMAIL;
+  }
   // Let the team reply straight to the person who submitted the form.
   if (data.email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
     options.replyTo = data.email;
   }
 
-  MailApp.sendEmail(
+  GmailApp.sendEmail(
     NOTIFY_EMAIL,
     'New enquiry: ' + (data.name || 'Website contact form'),
     lines.join('\n'),
