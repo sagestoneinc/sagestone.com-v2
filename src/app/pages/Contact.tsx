@@ -5,6 +5,7 @@ import {
   submitContact,
   validateContact,
   ContactConfigError,
+  ContactSendError,
   FIELD_ORDER,
   MESSAGE_MAX,
   type ContactErrors,
@@ -67,6 +68,15 @@ export function Contact() {
       await submitContact(form);
       setSubmitted(true);
     } catch (err) {
+      const serverFields = err instanceof ContactSendError ? err.fields : {};
+      const firstInvalid = FIELD_ORDER.find((k) => serverFields[k]);
+      if (firstInvalid) {
+        // The server's checks disagreed with the browser's; show its reasons.
+        setErrors(serverFields);
+        setError(null);
+        document.getElementById(`contact-${firstInvalid}`)?.focus();
+        return;
+      }
       setError(
         err instanceof ContactConfigError
           ? "This form isn't connected yet. Please email hello@sagestoneinc.com and we'll pick it up right away."
