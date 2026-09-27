@@ -1,10 +1,15 @@
 /**
  * Contact form submission.
  *
- * Posts to a Google Apps Script Web App, which appends the submission to the
- * SageStone submissions spreadsheet and emails hello@sagestoneinc.com.
+ * Posts to the site's own serverless function (api/contact.js), which checks
+ * the submission again and sends two emails through ZeptoMail: a notification
+ * to hello@sagestoneinc.com and a confirmation to the person who submitted.
  * See docs/contact-form-setup.md.
  */
+
+import { validateContact as validate } from "./contact-rules.js";
+
+export { FIELD_ORDER, MESSAGE_MAX, MESSAGE_MIN } from "./contact-rules.js";
 
 export type ContactForm = {
   name: string;
@@ -23,52 +28,13 @@ export type ContactPayload = ContactForm & {
   smsConsentSource: string | null;
   smsConsentAt: string | null;
   page: string;
-  userAgent: string;
 };
-
-const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
 
 export type ContactErrors = Partial<Record<"name" | "email" | "phone" | "service" | "message", string>>;
 
-/** Fields in the order they appear on the page, so focus goes to the first error. */
-export const FIELD_ORDER = ["name", "email", "phone", "service", "message"] as const;
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-export const MESSAGE_MIN = 20;
-export const MESSAGE_MAX = 2000;
-
-/**
- * Required: name, email, service, and a short message. Phone is optional, but
- * it has to look like a real number when given, and it's required when the
- * visitor opts in to texts (consent without a number can't be honoured).
- * scripts/contact-form.gs repeats these checks server-side.
- */
+/** Same rules as the server (src/app/lib/contact-rules.js). */
 export function validateContact(form: ContactForm): ContactErrors {
-  const errors: ContactErrors = {};
-  const name = form.name.trim();
-  const email = form.email.trim();
-  const phoneDigits = form.phone.replace(/\D/g, "");
-  const message = form.message.trim();
-
-  if (!name) errors.name = "Please enter your name.";
-  else if (name.length < 2) errors.name = "Please enter your full name.";
-
-  if (!email) errors.email = "Please enter your email address.";
-  else if (!EMAIL_RE.test(email)) errors.email = "Please enter a valid email address, like jane@company.com.";
-
-  if (form.phone.trim() && (phoneDigits.length < 7 || phoneDigits.length > 15 || /[^\d\s()+.-]/.test(form.phone))) {
-    errors.phone = "Please enter a valid phone number, including the area code.";
-  } else if (form.smsConsent && !phoneDigits) {
-    errors.phone = "Please enter a mobile number to receive text messages, or untick the SMS box.";
-  }
-
-  if (!form.service) errors.service = "Please choose what you need help with. Pick “Not sure yet” if you’re undecided.";
-
-  if (!message) errors.message = "Please tell us a little about what you need.";
-  else if (message.length < MESSAGE_MIN) errors.message = `Please add a bit more detail (at least ${MESSAGE_MIN} characters).`;
-  else if (message.length > MESSAGE_MAX) errors.message = `Please keep your message under ${MESSAGE_MAX} characters.`;
-
-  return errors;
+  return validate(form);
 }
 
 export function buildPayload(form: ContactForm): ContactPayload {
@@ -78,34 +44,40 @@ export function buildPayload(form: ContactForm): ContactPayload {
     smsConsentSource: form.smsConsent ? "web form" : null,
     smsConsentAt: form.smsConsent ? new Date().toISOString() : null,
     page: typeof window === "undefined" ? "" : window.location.pathname,
-    userAgent: typeof navigator === "undefined" ? "" : navigator.userAgent,
   };
 }
 
+/** The server has no ZeptoMail credentials configured. */
 export class ContactConfigError extends Error {}
 
+/** The server rejected or couldn't send the submission. */
+export class ContactSendError extends Error {
+  constructor(
+    message: string,
+    /** Field errors from the server's validation, when that's why it failed. */
+    readonly fields: ContactErrors = {}
+  ) {
+    super(message);
+  }
+}
+
 /**
- * Apps Script Web Apps don't answer CORS preflight, so this sends a "simple"
- * request: text/plain body, no custom headers, mode "no-cors". The trade-off is
- * that the response is opaque — a delivered submission and a server-side error
- * look identical here. Only genuine network failures reject. The script emails
- * on every submission, so a silent server-side failure shows up as a missing
- * email rather than passing unnoticed.
- *
- * Deliberately NOT retried on failure: a retry after an ambiguous result would
- * duplicate rows and notification emails.
+ * Deliberately NOT retried on failure: a retry after an ambiguous result
+ * (for example a timeout after ZeptoMail accepted the email) would send
+ * duplicate notifications. Failures are shown to the visitor instead, with
+ * hello@sagestoneinc.com as the fallback.
  */
 export async function submitContact(form: ContactForm): Promise<void> {
-  if (!ENDPOINT) {
-    throw new ContactConfigError(
-      "VITE_CONTACT_ENDPOINT is not set — the contact form has no endpoint to post to."
-    );
-  }
-
-  await fetch(ENDPOINT, {
+  const res = await fetch("/api/contact", {
     method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(buildPayload(form)),
   });
+  if (res.ok) return;
+
+  const data = (await res.json().catch(() => ({}))) as { error?: string; fields?: ContactErrors };
+  if (data.error === "not_configured") {
+    throw new ContactConfigError("The contact form's email service isn't configured.");
+  }
+  throw new ContactSendError(data.error ?? `HTTP ${res.status}`, data.fields);
 }
