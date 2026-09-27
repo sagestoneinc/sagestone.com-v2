@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Check, Mail, Phone } from "lucide-react";
-import { submitContact, ContactConfigError } from "../lib/contact";
+import {
+  submitContact,
+  validateContact,
+  ContactConfigError,
+  FIELD_ORDER,
+  MESSAGE_MAX,
+  type ContactErrors,
+} from "../lib/contact";
 import { Container, Section, Eyebrow, Button } from "../components/ui-brand/primitives";
 import { services } from "../content/site";
 
@@ -28,16 +35,28 @@ export function Contact() {
   });
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<ContactErrors>({});
+  // Errors appear after the first submit attempt, then update as the visitor types.
+  const [showErrors, setShowErrors] = useState(false);
 
-  const update = (key: string, value: string) => setForm((f) => ({ ...f, [key]: value }));
-  const updateSmsConsent = (value: boolean) => setForm((f) => ({ ...f, smsConsent: value }));
+  const setAndRevalidate = (next: typeof form) => {
+    setForm(next);
+    if (showErrors) setErrors(validateContact(next));
+  };
+  const update = (key: string, value: string) => setAndRevalidate({ ...form, [key]: value });
+  const updateSmsConsent = (value: boolean) => setAndRevalidate({ ...form, smsConsent: value });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (sending) return;
 
-    if (form.smsConsent && !form.phone.trim()) {
-      setError("Please enter a mobile phone number if you want to receive text messages from Sage Stone.");
+    const found = validateContact(form);
+    setErrors(found);
+    setShowErrors(true);
+    const first = FIELD_ORDER.find((k) => found[k]);
+    if (first) {
+      setError(null);
+      document.getElementById(`contact-${first}`)?.focus();
       return;
     }
 
@@ -57,6 +76,20 @@ export function Contact() {
       setSending(false);
     }
   };
+
+  // Accessible wiring for a validated field: id for focus, error text linked
+  // for screen readers, and a red border while it's invalid.
+  const fieldProps = (key: keyof ContactErrors) => ({
+    id: `contact-${key}`,
+    "aria-invalid": errors[key] ? true : undefined,
+    "aria-describedby": errors[key] ? `contact-${key}-error` : undefined,
+    className: errors[key]
+      ? inputBase
+          .replace("border-border", "border-destructive")
+          .replace("focus:border-sage", "focus:border-destructive")
+          .replace("focus:ring-sage/20", "focus:ring-destructive/20")
+      : inputBase,
+  });
 
   const inputBase =
     "w-full rounded-xl border border-border bg-input-background px-4 py-3 text-[0.98rem] text-charcoal placeholder:text-slate-olive/60 transition-colors focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 dark:text-chalk dark:placeholder:text-muted-foreground";
@@ -111,31 +144,34 @@ export function Contact() {
                 </span>
                 <h2 ref={successRef} tabIndex={-1} className="mt-6 text-[1.8rem] text-charcoal outline-none dark:text-chalk">Thank you.</h2>
                 <p className="mt-3 max-w-sm text-[1.02rem] leading-relaxed text-slate-olive dark:text-muted-foreground">
-                  We've received your details and will be in touch within one business
-                  day to arrange your discovery call.
+                  We've received your details and emailed you a confirmation. We'll be
+                  in touch within one business day to arrange your discovery call.
                 </p>
                 <Button className="mt-8" variant="secondary" onClick={() => setSubmitted(false)}>
                   Send another message
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+                <p className="text-[0.82rem] text-slate-olive dark:text-muted-foreground">
+                  All fields are required unless marked optional.
+                </p>
                 <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Full name">
-                    <input required name="name" autoComplete="name" value={form.name} onChange={(e) => update("name", e.target.value)} className={inputBase} placeholder="Jane Doe" />
+                  <Field label="Full name" error={errors.name} errorId="contact-name-error">
+                    <input {...fieldProps("name")} required aria-required="true" name="name" autoComplete="name" maxLength={100} value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Jane Doe" />
                   </Field>
-                  <Field label="Work email">
-                    <input required type="email" name="email" autoComplete="email" inputMode="email" value={form.email} onChange={(e) => update("email", e.target.value)} className={inputBase} placeholder="jane@company.com" />
+                  <Field label="Work email" error={errors.email} errorId="contact-email-error">
+                    <input {...fieldProps("email")} required aria-required="true" type="email" name="email" autoComplete="email" inputMode="email" maxLength={254} value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="jane@company.com" />
                   </Field>
                 </div>
                 <Field label="Company" optional>
-                  <input name="organization" autoComplete="organization" value={form.company} onChange={(e) => update("company", e.target.value)} className={inputBase} placeholder="Company name" />
+                  <input name="organization" autoComplete="organization" maxLength={120} value={form.company} onChange={(e) => update("company", e.target.value)} className={inputBase} placeholder="Company name" />
                 </Field>
-                <Field label="Mobile phone" optional>
-                  <input type="tel" name="phone" autoComplete="tel" inputMode="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} className={inputBase} placeholder="+1 (555) 000-0000" />
+                <Field label="Mobile phone" optional={!form.smsConsent} error={errors.phone} errorId="contact-phone-error">
+                  <input {...fieldProps("phone")} required={form.smsConsent} type="tel" name="phone" autoComplete="tel" inputMode="tel" maxLength={25} value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="+1 (555) 000-0000" />
                 </Field>
-                <Field label="What do you need support with?" optional>
-                  <select name="service" value={form.service} onChange={(e) => update("service", e.target.value)} className={`${inputBase} ${form.service === "" ? "text-slate-olive/70 dark:text-muted-foreground" : ""}`}>
+                <Field label="What do you need support with?" error={errors.service} errorId="contact-service-error">
+                  <select {...fieldProps("service")} required aria-required="true" name="service" value={form.service} onChange={(e) => update("service", e.target.value)} className={`${fieldProps("service").className} ${form.service === "" ? "text-slate-olive/70 dark:text-muted-foreground" : ""}`}>
                     <option value="">Select a service</option>
                     {services.map((s) => (
                       <option key={s.slug} value={s.title}>{s.title}</option>
@@ -143,8 +179,8 @@ export function Contact() {
                     <option value="Not sure yet">Not sure yet</option>
                   </select>
                 </Field>
-                <Field label="Tell us a little more" optional>
-                  <textarea rows={4} name="message" value={form.message} onChange={(e) => update("message", e.target.value)} className={`${inputBase} resize-none`} placeholder="A sentence or two about your business and what you're hoping to solve." />
+                <Field label="Tell us a little more" error={errors.message} errorId="contact-message-error">
+                  <textarea {...fieldProps("message")} required aria-required="true" rows={4} name="message" maxLength={MESSAGE_MAX} value={form.message} onChange={(e) => update("message", e.target.value)} className={`${fieldProps("message").className} resize-none`} placeholder="A sentence or two about your business and what you're hoping to solve." />
                 </Field>
                 <div className="mt-1 flex items-start gap-3 rounded-xl border border-border bg-input-background/60 p-4">
                   <input
@@ -210,10 +246,14 @@ export function Contact() {
 function Field({
   label,
   optional = false,
+  error,
+  errorId,
   children,
 }: {
   label: string;
   optional?: boolean;
+  error?: string;
+  errorId?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -227,6 +267,11 @@ function Field({
         )}
       </span>
       {children}
+      {error && (
+        <span id={errorId} className="text-[0.85rem] leading-snug text-destructive">
+          {error}
+        </span>
+      )}
     </label>
   );
 }
