@@ -2,9 +2,23 @@
 
 The contact form posts to a **Google Apps Script Web App**, which:
 
-1. appends each submission as a row in the submissions spreadsheet, and
-2. emails a notification to `hello@sagestoneinc.com` (reply-to is set to the
-   person who submitted, so you can reply straight from the notification).
+1. checks the submission again (the same rules as the website),
+2. appends it as a row in the submissions spreadsheet,
+3. emails a notification to `hello@sagestoneinc.com` (reply-to is set to the
+   person who submitted, so you can reply straight from the notification), and
+4. sends the person an automatic confirmation that their inquiry was received
+   (reply-to is `hello@sagestoneinc.com`).
+
+## Validation
+
+Required: name, email, the service they need help with ("Not sure yet" is an
+option), and a message of at least 20 characters. Phone is optional, but must
+be a real-looking number (7–15 digits) when given, and is required when the
+visitor ticks the SMS consent box. The website shows the errors next to each
+field; `scripts/contact-form.gs` repeats the checks, so requests that bypass
+the form are rejected without writing a row or sending email. The rules live
+in `validateContact` in `src/app/lib/contact.ts` and `validate_` in the
+script — change both together.
 
 No server, no third-party form service, no monthly cost.
 

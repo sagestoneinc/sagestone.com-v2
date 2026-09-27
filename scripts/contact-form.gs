@@ -49,8 +49,9 @@ function doPost(e) {
       return jsonResponse_({ ok: true });
     }
 
-    if (!data.name || !data.email) {
-      return jsonResponse_({ ok: false, error: 'name and email are required' });
+    var invalid = validate_(data);
+    if (invalid) {
+      return jsonResponse_({ ok: false, error: invalid });
     }
 
     var row = [
@@ -70,6 +71,7 @@ function doPost(e) {
 
     getSheet_().appendRow(row);
     sendNotification_(data);
+    sendAutoReply_(data);
 
     return jsonResponse_({ ok: true });
   } catch (err) {
@@ -106,6 +108,39 @@ function getSheet_() {
   return sheet;
 }
 
+/**
+ * Server-side copy of the website's checks (src/app/lib/contact.ts), so
+ * requests that skip the form can't write junk rows or trigger emails.
+ * Returns an error message, or null when the submission is valid.
+ */
+function validate_(data) {
+  var name = trim_(data.name);
+  var email = trim_(data.email);
+  var phoneDigits = trim_(data.phone).replace(/\D/g, '');
+  var message = trim_(data.message);
+
+  if (name.length < 2 || name.length > 100) return 'invalid name';
+  if (!isEmail_(email)) return 'invalid email';
+  if (phoneDigits && (phoneDigits.length < 7 || phoneDigits.length > 15)) return 'invalid phone';
+  if (data.smsConsent && !phoneDigits) return 'phone required for SMS consent';
+  if (!trim_(data.service)) return 'service required';
+  if (message.length < 20 || message.length > 2000) return 'invalid message';
+  return null;
+}
+
+function isEmail_(value) {
+  return value.length <= 254 && /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(value);
+}
+
+/** Sender options: the noreply alias when it's set up, otherwise the owner. */
+function senderOptions_(name) {
+  var options = { name: name };
+  if (GmailApp.getAliases().indexOf(FROM_EMAIL) !== -1) {
+    options.from = FROM_EMAIL;
+  }
+  return options;
+}
+
 function sendNotification_(data) {
   var consent = data.smsConsent
     ? 'YES — given via ' + (data.smsConsentSource || 'web form') +
@@ -130,14 +165,9 @@ function sendNotification_(data) {
     'User agent:  ' + (data.userAgent || '—'),
   ];
 
-  var options = { name: FROM_NAME };
-  if (GmailApp.getAliases().indexOf(FROM_EMAIL) !== -1) {
-    options.from = FROM_EMAIL;
-  }
+  var options = senderOptions_(FROM_NAME);
   // Let the team reply straight to the person who submitted the form.
-  if (data.email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) {
-    options.replyTo = data.email;
-  }
+  options.replyTo = trim_(data.email);
 
   GmailApp.sendEmail(
     NOTIFY_EMAIL,
@@ -145,6 +175,60 @@ function sendNotification_(data) {
     lines.join('\n'),
     options
   );
+}
+
+/**
+ * Confirmation to the person who submitted. Deliberately fixed text: it
+ * doesn't repeat their message, so the form can't be used to send arbitrary
+ * content to someone else's inbox. Replies go to the team inbox.
+ */
+function sendAutoReply_(data) {
+  var firstName = trim_(data.name).split(/\s+/)[0].slice(0, 40);
+  // Names only: anything that looks like a link or address becomes "there".
+  if (!/^[\p{L}'’-]+$/u.test(firstName)) firstName = 'there';
+  var subject = 'We received your inquiry - SageStone';
+  var body = [
+    'Hi ' + firstName + ',',
+    '',
+    'Thank you for reaching out to SageStone. We have received your inquiry, and',
+    'one of our team members will reach out as soon as we can, usually within',
+    'one business day.',
+    '',
+    'If you need to add anything in the meantime, just reply to this email.',
+    '',
+    'Warm regards,',
+    'The SageStone Team',
+    'https://www.sagestoneinc.com',
+  ].join('\n');
+
+  var html =
+    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#222622;max-width:560px">' +
+    '<p>Hi ' + escapeHtml_(firstName) + ',</p>' +
+    '<p>Thank you for reaching out to SageStone. We have received your inquiry, and one of our team members will reach out as soon as we can, usually within one business day.</p>' +
+    '<p>If you need to add anything in the meantime, just reply to this email.</p>' +
+    '<p>Warm regards,<br>The SageStone Team<br>' +
+    '<a href="https://www.sagestoneinc.com" style="color:#4f5a4a">sagestoneinc.com</a></p>' +
+    '</div>';
+
+  var options = senderOptions_('SageStone');
+  options.replyTo = NOTIFY_EMAIL;
+  options.htmlBody = html;
+
+  try {
+    GmailApp.sendEmail(trim_(data.email), subject, body, options);
+  } catch (err) {
+    // The submission is already saved and the team notified; a bounced or
+    // over-quota confirmation shouldn't turn that into a failure.
+    console.error('auto-reply failed: ' + err);
+  }
+}
+
+function escapeHtml_(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 function trim_(value) {
