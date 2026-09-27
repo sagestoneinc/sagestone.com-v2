@@ -48,6 +48,70 @@ hello@, and the address you entered should receive the confirmation. If the
 form shows an error instead, check **Vercel → Project → Logs**, filtered to
 `/api/contact`. The function logs the ZeptoMail error message there.
 
+## Email branding
+
+Both emails use a branded layout (logo header, white card, contact footer)
+defined in `layout()` in `api/contact.js`. It uses tables and inline styles
+only, so it renders the same in Gmail, Outlook and Apple Mail. The logo is
+served from the site at `/email/logo.png`.
+
+The brand images are generated from the site's monogram and Fraunces font.
+Re-run this after a logo change:
+
+```
+node scripts/email/generate-email-assets.mjs
+```
+
+It writes:
+
+| File | Used for |
+| --- | --- |
+| `public/email/logo.png` | Email header logo |
+| `public/email/avatar.png` | Profile photo for noreply@ / Gravatar |
+| `public/brand/bimi.svg` | BIMI logo (sender avatar in the inbox) |
+
+### Showing the logo as the sender avatar (BIMI)
+
+The round avatar next to the sender name isn't part of the email itself. The
+recipient's mail provider draws it, and it reads it from DNS through **BIMI**.
+To set it up:
+
+1. **Enforce DMARC.** BIMI only works with an enforced DMARC policy. First make
+   sure every service that sends as `@sagestoneinc.com` (ZeptoMail, your
+   mailbox provider, any newsletter tool) passes SPF and DKIM. Then set the
+   `_dmarc.sagestoneinc.com` TXT record to at least:
+
+   ```
+   v=DMARC1; p=quarantine; pct=100; rua=mailto:hello@sagestoneinc.com
+   ```
+
+   If DMARC isn't set up yet, start with `p=none` for a week or two and read the
+   reports before switching to `quarantine`. An enforced policy with a
+   misconfigured sender sends real mail to spam.
+2. **Publish the logo record.** Add a TXT record:
+
+   ```
+   Host:  default._bimi
+   Value: v=BIMI1; l=https://www.sagestoneinc.com/brand/bimi.svg;
+   ```
+
+3. **Check it** with a BIMI inspector, such as the one on bimigroup.org.
+
+Without a certificate, this shows the logo in Yahoo, AOL, Fastmail and other
+providers that support BIMI. **Gmail and Apple Mail also need a mark
+certificate:**
+
+- A **VMC** requires a registered trademark.
+- A **CMC** requires no trademark, but the logo must have been in public use
+  for at least a year.
+
+Both are bought from DigiCert, Sectigo or GlobalSign. Once issued, add
+`a=https://…/certificate.pem;` to the BIMI record.
+
+**Quick fix for your own inbox:** add `noreply@sagestoneinc.com` as a contact
+in the hello@ mailbox, with `public/email/avatar.png` as its photo. Gravatar
+(gravatar.com, signed up with noreply@) covers some other mail apps.
+
 ## Validation
 
 Required: name, email, the service they need help with ("Not sure yet" is an
